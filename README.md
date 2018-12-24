@@ -7,9 +7,9 @@ This is a customize MediumEditor with the additional features than other Edit.
 - Text Edit tool
   - New Line
   - Bold, italic, underlined.
-  - Paste from buffer as plain text
-  - URL Parse
-  - Custom Emoji
+- Paste from buffer as plain text
+- URL Parse
+- Custom Emoji
 ....
 
 
