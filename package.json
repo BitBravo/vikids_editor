@@ -1,0 +1,23 @@
+{
+  "name": "vikids_editor",
+  "version": "1.0.0",
+  "description": "This is HTML code editor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marzhaev/vikids_editor.git"
+  },
+  "keywords": [
+    "html",
+    "editor"
+  ],
+  "author": "Javascript603",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marzhaev/vikids_editor/issues"
+  },
+  "homepage": "https://github.com/marzhaev/vikids_editor#readme"
+}
