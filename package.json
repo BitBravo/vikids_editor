@@ -23,12 +23,12 @@
   "_spec": "medium-editor@^5.15.0",
   "_where": "/Volumes/work/Projects/Mikhail/vikids_editor/node_modules/medium-editor-insert-plugin",
   "author": {
-    "name": "Davi Ferreira",
-    "email": "hi@daviferreira.com"
+    "name": "Javascript603",
+    "email": "react.dev@yahoo.com"
   },
   "bugs": {
     "url": "https://github.com/yabwe/medium-editor/issues",
-    "email": "hi@daviferreira.com"
+    "email": "react.dev@yahoo.com"
   },
   "bundleDependencies": false,
   "contributors": [
