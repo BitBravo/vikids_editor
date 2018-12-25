@@ -16,5 +16,6 @@ This is a customize MediumEditor with the additional features than other Edit.
 ## How to install dependencies
 
 $ cd vikids_editor
+
 $ npm install
  
