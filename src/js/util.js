@@ -124,6 +124,7 @@
         },
 
         defaults: function defaults(/*dest, source1, source2, ...*/) {
+            console.log(`5th ->  utils.default`)
             var args = [false].concat(Array.prototype.slice.call(arguments));
             return copyInto.apply(this, args);
         },
@@ -1018,6 +1019,7 @@
         },
 
         deprecated: function (oldName, newName, version) {
+            console.log(`5th -> deprecated`)
             // simple deprecation warning mechanism.
             var m = oldName + ' is deprecated, please use ' + newName + ' instead.';
             if (version) {

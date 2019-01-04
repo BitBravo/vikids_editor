@@ -400,6 +400,8 @@ if (!("classList" in document.createElement("_"))) {
     'use strict';
 
 function MediumEditor(elements, options) {
+    console.log(`~~~~~~~~~   started   ~~~~~~~~~~~~~`)
+    console.log(elements,options)
     'use strict';
     return this.init(elements, options);
 }
@@ -530,6 +532,8 @@ MediumEditor.extensions = {};
         },
 
         defaults: function defaults(/*dest, source1, source2, ...*/) {
+            console.log(`1th -> 2th  init->mergeoption->utils.default`)
+
             var args = [false].concat(Array.prototype.slice.call(arguments));
             return copyInto.apply(this, args);
         },
@@ -2603,6 +2607,7 @@ MediumEditor.extensions = {};
         },
 
         triggerCustomEvent: function (name, data, editable) {
+            // console.log(this)
             if (this.customEvents[name] && !this.disabledEvents[name]) {
                 this.customEvents[name].forEach(function (listener) {
                     listener(data, editable);
@@ -3024,6 +3029,8 @@ MediumEditor.extensions = {};
         },
 
         handleKeydown: function (event) {
+            console.log('@@@@@@@@@@@@@@@@@@@')
+            console.log(event)
 
             this.triggerCustomEvent('editableKeydown', event, event.currentTarget);
 
@@ -6769,6 +6776,8 @@ MediumEditor.extensions = {};
     // Internal helper methods which shouldn't be exposed externally
 
     function addToEditors(win) {
+        console.log(`2th -> 1th : setup->addToEditors`)
+        console.log(win)
         if (!win._mediumEditors) {
             // To avoid breaking users who are assuming that the unique id on
             // medium-editor elements will start at 1, inserting a 'null' in the
@@ -7109,6 +7118,7 @@ MediumEditor.extensions = {};
     }
 
     function mergeOptions(defaults, options) {
+        console.log(`1th -> 1th : init->mergeOption`)
         var deprecatedProperties = [
             ['allowMultiParagraphSelection', 'toolbar.allowMultiParagraphSelection']
         ];
@@ -7237,6 +7247,7 @@ MediumEditor.extensions = {};
     MediumEditor.prototype = {
         // NOT DOCUMENTED - exposed for backwards compatability
         init: function (elements, options) {
+            console.log(`1th start -> init`)
             this.options = mergeOptions.call(this, this.defaults, options);
             this.origElements = elements;
 
@@ -7248,6 +7259,8 @@ MediumEditor.extensions = {};
         },
 
         setup: function () {
+            console.log(`2th -> setup`)
+            console.log(this.options)
             if (this.isActive) {
                 return;
             }
@@ -7850,7 +7863,6 @@ MediumEditor.extensions = {};
 
 (function () {
     // summary: The default options hash used by the Editor
-
     MediumEditor.prototype.defaults = {
         activeButtonClass: 'medium-editor-button-active',
         buttonLabels: false,
