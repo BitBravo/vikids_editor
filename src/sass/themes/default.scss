@@ -20,6 +20,8 @@ $medium-editor-border-radius: 5px;
     border: 1px solid #000;
     border-radius: $medium-editor-border-radius;
     box-shadow: 0 0 3px #000;
+    width: max-content;
+
 
     li {
         button {

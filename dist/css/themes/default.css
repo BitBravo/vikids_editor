@@ -12,7 +12,9 @@
   background: linear-gradient(to bottom, #242424, rgba(36, 36, 36, 0.75));
   border: 1px solid #000;
   border-radius: 5px;
-  box-shadow: 0 0 3px #000; }
+  box-shadow: 0 0 3px #000;
+  width: max-content;
+}
   .medium-editor-toolbar li button {
     background-color: #242424;
     background: -webkit-linear-gradient(top, #242424, rgba(36, 36, 36, 0.89));
