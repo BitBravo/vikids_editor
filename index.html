@@ -3,109 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Medium Editor</title>
-    <!-- <link rel="stylesheet" href="./assests/css/demo.css">
+    <link rel="stylesheet" href="./assests/css/demo.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
     <link rel="stylesheet" href="./dist/css/medium-editor.css">
-    <link rel="stylesheet" href="./dist/css/themes/default.css"> -->
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-  crossorigin="anonymous"></script>
-    <script src="./dist/js/medium-editor.js"></script>
-    <!-- <script src="./src/js/custom.js"></script> -->
-
+    <link rel="stylesheet" href="./dist/css/themes/default.css">
+    <link rel="stylesheet" href="./dist/css/medium-editor-insert-plugin.min.css">
 </head>
 <body>
     <div id="container">
-        <h1>Medium Editor</h1>
-        <div class="editable">
-                    <h2>jQuery insert plugin for MediumEditor</h2>
-        
-                    <div class="medium-insert-images">
-                        <!-- <figure contenteditable="false"> <img src="uploads/01.jpg" alt=""> <figcaption contenteditable="true">Random royalty-free image</figcaption> </figure> -->
-                    </div>
-        
-                    <p>This is <strong>a demo</strong> of jQuery insert plugin for MediumEditor. This whole website is an editable editor. You can click on <g class="gr_ gr_37 gr-alert gr_gramm gr_inline_cards gr_run_anim Grammar only-ins replaceWithoutSep" id="37" data-gr-id="37">text</g> and start typing. Or you can click on the image above and see what this plugin has to offer. If you want to insert an image, <strong>create a new empty paragraph</strong> and the plugin's button will appear on the left. From there it's pretty self-explanatory.</p>
-        
-                    <p>And we also support <g class="gr_ gr_34 gr-alert gr_gramm gr_inline_cards gr_run_anim Grammar only-ins replaceWithoutSep" id="34" data-gr-id="34">embedding</g> of videos, social media, etc.</p>
-        
-                    <div class="medium-insert-embeds medium-insert-embeds-selected" contenteditable="false">
-                        <figure> <div class="medium-insert-embed">
-                                <div><div style="left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;"><iframe src="https://www.youtube.com/embed/_rDtZgLolHQ?wmode=transparent&amp;rel=0&amp;autohide=1&amp;showinfo=0&amp;enablejsapi=1" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;"></iframe></div></div>
-                            </div>
-                            <figcaption contenteditable="true">Casey Neistat, who else...</figcaption> </figure>
-                    <div class="medium-insert-embeds-overlay"></div></div>
-        
-                    <p>Have fun.</p>
-        
-                    <h4>What to do next?</h4>
-        
-                    <p>Please, go to <a href="https://github.com/orthes/medium-editor-insert-plugin">our GitHub repository</a> for installation and configuration info. Did you find a bug, have an idea or want to contribute? Great! Do not miss our <a href="https://github.com/orthes/medium-editor-insert-plugin/issues">issues page on GitHub</a>.</p>
-        
-                    <h4>Contributors</h4>
-        
-                    <p>This plugin is brought to you by these great contributors from all around the world:</p>
-        
-                    <!-- <div class="medium-insert-images medium-insert-images-grid small-grid">
-                        <figure contenteditable="false"><img src="uploads/312938.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/62333.png" alt=""></figure> <figure contenteditable="false"><img src="uploads/39333.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/19343.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/79373.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/1228229.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/594298.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/5272569.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/1790778.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/4083642.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/1101183.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/431361.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/1086365.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/93555.png" alt=""></figure> <figure contenteditable="false"><img src="uploads/883073.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/1891369.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/1642706.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/1270102.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/28541.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/610268.png" alt=""></figure> <figure contenteditable="false"><img src="uploads/525103.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/1831399.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/1485056.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/55442.png" alt=""></figure> <figure contenteditable="false"><img src="uploads/1064889.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/714146.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/882228.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/433501.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/1912864.png" alt=""></figure> <figure contenteditable="false"><img src="uploads/28841.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/366564.jpg" alt=""></figure> <figure contenteditable="false"><img src="uploads/6654724.jpg" alt=""></figure>
-                    </div> -->
-        
-                    <p><em>... And yes, you can create this nice images grid with the plugin. And much more...</em></p>
-        
-                    <h4>License</h4>
-        
-                    <p>The plugin is free and released under MIT license.</p>
-                    <div class="medium-insert-buttons" contenteditable="false" style="display: none">
-                <a class="medium-insert-buttons-show">+</a>
-                <ul class="medium-insert-buttons-addons" style="display: none">
-                        <li><a data-addon="images" data-action="add" class="medium-insert-action"><span class="fa fa-camera"></span></a></li>
-                        <li><a data-addon="embeds" data-action="add" class="medium-insert-action"><span class="fa fa-youtube-play"></span></a></li>
-                </ul>
+        <div class="editable" data-placeholder="Type some text">
+            <h2>Advanced Medium Editor</h2>
+
+            <p>My father’s family name being Pirrip, and my Christian name Philip, my infant tongue could make of both names nothing longer or more explicit than Pip. So, I called myself Pip, and came to be called Pip.</p>
+
+            <div class="medium-insert-images">
+                <figure contenteditable="false">
+                    <img src="./assests/img/1.jpg" alt="">
+                    <figcaption contenteditable="true">So, I called myself Pip, and came to be called Pip.</figcaption>
+                </figure>
             </div>
+
+            <p>I give Pirrip as my father’s family name, on the authority of his tombstone and my sister,—Mrs. Joe Gargery, who married the blacksmith. As I never saw my father or my mother, and never saw any likeness of either of them (for their days were long before the days of photographs), my first fancies regarding what they were like were unreasonably derived from their tombstones. The shape of the letters on my father’s, gave me an odd idea that he was a square, stout, dark man, with curly black hair. From the character and turn of the inscription, “Also Georgiana Wife of the Above,” I drew a childish conclusion that my mother was freckled and sickly. To five little stone lozenges, each about a foot and a half long, which were arranged in a neat row beside their grave, and were sacred to the memory of five little brothers of mine,—who gave up trying to get a living, exceedingly early in that universal struggle,—I am indebted for a belief I religiously entertained that they had all been born on their backs with their hands in their trousers-pockets, and had never taken them out in this state of existence.</p>
+            [![ss](./assests/img/1.jpg)]
+            <p>Ours was the marsh country, down by the river, within, as the river wound, twenty miles of the sea. My first most vivid and broad impression of the identity of things seems to me to have been gained on a memorable raw afternoon towards evening. At such a time I found out for certain that this bleak place overgrown with nettles was the churchyard; and that Philip Pirrip, late of this parish, and also Georgiana wife of the above, were dead and buried; and that Alexander, Bartholomew, Abraham, Tobias, and Roger, infant children of the aforesaid, were also dead and buried; and that the dark flat wilderness beyond the churchyard, intersected with dikes and mounds and gates, with scattered cattle feeding on it, was the marshes; and that the low leaden line beyond was the river; and that the distant savage lair from which the wind was rushing was the sea; and that the small bundle of shivers growing afraid of it all and beginning to cry, was Pip.</p>
         </div>
+
     </div>
-    <!-- <script src="./src/js/main.js"></script> -->
-
     <script>
-        var editor = new MediumEditor('.editable', {
-            buttonLabels: 'fontawesome',
-            paste: {
-                cleanPastedHTML: true,
-                forcePlainText: false
-            }
-        });
-
-        // window.onload = function () {
-        //     var myEditor = new MediumEditor(".editable", {
-        //         buttons: [
-        //             "bold", 
-        //             "italic", 
-        //             "underline",
-        //             "anchor",
-        //             "header1",
-        //             "header2",
-        //             "quote",
-        //             "customHtml",
-        //         ],
-        //         extensions: {
-        //             "customHtml": new CustomHtml({
-        //             buttonText: "<hr>",
-        //                 htmlToInsert: "<hr class='someclass'>"
-        //             })
-        //         }
-        //     });
-        // };
-        $('.editable').on('click', function(){
-            var an = window.getSelection().anchorNode;
-            console.log(an)
-             // this is the innermost *element*
-            var ae = an;
-            while (!( ae instanceof Element ))
-                ae = ae.parentElement;
-            $('#an').text(an.nodeValue);
-            $('#ae').text(ae.outerHTML);
-
-        });
+        var ctTime = null;
     </script>
+    <script src="./assests/js/lib/jquery.min.js"></script>
+    <script src="./assests/js/lib/file-upload/jquery.ui.widget.js"></script>
+    <script src="./assests/js/lib/file-upload/jquery.fileupload.js"></script>
+    <script src="./assests/js/lib/file-upload/jquery.iframe-transport.js"></script>
+    <script src="./assests/js/lib/handlebars.runtime.min.js"></script>
+    <script src="./assests/js/lib/jquery-sortable-min.js"></script>
+      
+    <script src="./src/js/globals.js"></script>
+    <script src="./src/js/util.js"></script>
+    <script src="./src/js/extension.js"></script>
+    <script src="./src/js/selection.js"></script>
+    <script src="./src/js/events.js"></script>
+    <script src="./src/js/extensions/button.js"></script>
+    <script src="./src/js/defaults/buttons.js"></script>
+    <script src="./src/js/extensions/form.js"></script>
+    <script src="./src/js/extensions/anchor.js"></script>
+    <script src="./src/js/extensions/anchor-preview.js"></script>
+    <script src="./src/js/extensions/auto-link.js"></script>
+    <script src="./src/js/extensions/file-dragging.js"></script>
+    <script src="./src/js/extensions/keyboard-commands.js"></script>
+    <script src="./src/js/extensions/fontname.js"></script>
+    <script src="./src/js/extensions/fontsize.js"></script>
+    <script src="./src/js/extensions/paste.js"></script>
+    <script src="./src/js/extensions/placeholder.js"></script>
+    <script src="./src/js/extensions/toolbar.js"></script>
+    <script src="./src/js/extensions/deprecated/image-dragging.js"></script>
+    <script src="./src/js/core.js"></script>
+    <script src="./src/js/defaults/options.js"></script>
+    <script src="./src/js/version.js"></script>
+    <script src="./src/js/extend.js"></script>
+    
+    <script src="./assests/js/lib/embed/templates.js"></script>
+    <script src="./assests/js/lib/embed/core.js"></script>
+    <script src="./assests/js/lib/embed/embeds.js"></script>
+    <script src="./assests/js/lib/embed/images.js"></script>
+
+    <script src="./assests/js/custom.js"></script>
 </body>
 </html>

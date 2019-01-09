@@ -120,3 +120,6 @@ blockquote {
     margin: 10px 1%;
 }
 
+.medium-insert-caption-placeholder:after {
+    /* content: none !important; */
+}

@@ -1,6 +1,6 @@
 {
-  "_from": "Medium Editor",
-  "_id": "Medium Editor",
+  "_from": "Advanced Medium Editor",
+  "_id": "Advanced Medium Editor",
   "_inBundle": false,
   "_integrity": "sha512-he9/TdjX8f8MGdXGfCs8AllrYnqXJJvjNkDKmPg3aPW/uoIrlRqtkFthrwvmd+u4QyzEiadhCCM0EwTiRdUCJw==",
   "_location": "/medium-editor",
@@ -15,19 +15,8 @@
     "saveSpec": null,
     "fetchSpec": "^5.15.0"
   },
-  "_requiredBy": [
-    "/medium-editor-insert-plugin"
-  ],
-  "_resolved": "https://registry.npmjs.org/medium-editor/-/medium-editor-5.23.3.tgz",
-  "_shasum": "6fb638759ae2fc76c423feb056f346d9c518d3b7",
-  "_spec": "medium-editor@^5.15.0",
-  "_where": "/Volumes/work/Projects/Mikhail/vikids_editor/node_modules/medium-editor-insert-plugin",
   "author": {
     "name": "Javascript603",
-    "email": "react.dev@yahoo.com"
-  },
-  "bugs": {
-    "url": "https://github.com/yabwe/medium-editor/issues",
     "email": "react.dev@yahoo.com"
   },
   "bundleDependencies": false,
@@ -66,22 +55,22 @@
     "serve-static": "1.11.2",
     "time-grunt": "1.3.0"
   },
-  "homepage": "http://yabwe.github.io/medium-editor/",
   "keywords": [
     "contenteditable",
     "editor",
-    "medium",
-    "rich-text"
+    "url parse",
+    "rich-text",
+    "custom Emoji"
   ],
   "license": "MIT",
-  "main": "dist/js/medium-editor.js",
-  "name": "medium-editor",
+  "main": "dist/js/advanced-medium-editor.js",
+  "name": "advanced-medium-editor",
   "publishConfig": {
     "registry": "http://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yabwe/medium-editor.git"
+    "url": "git@github.com:marzhaev/vikids_editor.git"
   },
   "scripts": {
     "build": "node node_modules/grunt-cli/bin/grunt",
