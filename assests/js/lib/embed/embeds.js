@@ -319,80 +319,57 @@
      */
 
     Embeds.prototype.oembed = function (url, pasted) {
-        console.log(url, pasted)
         var that = this;
 
         $.support.cors = true;
 
-        const data = {url: 'google.com'}
-        var html = data && data.html;
+        $.ajax({
+            crossDomain: true,
+            cache: false,
+            url: this.options.oembedProxy,
+            dataType: 'json',
+            data: {
+                url: url
+            },
+            success: function (data) {
+                var html = data && data.html;
 
-        if (that.options.storeMeta) {
-            html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify(data) + '</script></div>';
-        }
+                if (that.options.storeMeta) {
+                    html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify(data) + '</script></div>';
+                }
 
-        if (data && !html && data.type === 'photo' && data.url) {
-            html = '<img src="' + data.url + '" alt="">';
-        }
+                if (data && !html && data.type === 'photo' && data.url) {
+                    html = '<img src="' + data.url + '" alt="">';
+                }
 
-        if (!html) {
-            // Prevent render empty embed.
-            $.proxy(that, 'convertBadEmbed', url)();
-            return;
-        }
+                if (!html) {
+                    // Prevent render empty embed.
+                    $.proxy(that, 'convertBadEmbed', url)();
+                    return;
+                }
 
-        if (pasted) {
-            $.proxy(that, 'embed', html, url)();
-        } else {
-            $.proxy(that, 'embed', html)();
-        }
-        // $.ajax({
-        //     crossDomain: true,
-        //     cache: false,
-        //     url: this.options.oembedProxy,
-        //     dataType: 'json',
-        //     data: {
-        //         url: url
-        //     },
-        //     success: function (data) {
-        //         var html = data && data.html;
+                if (pasted) {
+                    $.proxy(that, 'embed', html, url)();
+                } else {
+                    $.proxy(that, 'embed', html)();
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                var responseJSON = (function () {
+                    try {
+                        return JSON.parse(jqXHR.responseText);
+                    } catch (e) { }
+                })();
 
-        //         if (that.options.storeMeta) {
-        //             html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify(data) + '</script></div>';
-        //         }
+                if (typeof window.console !== 'undefined') {
+                    window.console.log((responseJSON && responseJSON.error) || jqXHR.status || errorThrown.message);
+                } else {
+                    window.alert('Error requesting media from ' + that.options.oembedProxy + ' to insert: ' + errorThrown + ' (response status: ' + jqXHR.status + ')');
+                }
 
-        //         if (data && !html && data.type === 'photo' && data.url) {
-        //             html = '<img src="' + data.url + '" alt="">';
-        //         }
-
-        //         if (!html) {
-        //             // Prevent render empty embed.
-        //             $.proxy(that, 'convertBadEmbed', url)();
-        //             return;
-        //         }
-
-        //         if (pasted) {
-        //             $.proxy(that, 'embed', html, url)();
-        //         } else {
-        //             $.proxy(that, 'embed', html)();
-        //         }
-        //     },
-        //     error: function (jqXHR, textStatus, errorThrown) {
-        //         var responseJSON = (function () {
-        //             try {
-        //                 return JSON.parse(jqXHR.responseText);
-        //             } catch (e) { }
-        //         })();
-
-        //         if (typeof window.console !== 'undefined') {
-        //             window.console.log((responseJSON && responseJSON.error) || jqXHR.status || errorThrown.message);
-        //         } else {
-        //             window.alert('Error requesting media from ' + that.options.oembedProxy + ' to insert: ' + errorThrown + ' (response status: ' + jqXHR.status + ')');
-        //         }
-
-        //         $.proxy(that, 'convertBadEmbed', url)();
-        //     }
-        // });
+                $.proxy(that, 'convertBadEmbed', url)();
+            }
+        });
     };
 
     /**
@@ -529,7 +506,6 @@
      */
 
     Embeds.prototype.selectEmbed = function (e) {
-        
         var that = this,
             $embed;
         if (this.core.options.enabled) {
