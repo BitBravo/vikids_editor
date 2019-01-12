@@ -77,9 +77,10 @@
   Extend.prototype.checkCustomPattern = function () {
     var an = window.getSelection().anchorNode;
     var pe = an.parentElement;
-
+    
     var peC = pe.innerHTML;
     const parseData = this.getFind(peC);
+    console.log('checkCustomPattern ===>', peC)
     if (parseData) {
       const elements = this.createContent(parseData)
       this.updateContent(pe, elements);

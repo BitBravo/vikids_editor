@@ -32,8 +32,6 @@
         this.disabledEvents = {};
         this.customEvents = {};
         this.listeners = {};
-        this.extend = new Extend()
-
     };
 
     Events.prototype = {
@@ -516,7 +514,6 @@
         },
 
         handleBodyClick: function (event) {
-            this.extend.capturePattern();
             this.updateFocus(event.target, event);
         },
 
@@ -578,7 +575,6 @@
 
         handleKeydown: function (event) {
             this.triggerCustomEvent('editableKeydown', event, event.currentTarget);
-            this.extend.capturePattern();
 
             if (MediumEditor.util.isKey(event, MediumEditor.util.keyCode.SPACE)) {
                 return this.triggerCustomEvent('editableKeydownSpace', event, event.currentTarget);
