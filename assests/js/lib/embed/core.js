@@ -552,12 +552,15 @@
      */
 
     Core.prototype.toggleAddons = function () {
+        console.log('insert new medias (core->toglleAddons)')
         if (this.$el.find('.medium-insert-buttons').attr('data-active-addon') === 'images') {
             this.$el.find('.medium-insert-buttons').find('button[data-addon="images"]').click();
             return;
         }
 
+        // show the additional insert button
         this.$el.find('.medium-insert-buttons-addons').fadeToggle();
+        // rotate the addon toolbar button
         this.$el.find('.medium-insert-buttons-show').toggleClass('medium-insert-buttons-rotate');
     };
 
@@ -580,6 +583,7 @@
      */
 
     Core.prototype.addonAction = function (e) {
+        console.log('select any media type here', e.currentTarget)
         var $a = $(e.currentTarget),
             addon = $a.data('addon'),
             action = $a.data('action');
@@ -595,6 +599,16 @@
      *
      * @return {void}
      */
+
+    Core.prototype.appendAttribute(state) {
+        const { tokens } = state;
+        for (let i = 0; i < tokens.length; i += 1) {
+            if (tokens[i].map) {
+            tokens[i].attrJoin('class', `line${String(tokens[i].map[0])} line-block`);
+            tokens[i].attrJoin('data-line', `${String([tokens[i].map[0], tokens[i].map[1]])}`);
+            }
+        }
+    }
 
     Core.prototype.moveCaret = function ($el, position) {
         var range, sel, el, textEl;
