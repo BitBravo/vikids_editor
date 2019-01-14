@@ -37,10 +37,13 @@
 
     function Core(el, options) {
         var editor;
+        console.log('core start ===>', window)
+        console.log('core editor 40', el, options)
 
         this.el = el;
         this.$el = $(el);
         this.templates = window.MediumInsert.Templates;
+        this.extend = new Extend();
 
         if (options) {
             // Fix #142
@@ -368,6 +371,36 @@
         }
     };
 
+    Core.prototype.checkCustomPattern = function () {
+        var an = window.getSelection().anchorNode;
+        var pe = an.parentElement;
+        
+        var peC = pe.innerHTML;
+        const parseData = this.extend.getFind(peC);
+
+        if (parseData) {
+          const elements = this.extend.createContent(parseData)
+          this.extend.updateContent(pe, elements);
+        }
+    }
+    
+    Core.prototype.simulateKeydown = function (el, keycode, isCtrl, isAlt, isShift) {
+        var e = new KeyboardEvent( "keydown", { bubbles:true, cancelable:true, char:String.fromCharCode(keycode), key:String.fromCharCode(keycode), shiftKey:isShift, ctrlKey:isCtrl, altKey:isAlt } );
+        Object.defineProperty(e, 'keyCode', {get : function() { return this.keyCodeVal; } });     
+        e.keyCodeVal = keycode;
+        el.dispatchEvent(e);
+    }
+    
+    Core.prototype.capturePattern = function () {
+        if(ctTime) {
+            window.clearTimeout(ctTime)
+            ctTime = null
+        } else {
+            ctTime = window.setTimeout(() => {
+            this.checkCustomPattern();
+            }, 100);
+        }
+    }
     /**
      * Move buttons to current active, empty paragraph and show them
      *
@@ -375,11 +408,14 @@
      */
 
     Core.prototype.toggleButtons = function (e) {
-        var $el = $(e.target),
-            selection = window.getSelection(),
-            that = this,
-            range, $current, $p, activeAddon;
+        this.capturePattern();
 
+        var $el = $(e.target),
+        selection = window.getSelection(),
+        that = this,
+        range, $current, $p, activeAddon;
+
+        
         if (this.options.enabled === false) {
             return;
         }
@@ -516,12 +552,15 @@
      */
 
     Core.prototype.toggleAddons = function () {
+        console.log('insert new medias (core->toglleAddons)')
         if (this.$el.find('.medium-insert-buttons').attr('data-active-addon') === 'images') {
             this.$el.find('.medium-insert-buttons').find('button[data-addon="images"]').click();
             return;
         }
 
+        // show the additional insert button
         this.$el.find('.medium-insert-buttons-addons').fadeToggle();
+        // rotate the addon toolbar button
         this.$el.find('.medium-insert-buttons-show').toggleClass('medium-insert-buttons-rotate');
     };
 
@@ -544,6 +583,7 @@
      */
 
     Core.prototype.addonAction = function (e) {
+        console.log('select any media type here', e.currentTarget)
         var $a = $(e.currentTarget),
             addon = $a.data('addon'),
             action = $a.data('action');
@@ -559,6 +599,16 @@
      *
      * @return {void}
      */
+
+    Core.prototype.appendAttribute(state) {
+        const { tokens } = state;
+        for (let i = 0; i < tokens.length; i += 1) {
+            if (tokens[i].map) {
+            tokens[i].attrJoin('class', `line${String(tokens[i].map[0])} line-block`);
+            tokens[i].attrJoin('data-line', `${String([tokens[i].map[0], tokens[i].map[1]])}`);
+            }
+        }
+    }
 
     Core.prototype.moveCaret = function ($el, position) {
         var range, sel, el, textEl;
