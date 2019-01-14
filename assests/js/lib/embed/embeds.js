@@ -319,57 +319,57 @@
      */
 
     Embeds.prototype.oembed = function (url, pasted) {
-        var that = this;
+        // var that = this;
 
-        $.support.cors = true;
+        // $.support.cors = true;
 
-        $.ajax({
-            crossDomain: true,
-            cache: false,
-            url: this.options.oembedProxy,
-            dataType: 'json',
-            data: {
-                url: url
-            },
-            success: function (data) {
-                var html = data && data.html;
+        // $.ajax({
+        //     crossDomain: true,
+        //     cache: false,
+        //     url: this.options.oembedProxy,
+        //     dataType: 'json',
+        //     data: {
+        //         url: url
+        //     },
+        //     success: function (data) {
+        //         var html = data && data.html;
 
-                if (that.options.storeMeta) {
-                    html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify(data) + '</script></div>';
-                }
+        //         if (that.options.storeMeta) {
+        //             html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify(data) + '</script></div>';
+        //         }
 
-                if (data && !html && data.type === 'photo' && data.url) {
-                    html = '<img src="' + data.url + '" alt="">';
-                }
+        //         if (data && !html && data.type === 'photo' && data.url) {
+        //             html = '<img src="' + data.url + '" alt="">';
+        //         }
 
-                if (!html) {
-                    // Prevent render empty embed.
-                    $.proxy(that, 'convertBadEmbed', url)();
-                    return;
-                }
+        //         if (!html) {
+        //             // Prevent render empty embed.
+        //             $.proxy(that, 'convertBadEmbed', url)();
+        //             return;
+        //         }
 
-                if (pasted) {
-                    $.proxy(that, 'embed', html, url)();
-                } else {
-                    $.proxy(that, 'embed', html)();
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                var responseJSON = (function () {
-                    try {
-                        return JSON.parse(jqXHR.responseText);
-                    } catch (e) { }
-                })();
+        //         if (pasted) {
+        //             $.proxy(that, 'embed', html, url)();
+        //         } else {
+        //             $.proxy(that, 'embed', html)();
+        //         }
+        //     },
+        //     error: function (jqXHR, textStatus, errorThrown) {
+        //         var responseJSON = (function () {
+        //             try {
+        //                 return JSON.parse(jqXHR.responseText);
+        //             } catch (e) { }
+        //         })();
 
-                if (typeof window.console !== 'undefined') {
-                    window.console.log((responseJSON && responseJSON.error) || jqXHR.status || errorThrown.message);
-                } else {
-                    window.alert('Error requesting media from ' + that.options.oembedProxy + ' to insert: ' + errorThrown + ' (response status: ' + jqXHR.status + ')');
-                }
+        //         if (typeof window.console !== 'undefined') {
+        //             window.console.log((responseJSON && responseJSON.error) || jqXHR.status || errorThrown.message);
+        //         } else {
+        //             window.alert('Error requesting media from ' + that.options.oembedProxy + ' to insert: ' + errorThrown + ' (response status: ' + jqXHR.status + ')');
+        //         }
 
-                $.proxy(that, 'convertBadEmbed', url)();
-            }
-        });
+        //         $.proxy(that, 'convertBadEmbed', url)();
+        //     }
+        // });
     };
 
     /**
@@ -381,34 +381,34 @@
      */
 
     Embeds.prototype.parseUrl = function (url, pasted) {
-        var html;
+        // var html;
 
-        if (!(new RegExp(['youtube', 'youtu.be', 'vimeo', 'instagram', 'twitter', 'facebook'].join('|')).test(url))) {
-            $.proxy(this, 'convertBadEmbed', url)();
-            return false;
-        }
+        // if (!(new RegExp(['youtube', 'youtu.be', 'vimeo', 'instagram', 'twitter', 'facebook'].join('|')).test(url))) {
+        //     $.proxy(this, 'convertBadEmbed', url)();
+        //     return false;
+        // }
 
-        html = url.replace(/\n?/g, '')
-            .replace(/^((http(s)?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|v\/)?)([a-zA-Z0-9\-_]+)(.*)?$/, '<div class="video video-youtube"><iframe width="420" height="315" src="//www.youtube.com/embed/$7" frameborder="0" allowfullscreen></iframe></div>')
-            .replace(/^https?:\/\/vimeo\.com(\/.+)?\/([0-9]+)$/, '<div class="video video-vimeo"><iframe src="//player.vimeo.com/video/$2" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>')
-            .replace(/^https:\/\/twitter\.com\/(\w+)\/status\/(\d+)\/?$/, '<blockquote class="twitter-tweet" align="center" lang="en"><a href="https://twitter.com/$1/statuses/$2"></a></blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>')
-            .replace(/^(https:\/\/www\.facebook\.com\/(.*))$/, '<script src="//connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.2" async></script><div class="fb-post" data-href="$1"><div class="fb-xfbml-parse-ignore"><a href="$1">Loading Facebook post...</a></div></div>')
-            .replace(/^https?:\/\/instagram\.com\/p\/(.+)\/?$/, '<span class="instagram"><iframe src="//instagram.com/p/$1/embed/" width="612" height="710" frameborder="0" scrolling="no" allowtransparency="true"></iframe></span>');
+        // html = url.replace(/\n?/g, '')
+        //     .replace(/^((http(s)?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|v\/)?)([a-zA-Z0-9\-_]+)(.*)?$/, '<div class="video video-youtube"><iframe width="420" height="315" src="//www.youtube.com/embed/$7" frameborder="0" allowfullscreen></iframe></div>')
+        //     .replace(/^https?:\/\/vimeo\.com(\/.+)?\/([0-9]+)$/, '<div class="video video-vimeo"><iframe src="//player.vimeo.com/video/$2" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>')
+        //     .replace(/^https:\/\/twitter\.com\/(\w+)\/status\/(\d+)\/?$/, '<blockquote class="twitter-tweet" align="center" lang="en"><a href="https://twitter.com/$1/statuses/$2"></a></blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>')
+        //     .replace(/^(https:\/\/www\.facebook\.com\/(.*))$/, '<script src="//connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.2" async></script><div class="fb-post" data-href="$1"><div class="fb-xfbml-parse-ignore"><a href="$1">Loading Facebook post...</a></div></div>')
+        //     .replace(/^https?:\/\/instagram\.com\/p\/(.+)\/?$/, '<span class="instagram"><iframe src="//instagram.com/p/$1/embed/" width="612" height="710" frameborder="0" scrolling="no" allowtransparency="true"></iframe></span>');
 
-        if (this.options.storeMeta) {
-            html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify({}) + '</script></div>';
-        }
+        // if (this.options.storeMeta) {
+        //     html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify({}) + '</script></div>';
+        // }
 
-        if ((/<("[^"]*"|'[^']*'|[^'">])*>/).test(html) === false) {
-            $.proxy(this, 'convertBadEmbed', url)();
-            return false;
-        }
+        // if ((/<("[^"]*"|'[^']*'|[^'">])*>/).test(html) === false) {
+        //     $.proxy(this, 'convertBadEmbed', url)();
+        //     return false;
+        // }
 
-        if (pasted) {
-            this.embed(html, url);
-        } else {
-            this.embed(html);
-        }
+        // if (pasted) {
+        //     this.embed(html, url);
+        // } else {
+        //     this.embed(html);
+        // }
     };
 
     /**
@@ -420,53 +420,53 @@
      */
 
     Embeds.prototype.embed = function (html, pastedUrl) {
-        var $place = this.$el.find('.medium-insert-embeds-active'),
-            $div;
+        // var $place = this.$el.find('.medium-insert-embeds-active'),
+        //     $div;
 
-        if (!html) {
-            alert('Incorrect URL format specified');
-            return false;
-        } else {
-            if (html.indexOf('</script>') > -1) {
-                // Store embed code with <script> tag inside wrapper attribute value.
-                // Make nice attribute value escaping using jQuery.
-                $div = $('<div>')
-                    .attr('data-embed-code', $('<div />').text(html).html())
-                    .html(html);
-                html = $('<div>').append($div).html();
-            }
+        // if (!html) {
+        //     alert('Incorrect URL format specified');
+        //     return false;
+        // } else {
+        //     if (html.indexOf('</script>') > -1) {
+        //         // Store embed code with <script> tag inside wrapper attribute value.
+        //         // Make nice attribute value escaping using jQuery.
+        //         $div = $('<div>')
+        //             .attr('data-embed-code', $('<div />').text(html).html())
+        //             .html(html);
+        //         html = $('<div>').append($div).html();
+        //     }
 
-            if (pastedUrl) {
-                // Get the element with the pasted url
-                // place the embed template and remove the pasted text
-                $place = this.$el.find(":not(iframe, script, style)")
-                    .contents().filter(
-                        function () {
-                            return this.nodeType === 3 && this.textContent.indexOf(pastedUrl) > -1;
-                        }).parent();
+        //     if (pastedUrl) {
+        //         // Get the element with the pasted url
+        //         // place the embed template and remove the pasted text
+        //         $place = this.$el.find(":not(iframe, script, style)")
+        //             .contents().filter(
+        //                 function () {
+        //                     return this.nodeType === 3 && this.textContent.indexOf(pastedUrl) > -1;
+        //                 }).parent();
 
-                $place.after(this.templates['src/js/templates/embeds-wrapper.hbs']({
-                    html: html
-                }));
-                $place.text($place.text().replace(pastedUrl, ''));
-            } else {
-                $place.after(this.templates['src/js/templates/embeds-wrapper.hbs']({
-                    html: html
-                }));
-                $place.remove();
-            }
+        //         $place.after(this.templates['src/js/templates/embeds-wrapper.hbs']({
+        //             html: html
+        //         }));
+        //         $place.text($place.text().replace(pastedUrl, ''));
+        //     } else {
+        //         $place.after(this.templates['src/js/templates/embeds-wrapper.hbs']({
+        //             html: html
+        //         }));
+        //         $place.remove();
+        //     }
 
 
-            this.core.triggerInput();
+        //     this.core.triggerInput();
 
-            if (html.indexOf('facebook') !== -1) {
-                if (typeof (FB) !== 'undefined') {
-                    setTimeout(function () {
-                        FB.XFBML.parse();
-                    }, 2000);
-                }
-            }
-        }
+        //     if (html.indexOf('facebook') !== -1) {
+        //         if (typeof (FB) !== 'undefined') {
+        //             setTimeout(function () {
+        //                 FB.XFBML.parse();
+        //             }, 2000);
+        //         }
+        //     }
+        // }
     };
 
     /**
@@ -478,24 +478,24 @@
      * @return {void}
      */
     Embeds.prototype.convertBadEmbed = function (content) {
-        var $place, $empty, $content,
-            emptyTemplate = this.templates['src/js/templates/core-empty-line.hbs']().trim();
+        // var $place, $empty, $content,
+        //     emptyTemplate = this.templates['src/js/templates/core-empty-line.hbs']().trim();
 
-        $place = this.$el.find('.medium-insert-embeds-active');
+        // $place = this.$el.find('.medium-insert-embeds-active');
 
-        // convert embed node to an empty node and insert the bad embed inside
-        $content = $(emptyTemplate);
-        $place.before($content);
-        $place.remove();
-        $content.html(content);
+        // // convert embed node to an empty node and insert the bad embed inside
+        // $content = $(emptyTemplate);
+        // $place.before($content);
+        // $place.remove();
+        // $content.html(content);
 
-        // add an new empty node right after to simulate Enter press
-        $empty = $(emptyTemplate);
-        $content.after($empty);
+        // // add an new empty node right after to simulate Enter press
+        // $empty = $(emptyTemplate);
+        // $content.after($empty);
 
-        this.core.triggerInput();
+        // this.core.triggerInput();
 
-        this.core.moveCaret($empty);
+        // this.core.moveCaret($empty);
     };
 
     /**
