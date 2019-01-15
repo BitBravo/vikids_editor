@@ -371,25 +371,21 @@
         }
     };
 
-    Core.prototype.checkMediaTypeValidate = function (type,  filePath) {
-        const regex = /\[\!\[(.*?)\]\((.+)\)\]/g;
-        const matches = regex.exec(str);
-    
-       const data =  matches && matches[2] ?
-        (()=>{
-            const startPos = matches.index;
-            const lastPos = matches.index + matches[0].length;
-            const preText = str.slice(0, startPos);
-            const lastText = str.slice(lastPos);
-            const data = {url: matches[2], alt: matches[1]}
-            return {preText: preText, lastText: lastText, data: data}
-        })()
-        :
-        (()=>{
-            console.log("Media file can't be empty!");
-            return false
-        })();
+    Core.prototype.checkMediaValidate = function (mediaType,  filePath) {
+       return mediaType === 'img' ?
+            (()=>{
+                const regex = /(.+\.(jpg|png|jpeg))/g;
+                const matches = regex.exec(filePath);
+                return matches ? true: false;
+            })()
+            :
+            (()=>{
+                const regex = /(www\..+\..+)/g;
+                const matches = regex.exec(filePath);
+                return matches ? true: false;
+            })();
     };
+
     // check if there is a validate html pattern
     Core.prototype.checkTemplateValidate = function (str) {
         // const regex = /\[\!\[(.*?)\]\((.+\.(png|jpg|jpeg))\)\]/g;
@@ -403,14 +399,14 @@
             const filePath = matches[3];
 
             // check if the current file is valid media file
-            const fileValidate = true;//  = this.checkMediaValidate(mediaType, filePath)
+            const fileValidate = this.checkMediaValidate(mediaType, filePath)
             if (fileValidate) {
                 const startPos = matches.index;
                 const lastPos = matches.index + matches[0].length;
                 const preText = str.slice(0, startPos);
                 const lastText = str.slice(lastPos);
                 const data = {url: filePath, alt: altText}
-                
+
                 return {preText: preText, lastText: lastText, data: data}
             } else {
                 console.log('File is not valid media file')
