@@ -371,6 +371,28 @@
         }
     };
 
+    // check if there is a validate html pattern
+    Core.prototype.checkTemplateValidate = function (str) {
+        // const regex = /\[\!\[(.*?)\]\((.+\.(png|jpg|jpeg))\)\]/g;
+        const regex = /\[\!\[(.*?)\]\((.+)\)\]/g;
+        const matches = regex.exec(str);
+    
+       const data =  matches && matches[2] ?
+        (()=>{
+            const startPos = matches.index;
+            const lastPos = matches.index + matches[0].length;
+            const preText = str.slice(0, startPos);
+            const lastText = str.slice(lastPos);
+            const data = {url: matches[2], alt: matches[1]}
+            return {preText: preText, lastText: lastText, data: data}
+        })()
+        :
+        (()=>{
+            console.log("Media file can't be empty!");
+            return false
+        })();
+    };
+
     Core.prototype.checkCustomPattern = function () {
         var an = window.getSelection().anchorNode;
         var pe = an.parentElement;
@@ -587,7 +609,6 @@
         var $a = $(e.currentTarget),
             addon = $a.data('addon'),
             action = $a.data('action');
-
         this.$el.data('plugin_' + pluginName + ucfirst(addon))[action]();
     };
 
@@ -600,7 +621,7 @@
      * @return {void}
      */
 
-    Core.prototype.appendAttribute(state) {
+    Core.prototype.appendAttribute = function (state) {
         const { tokens } = state;
         for (let i = 0; i < tokens.length; i += 1) {
             if (tokens[i].map) {
