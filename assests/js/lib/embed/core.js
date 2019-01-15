@@ -371,9 +371,7 @@
         }
     };
 
-    // check if there is a validate html pattern
-    Core.prototype.checkTemplateValidate = function (str) {
-        // const regex = /\[\!\[(.*?)\]\((.+\.(png|jpg|jpeg))\)\]/g;
+    Core.prototype.checkMediaTypeValidate = function (type,  filePath) {
         const regex = /\[\!\[(.*?)\]\((.+)\)\]/g;
         const matches = regex.exec(str);
     
@@ -385,6 +383,39 @@
             const lastText = str.slice(lastPos);
             const data = {url: matches[2], alt: matches[1]}
             return {preText: preText, lastText: lastText, data: data}
+        })()
+        :
+        (()=>{
+            console.log("Media file can't be empty!");
+            return false
+        })();
+    };
+    // check if there is a validate html pattern
+    Core.prototype.checkTemplateValidate = function (str) {
+        // const regex = /\[\!\[(.*?)\]\((.+\.(png|jpg|jpeg))\)\]/g;
+        const regex = /\[\!\[(.*?)\]\((.+)\)\]/g;
+        const matches = regex.exec(str);
+    
+       const data =  matches && matches[2] ?
+        (()=>{
+            const mediaType = matches[1] === '!' ? 'img' : 'mov';
+            const altText = matches[2]
+            const filePath = matches[3];
+
+            // check if the current file is valid media file
+            const fileValidate = true;//  = this.checkMediaValidate(mediaType, filePath)
+            if (fileValidate) {
+                const startPos = matches.index;
+                const lastPos = matches.index + matches[0].length;
+                const preText = str.slice(0, startPos);
+                const lastText = str.slice(lastPos);
+                const data = {url: filePath, alt: altText}
+                
+                return {preText: preText, lastText: lastText, data: data}
+            } else {
+                console.log('File is not valid media file')
+                return false;
+            }         
         })()
         :
         (()=>{
