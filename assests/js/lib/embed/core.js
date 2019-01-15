@@ -389,7 +389,7 @@
     // check if there is a validate html pattern
     Core.prototype.checkTemplateValidate = function (str) {
         // const regex = /\[\!\[(.*?)\]\((.+\.(png|jpg|jpeg))\)\]/g;
-        const regex = /\[\!\[(.*?)\]\((.+)\)\]/g;
+        const regex = /\[(!|@)\[(.*?)\]\((.+)\)\]/g;
         const matches = regex.exec(str);
     
        const data =  matches && matches[2] ?
