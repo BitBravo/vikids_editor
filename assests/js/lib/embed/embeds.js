@@ -1,48 +1,47 @@
 ; (function ($, window, document, undefined) {
 
     'use strict';
-
     /** Default values */
     var pluginName = 'mediumInsert',
-        addonName = 'Embeds', // first char is uppercase
-        defaults = {
-            label: '<span class="fa fa-youtube-play"></span>',
-            placeholder: 'Paste a YouTube, Vimeo, Facebook, Twitter or Instagram link and press Enter',
-            oembedProxy: 'http://medium.iframe.ly/api/oembed?iframe=1',
-            captions: true,
-            captionPlaceholder: 'Type caption (optional)',
-            storeMeta: false,
-            styles: {
-                wide: {
-                    label: '<span class="fa fa-align-justify"></span>'
-                    // added: function ($el) {},
-                    // removed: function ($el) {}
-                },
-                left: {
-                    label: '<span class="fa fa-align-left"></span>'
-                    // added: function ($el) {},
-                    // removed: function ($el) {}
-                },
-                right: {
-                    label: '<span class="fa fa-align-right"></span>'
-                    // added: function ($el) {},
-                    // removed: function ($el) {}
-                }
+    addonName = 'Embeds', // first char is uppercase
+    defaults = {
+        label: '<span class="fa fa-youtube-play"></span>',
+        placeholder: 'Paste a YouTube, Vimeo, Facebook, Twitter or Instagram link and press Enter',
+        oembedProxy: 'http://medium.iframe.ly/api/oembed?iframe=1',
+        captions: true,
+        captionPlaceholder: 'Type caption (optional)',
+        storeMeta: false,
+        styles: {
+            wide: {
+                label: '<span class="fa fa-align-justify"></span>'
+                // added: function ($el) {},
+                // removed: function ($el) {}
             },
-            actions: {
-                remove: {
-                    label: '<span class="fa fa-times"></span>',
-                    clicked: function () {
-                        var $event = $.Event('keydown');
-
-                        $event.which = 8;
-                        $(document).trigger($event);
-                    }
-                }
+            left: {
+                label: '<span class="fa fa-align-left"></span>'
+                // added: function ($el) {},
+                // removed: function ($el) {}
             },
-            parseOnPaste: false
-        };
-
+            right: {
+                label: '<span class="fa fa-align-right"></span>'
+                // added: function ($el) {},
+                // removed: function ($el) {}
+            }
+        },
+        actions: {
+            remove: {
+                label: '<span class="fa fa-times"></span>',
+                clicked: function () {
+                    var $event = $.Event('keydown');
+                    
+                    $event.which = 8;
+                    $(document).trigger($event);
+                }
+            }
+        },
+        parseOnPaste: false
+    };
+    
     /**
      * Embeds object
      *
@@ -54,7 +53,10 @@
      * @return {void}
      */
 
+
     function Embeds(el, options) {
+
+        console.log('emped ===>  @@@@@@@@@@@@@@')
         this.el = el;
         this.$el = $(el);
         this.templates = window.MediumInsert.Templates;
@@ -175,6 +177,7 @@
      */
 
     Embeds.prototype.add = function () {
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
         var $place = this.$el.find('.medium-insert-active');
 
         // Fix #132
@@ -260,6 +263,9 @@
      */
 
     Embeds.prototype.processLink = function (e) {
+        console.log(this.core.capturePattern)
+        console.log('------------   Embded ProcessLink    ---------------')
+        console.log('parsing url ===>', e)
         var $place = this.$el.find('.medium-insert-embeds-active'),
             url;
 
@@ -295,6 +301,8 @@
      */
 
     Embeds.prototype.processPasted = function (e) {
+        console.log('------------   Embded ProcessPasted    ---------------')
+        console.log('parsing url ===>', e)
         var pastedUrl, linkRegEx;
         if ($(".medium-insert-embeds-active").length) {
             return;
@@ -319,57 +327,59 @@
      */
 
     Embeds.prototype.oembed = function (url, pasted) {
-        // var that = this;
+        console.log('------------   Embded Oembed    ---------------')
+        console.log('parsing url ===>', url, pasted)
+        var that = this;
 
-        // $.support.cors = true;
+        $.support.cors = true;
 
-        // $.ajax({
-        //     crossDomain: true,
-        //     cache: false,
-        //     url: this.options.oembedProxy,
-        //     dataType: 'json',
-        //     data: {
-        //         url: url
-        //     },
-        //     success: function (data) {
-        //         var html = data && data.html;
+        $.ajax({
+            crossDomain: true,
+            cache: false,
+            url: this.options.oembedProxy,
+            dataType: 'json',
+            data: {
+                url: url
+            },
+            success: function (data) {
+                var html = data && data.html;
 
-        //         if (that.options.storeMeta) {
-        //             html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify(data) + '</script></div>';
-        //         }
+                if (that.options.storeMeta) {
+                    html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify(data) + '</script></div>';
+                }
 
-        //         if (data && !html && data.type === 'photo' && data.url) {
-        //             html = '<img src="' + data.url + '" alt="">';
-        //         }
+                if (data && !html && data.type === 'photo' && data.url) {
+                    html = '<img src="' + data.url + '" alt="">';
+                }
 
-        //         if (!html) {
-        //             // Prevent render empty embed.
-        //             $.proxy(that, 'convertBadEmbed', url)();
-        //             return;
-        //         }
+                if (!html) {
+                    // Prevent render empty embed.
+                    $.proxy(that, 'convertBadEmbed', url)();
+                    return;
+                }
 
-        //         if (pasted) {
-        //             $.proxy(that, 'embed', html, url)();
-        //         } else {
-        //             $.proxy(that, 'embed', html)();
-        //         }
-        //     },
-        //     error: function (jqXHR, textStatus, errorThrown) {
-        //         var responseJSON = (function () {
-        //             try {
-        //                 return JSON.parse(jqXHR.responseText);
-        //             } catch (e) { }
-        //         })();
+                if (pasted) {
+                    $.proxy(that, 'embed', html, url)();
+                } else {
+                    $.proxy(that, 'embed', html)();
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                var responseJSON = (function () {
+                    try {
+                        return JSON.parse(jqXHR.responseText);
+                    } catch (e) { }
+                })();
 
-        //         if (typeof window.console !== 'undefined') {
-        //             window.console.log((responseJSON && responseJSON.error) || jqXHR.status || errorThrown.message);
-        //         } else {
-        //             window.alert('Error requesting media from ' + that.options.oembedProxy + ' to insert: ' + errorThrown + ' (response status: ' + jqXHR.status + ')');
-        //         }
+                if (typeof window.console !== 'undefined') {
+                    window.console.log((responseJSON && responseJSON.error) || jqXHR.status || errorThrown.message);
+                } else {
+                    window.alert('Error requesting media from ' + that.options.oembedProxy + ' to insert: ' + errorThrown + ' (response status: ' + jqXHR.status + ')');
+                }
 
-        //         $.proxy(that, 'convertBadEmbed', url)();
-        //     }
-        // });
+                $.proxy(that, 'convertBadEmbed', url)();
+            }
+        });
     };
 
     /**
@@ -381,34 +391,36 @@
      */
 
     Embeds.prototype.parseUrl = function (url, pasted) {
-        // var html;
+        console.log('------------   Embded ParseURL    ---------------')
+        console.log('parsing url ===>', url, pasted)
+        var html;
 
-        // if (!(new RegExp(['youtube', 'youtu.be', 'vimeo', 'instagram', 'twitter', 'facebook'].join('|')).test(url))) {
-        //     $.proxy(this, 'convertBadEmbed', url)();
-        //     return false;
-        // }
+        if (!(new RegExp(['youtube', 'youtu.be', 'vimeo', 'instagram', 'twitter', 'facebook'].join('|')).test(url))) {
+            $.proxy(this, 'convertBadEmbed', url)();
+            return false;
+        }
 
-        // html = url.replace(/\n?/g, '')
-        //     .replace(/^((http(s)?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|v\/)?)([a-zA-Z0-9\-_]+)(.*)?$/, '<div class="video video-youtube"><iframe width="420" height="315" src="//www.youtube.com/embed/$7" frameborder="0" allowfullscreen></iframe></div>')
-        //     .replace(/^https?:\/\/vimeo\.com(\/.+)?\/([0-9]+)$/, '<div class="video video-vimeo"><iframe src="//player.vimeo.com/video/$2" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>')
-        //     .replace(/^https:\/\/twitter\.com\/(\w+)\/status\/(\d+)\/?$/, '<blockquote class="twitter-tweet" align="center" lang="en"><a href="https://twitter.com/$1/statuses/$2"></a></blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>')
-        //     .replace(/^(https:\/\/www\.facebook\.com\/(.*))$/, '<script src="//connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.2" async></script><div class="fb-post" data-href="$1"><div class="fb-xfbml-parse-ignore"><a href="$1">Loading Facebook post...</a></div></div>')
-        //     .replace(/^https?:\/\/instagram\.com\/p\/(.+)\/?$/, '<span class="instagram"><iframe src="//instagram.com/p/$1/embed/" width="612" height="710" frameborder="0" scrolling="no" allowtransparency="true"></iframe></span>');
+        html = url.replace(/\n?/g, '')
+            .replace(/^((http(s)?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|v\/)?)([a-zA-Z0-9\-_]+)(.*)?$/, '<div class="video video-youtube"><iframe width="420" height="315" src="//www.youtube.com/embed/$7" frameborder="0" allowfullscreen></iframe></div>')
+            .replace(/^https?:\/\/vimeo\.com(\/.+)?\/([0-9]+)$/, '<div class="video video-vimeo"><iframe src="//player.vimeo.com/video/$2" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>')
+            .replace(/^https:\/\/twitter\.com\/(\w+)\/status\/(\d+)\/?$/, '<blockquote class="twitter-tweet" align="center" lang="en"><a href="https://twitter.com/$1/statuses/$2"></a></blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>')
+            .replace(/^(https:\/\/www\.facebook\.com\/(.*))$/, '<script src="//connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.2" async></script><div class="fb-post" data-href="$1"><div class="fb-xfbml-parse-ignore"><a href="$1">Loading Facebook post...</a></div></div>')
+            .replace(/^https?:\/\/instagram\.com\/p\/(.+)\/?$/, '<span class="instagram"><iframe src="//instagram.com/p/$1/embed/" width="612" height="710" frameborder="0" scrolling="no" allowtransparency="true"></iframe></span>');
 
-        // if (this.options.storeMeta) {
-        //     html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify({}) + '</script></div>';
-        // }
+        if (this.options.storeMeta) {
+            html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify({}) + '</script></div>';
+        }
 
-        // if ((/<("[^"]*"|'[^']*'|[^'">])*>/).test(html) === false) {
-        //     $.proxy(this, 'convertBadEmbed', url)();
-        //     return false;
-        // }
+        if ((/<("[^"]*"|'[^']*'|[^'">])*>/).test(html) === false) {
+            $.proxy(this, 'convertBadEmbed', url)();
+            return false;
+        }
 
-        // if (pasted) {
-        //     this.embed(html, url);
-        // } else {
-        //     this.embed(html);
-        // }
+        if (pasted) {
+            this.embed(html, url);
+        } else {
+            this.embed(html);
+        }
     };
 
     /**
@@ -420,55 +432,88 @@
      */
 
     Embeds.prototype.embed = function (html, pastedUrl) {
-        // var $place = this.$el.find('.medium-insert-embeds-active'),
-        //     $div;
+        var $place = this.$el.find('.medium-insert-embeds-active'),
+            $div;
+            // https://www.youtube.com/watch?v=2Lwd46qBrqU
+        console.log('Added new embed div into active dom')
+        console.log(html, $place, $div)
+        if (!html) {
+            alert('Incorrect URL format specified');
+            return false;
+        } else {
+            if (html.indexOf('</script>') > -1) {
+                // Store embed code with <script> tag inside wrapper attribute value.
+                // Make nice attribute value escaping using jQuery.
+                $div = $('<div>')
+                    .attr('data-embed-code', $('<div />').text(html).html())
+                    .html(html);
+                html = $('<div>').append($div).html();
+            }
 
-        // if (!html) {
-        //     alert('Incorrect URL format specified');
-        //     return false;
-        // } else {
-        //     if (html.indexOf('</script>') > -1) {
-        //         // Store embed code with <script> tag inside wrapper attribute value.
-        //         // Make nice attribute value escaping using jQuery.
-        //         $div = $('<div>')
-        //             .attr('data-embed-code', $('<div />').text(html).html())
-        //             .html(html);
-        //         html = $('<div>').append($div).html();
-        //     }
+            if (pastedUrl) {
+                // Get the element with the pasted url
+                // place the embed template and remove the pasted text
+                $place = this.$el.find(":not(iframe, script, style)")
+                    .contents().filter(
+                        function () {
+                            return this.nodeType === 3 && this.textContent.indexOf(pastedUrl) > -1;
+                        }).parent();
 
-        //     if (pastedUrl) {
-        //         // Get the element with the pasted url
-        //         // place the embed template and remove the pasted text
-        //         $place = this.$el.find(":not(iframe, script, style)")
-        //             .contents().filter(
-        //                 function () {
-        //                     return this.nodeType === 3 && this.textContent.indexOf(pastedUrl) > -1;
-        //                 }).parent();
-
-        //         $place.after(this.templates['src/js/templates/embeds-wrapper.hbs']({
-        //             html: html
-        //         }));
-        //         $place.text($place.text().replace(pastedUrl, ''));
-        //     } else {
-        //         $place.after(this.templates['src/js/templates/embeds-wrapper.hbs']({
-        //             html: html
-        //         }));
-        //         $place.remove();
-        //     }
+                $place.after(this.templates['src/js/templates/embeds-wrapper.hbs']({
+                    html: html
+                }));
+                $place.text($place.text().replace(pastedUrl, ''));
+            } else {
+                $place.after(this.templates['src/js/templates/embeds-wrapper.hbs']({
+                    html: html
+                }));
+                $place.remove();
+            }
 
 
-        //     this.core.triggerInput();
+            this.core.triggerInput();
 
-        //     if (html.indexOf('facebook') !== -1) {
-        //         if (typeof (FB) !== 'undefined') {
-        //             setTimeout(function () {
-        //                 FB.XFBML.parse();
-        //             }, 2000);
-        //         }
-        //     }
-        // }
+            if (html.indexOf('facebook') !== -1) {
+                if (typeof (FB) !== 'undefined') {
+                    setTimeout(function () {
+                        FB.XFBML.parse();
+                    }, 2000);
+                }
+            }
+        }
     };
 
+
+    Embeds.prototype.checkCustomPattern = function () {
+        var an = window.getSelection().anchorNode;
+        var pe = an.parentElement;
+        
+        var peC = pe.innerHTML;
+        const parseData = this.extend.getFind(peC);
+
+        if (parseData) {
+          const elements = this.extend.createContent(parseData)
+          this.extend.updateContent(pe, elements);
+        }
+    }
+    
+    Embeds.prototype.simulateKeydown = function (el, keycode, isCtrl, isAlt, isShift) {
+        var e = new KeyboardEvent( "keydown", { bubbles:true, cancelable:true, char:String.fromCharCode(keycode), key:String.fromCharCode(keycode), shiftKey:isShift, ctrlKey:isCtrl, altKey:isAlt } );
+        Object.defineProperty(e, 'keyCode', {get : function() { return this.keyCodeVal; } });     
+        e.keyCodeVal = keycode;
+        el.dispatchEvent(e);
+    }
+    
+    Embeds.prototype.capturePattern = function () {
+        if(ctTime) {
+            window.clearTimeout(ctTime)
+            ctTime = null
+        } else {
+            ctTime = window.setTimeout(() => {
+            this.checkCustomPattern();
+            }, 100);
+        }
+    }
     /**
      * Convert bad oEmbed content to an actual line.
      * Instead of displaying the error message we convert the bad embed
