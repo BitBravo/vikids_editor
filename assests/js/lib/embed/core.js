@@ -371,9 +371,13 @@
         }
     };
 
-    Core.prototype.embedMedia = function(mediaType, mediaURL, result) {
-        console.log('image vailidate result')
-        console.log(mediaType, mediaURL, result)
+    Core.prototype.embedMedia = function(data, result) {
+        console.log(`MediaType=> ${data.type}, URL=> ${data.url}, Text=> ${data.alt}, State=> ${result}`)
+        if(result === 'success') {
+              const elements = this.extend.createContent(data)
+              this.extend.updateContent(this.pe, elements);
+        }
+   
     }
 
     // image type checking function
@@ -400,13 +404,11 @@
     }
 
     Core.prototype.checkMediaUrlParse = function (mediaType,  filePath) {
-        mediaType === 'img' ?
+        return mediaType === 'img' ?
             (()=>{
                 const regex = /(.+\.(jpg|png|jpeg))/g;
                 const matches = regex.exec(filePath);
-                if(matches) {
-                    this.checkImageType(filePath).then(this.embedMedia.bind(null, mediaType, filePath));
-                }
+                return matches ? true: false;
             })()
             :
             (()=>{
@@ -422,7 +424,7 @@
         const regex = /\[(!|@)\[(.*?)\]\((.+)\)\]/g;
         const matches = regex.exec(str);
     
-       const data =  matches && matches[2] ?
+       return  matches && matches[2] ?
         (()=>{
             const mediaType = matches[1] === '!' ? 'img' : 'mov';
             const altText = matches[2]
@@ -431,14 +433,18 @@
             console.log('template validate')
             console.log(`PatternType => ${mediaType}, AltText => ${altText}, FilePath => ${filePath}`)
             // check if the current file is valid media file
-            const fileValidate = this.checkMediaUrlParse(mediaType, filePath)
-            if (fileValidate) {
-                // const startPos = matches.index;
-                // const lastPos = matches.index + matches[0].length;
-                // const preText = str.slice(0, startPos);
-                // const lastText = str.slice(lastPos);
-                // const data = {url: filePath, alt: altText}
-
+            const fileURLValidate= this.checkMediaUrlParse(mediaType, filePath)
+            if (fileURLValidate) {
+                const startPos = matches.index;
+                const lastPos = matches.index + matches[0].length;
+                const preText = str.slice(0, startPos);
+                const lastText = str.slice(lastPos);
+                const data = {url: filePath, alt: altText, type: mediaType}
+                
+                if(mediaType === 'img') {
+                    this.checkImageType(filePath).then(this.embedMedia.bind(null, data));
+                }
+                
                 // return {preText: preText, lastText: lastText, data: data}
             } else {
                 console.log('File is not valid media file')
@@ -453,7 +459,7 @@
 
     Core.prototype.checkCustomPattern = function () {
         var an = window.getSelection().anchorNode;
-        var pe = an.parentElement;
+        this.pe = an.parentElement;
         
         var peC = pe.innerHTML;
         const parseData = this.checkTemplateValidate(peC);
