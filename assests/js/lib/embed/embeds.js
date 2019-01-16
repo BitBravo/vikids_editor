@@ -200,6 +200,10 @@
         this.core.hideButtons();
     };
 
+    Embeds.prototype.test = function() {
+        console.log('Thisis a test function')
+    }
+
     /**
      * Toggles placeholder
      *
