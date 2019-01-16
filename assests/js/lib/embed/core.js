@@ -371,12 +371,37 @@
         }
     };
 
+    // image type checking function
+    Core.prototype.checkImageType = function (url, timeoutT) {
+        return new Promise(function(resolve) {
+          var timeout = timeoutT || 2000;
+          var timer, img = new Image();
+          img.onerror = img.onabort = function() {
+              clearTimeout(timer);
+              resolve("error");
+          };
+          img.onload = function() {
+               clearTimeout(timer);
+               resolve("success");
+          };
+          timer = setTimeout(function() {
+              // reset .src to invalid URL so it stops previous
+              // loading, but doens't trigger new load
+              img.src = "//!!!!/noexist.jpg";
+              resolve("timeout");
+          }, timeout); 
+          img.src = url;
+        });
+    }
+
     Core.prototype.checkMediaValidate = function (mediaType,  filePath) {
-       return mediaType === 'img' ?
+        mediaType === 'img' ?
             (()=>{
                 const regex = /(.+\.(jpg|png|jpeg))/g;
                 const matches = regex.exec(filePath);
-                return matches ? true: false;
+                if(matches) {
+                    this.checkImageType(url).then(callback());
+                }
             })()
             :
             (()=>{
