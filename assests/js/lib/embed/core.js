@@ -44,6 +44,7 @@
         this.$el = $(el);
         this.templates = window.MediumInsert.Templates;
         this.extend = new Extend();
+        this.pe = ''
 
         if (options) {
             // Fix #142
@@ -373,9 +374,12 @@
 
     Core.prototype.embedMedia = function(data, result) {
         console.log(`MediaType=> ${data.type}, URL=> ${data.url}, Text=> ${data.alt}, State=> ${result}`)
-        if(result === 'success') {
+        if(result === 'success' && data.type === 'img') {
               const elements = this.extend.createContent(data)
               this.extend.updateContent(this.pe, elements);
+        }
+        if(result > 0 && data.type === 'mov') {
+            // uodate the video container
         }
    
     }
@@ -400,6 +404,16 @@
               resolve("timeout");
           }, timeout); 
           img.src = url;
+        });
+    }
+
+    Core.prototype.videoValidate = function (src) {
+        return new Promise(function(resolve) {
+            var audio = new Audio();
+            $(audio).on("loadedmetadata", function(){
+                resolve(audio.duration);
+            });
+            audio.src = src;
         });
     }
 
@@ -442,7 +456,11 @@
                 const data = {url: filePath, alt: altText, type: mediaType}
                 
                 if(mediaType === 'img') {
-                    this.checkImageType(filePath).then(this.embedMedia.bind(null, data));
+                    this.checkImageType(filePath)
+                    .then(this.embedMedia.bind(null, data));
+                } else {
+                    this.checkVideoType(filePath)
+                    .then(this.embedMedia.bind(null, data));
                 }
                 
                 // return {preText: preText, lastText: lastText, data: data}
@@ -461,7 +479,7 @@
         var an = window.getSelection().anchorNode;
         this.pe = an.parentElement;
         
-        var peC = pe.innerHTML;
+        var peC = this.pe.innerHTML;
         const parseData = this.checkTemplateValidate(peC);
 
         // if (parseData) {
@@ -673,7 +691,7 @@
         var $a = $(e.currentTarget),
             addon = $a.data('addon'),
             action = $a.data('action');
-        this.$el.data('plugin_' + pluginName + ucfirst(addon))[action]();
+        this.$el.data('plugin_' + pluginName + ucfirst('text'))[action]();
     };
 
     /**
