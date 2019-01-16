@@ -371,6 +371,11 @@
         }
     };
 
+    Core.prototype.embedMedia = function(mediaType, mediaURL, result) {
+        console.log('image vailidate result')
+        console.log(mediaType, mediaURL, result)
+    }
+
     // image type checking function
     Core.prototype.checkImageType = function (url, timeoutT) {
         return new Promise(function(resolve) {
@@ -394,13 +399,13 @@
         });
     }
 
-    Core.prototype.checkMediaValidate = function (mediaType,  filePath) {
+    Core.prototype.checkMediaUrlParse = function (mediaType,  filePath) {
         mediaType === 'img' ?
             (()=>{
                 const regex = /(.+\.(jpg|png|jpeg))/g;
                 const matches = regex.exec(filePath);
                 if(matches) {
-                    this.checkImageType(url).then(callback());
+                    this.checkImageType(filePath).then(this.embedMedia.bind(null, mediaType, filePath));
                 }
             })()
             :
@@ -423,16 +428,18 @@
             const altText = matches[2]
             const filePath = matches[3];
 
+            console.log('template validate')
+            console.log(`PatternType => ${mediaType}, AltText => ${altText}, FilePath => ${filePath}`)
             // check if the current file is valid media file
-            const fileValidate = this.checkMediaValidate(mediaType, filePath)
+            const fileValidate = this.checkMediaUrlParse(mediaType, filePath)
             if (fileValidate) {
-                const startPos = matches.index;
-                const lastPos = matches.index + matches[0].length;
-                const preText = str.slice(0, startPos);
-                const lastText = str.slice(lastPos);
-                const data = {url: filePath, alt: altText}
+                // const startPos = matches.index;
+                // const lastPos = matches.index + matches[0].length;
+                // const preText = str.slice(0, startPos);
+                // const lastText = str.slice(lastPos);
+                // const data = {url: filePath, alt: altText}
 
-                return {preText: preText, lastText: lastText, data: data}
+                // return {preText: preText, lastText: lastText, data: data}
             } else {
                 console.log('File is not valid media file')
                 return false;
@@ -440,7 +447,6 @@
         })()
         :
         (()=>{
-            console.log("Media file can't be empty!");
             return false
         })();
     };
@@ -450,12 +456,12 @@
         var pe = an.parentElement;
         
         var peC = pe.innerHTML;
-        const parseData = this.extend.getFind(peC);
+        const parseData = this.checkTemplateValidate(peC);
 
-        if (parseData) {
-          const elements = this.extend.createContent(parseData)
-          this.extend.updateContent(pe, elements);
-        }
+        // if (parseData) {
+        //   const elements = this.extend.createContent(parseData)
+        //   this.extend.updateContent(pe, elements);
+        // }
     }
     
     Core.prototype.simulateKeydown = function (el, keycode, isCtrl, isAlt, isShift) {

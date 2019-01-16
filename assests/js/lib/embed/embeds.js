@@ -263,9 +263,9 @@
      */
 
     Embeds.prototype.processLink = function (e) {
-        console.log(this.core.capturePattern)
+        // console.log(this.core.capturePattern)
         console.log('------------   Embded ProcessLink    ---------------')
-        console.log('parsing url ===>', e)
+
         var $place = this.$el.find('.medium-insert-embeds-active'),
             url;
 
