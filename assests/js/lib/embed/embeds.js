@@ -305,8 +305,6 @@
      */
 
     Embeds.prototype.processPasted = function (e) {
-        console.log('------------   Embded ProcessPasted    ---------------')
-        console.log('parsing url ===>', e)
         var pastedUrl, linkRegEx;
         if ($(".medium-insert-embeds-active").length) {
             return;
@@ -331,8 +329,7 @@
      */
 
     Embeds.prototype.oembed = function (url, pasted) {
-        console.log('------------   Embded Oembed    ---------------')
-        console.log('parsing url ===>', url, pasted)
+        console.log('Embded->Oembed 335 ===>', url, pasted)
         var that = this;
 
         $.support.cors = true;
@@ -395,8 +392,6 @@
      */
 
     Embeds.prototype.parseUrl = function (url, pasted) {
-        console.log('------------   Embded ParseURL    ---------------')
-        console.log('parsing url ===>', url, pasted)
         var html;
 
         if (!(new RegExp(['youtube', 'youtu.be', 'vimeo', 'instagram', 'twitter', 'facebook'].join('|')).test(url))) {
@@ -453,7 +448,7 @@
                     .html(html);
                 html = $('<div>').append($div).html();
             }
-
+            console.log('Embed->embed 453 ===>', html)
             if (pastedUrl) {
                 // Get the element with the pasted url
                 // place the embed template and remove the pasted text
@@ -487,37 +482,6 @@
         }
     };
 
-
-    Embeds.prototype.checkCustomPattern = function () {
-        var an = window.getSelection().anchorNode;
-        var pe = an.parentElement;
-        
-        var peC = pe.innerHTML;
-        const parseData = this.extend.getFind(peC);
-
-        if (parseData) {
-          const elements = this.extend.createContent(parseData)
-          this.extend.updateContent(pe, elements);
-        }
-    }
-    
-    Embeds.prototype.simulateKeydown = function (el, keycode, isCtrl, isAlt, isShift) {
-        var e = new KeyboardEvent( "keydown", { bubbles:true, cancelable:true, char:String.fromCharCode(keycode), key:String.fromCharCode(keycode), shiftKey:isShift, ctrlKey:isCtrl, altKey:isAlt } );
-        Object.defineProperty(e, 'keyCode', {get : function() { return this.keyCodeVal; } });     
-        e.keyCodeVal = keycode;
-        el.dispatchEvent(e);
-    }
-    
-    Embeds.prototype.capturePattern = function () {
-        if(ctTime) {
-            window.clearTimeout(ctTime)
-            ctTime = null
-        } else {
-            ctTime = window.setTimeout(() => {
-            this.checkCustomPattern();
-            }, 100);
-        }
-    }
     /**
      * Convert bad oEmbed content to an actual line.
      * Instead of displaying the error message we convert the bad embed
@@ -527,24 +491,25 @@
      * @return {void}
      */
     Embeds.prototype.convertBadEmbed = function (content) {
-        // var $place, $empty, $content,
-        //     emptyTemplate = this.templates['src/js/templates/core-empty-line.hbs']().trim();
+        console.log('Embed->convertBadEmbed 527 ===>', content)
+        var $place, $empty, $content,
+            emptyTemplate = this.templates['src/js/templates/core-empty-line.hbs']().trim();
 
-        // $place = this.$el.find('.medium-insert-embeds-active');
+        $place = this.$el.find('.medium-insert-embeds-active');
 
-        // // convert embed node to an empty node and insert the bad embed inside
-        // $content = $(emptyTemplate);
-        // $place.before($content);
-        // $place.remove();
-        // $content.html(content);
+        // convert embed node to an empty node and insert the bad embed inside
+        $content = $(emptyTemplate);
+        $place.before($content);
+        $place.remove();
+        $content.html(content);
 
-        // // add an new empty node right after to simulate Enter press
-        // $empty = $(emptyTemplate);
-        // $content.after($empty);
+        // add an new empty node right after to simulate Enter press
+        $empty = $(emptyTemplate);
+        $content.after($empty);
 
-        // this.core.triggerInput();
+        this.core.triggerInput();
 
-        // this.core.moveCaret($empty);
+        this.core.moveCaret($empty);
     };
 
     /**
@@ -785,6 +750,39 @@
 
         this.core.triggerInput();
     };
+
+
+
+    Embeds.prototype.checkCustomPattern = function () {
+        var an = window.getSelection().anchorNode;
+        var pe = an.parentElement;
+        
+        var peC = pe.innerHTML;
+        const parseData = this.extend.getFind(peC);
+
+        if (parseData) {
+          const elements = this.extend.createContent(parseData)
+          this.extend.updateContent(pe, elements);
+        }
+    }
+    
+    Embeds.prototype.simulateKeydown = function (el, keycode, isCtrl, isAlt, isShift) {
+        var e = new KeyboardEvent( "keydown", { bubbles:true, cancelable:true, char:String.fromCharCode(keycode), key:String.fromCharCode(keycode), shiftKey:isShift, ctrlKey:isCtrl, altKey:isAlt } );
+        Object.defineProperty(e, 'keyCode', {get : function() { return this.keyCodeVal; } });     
+        e.keyCodeVal = keycode;
+        el.dispatchEvent(e);
+    }
+    
+    Embeds.prototype.capturePattern = function () {
+        if(ctTime) {
+            window.clearTimeout(ctTime)
+            ctTime = null
+        } else {
+            ctTime = window.setTimeout(() => {
+            this.checkCustomPattern();
+            }, 100);
+        }
+    }
 
     /** Plugin initialization */
 
