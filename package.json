@@ -74,7 +74,9 @@
   },
   "scripts": {
     "build": "node node_modules/grunt-cli/bin/grunt",
-    "start": "open ./demo/index.html",
+    "start": "open ./index.html",
+    "serve": "firebase serve",
+    "deploy": "firebase deploy",
     "test": "node node_modules/grunt-cli/bin/grunt test --verbose",
     "test:ci": "node node_modules/grunt-cli/bin/grunt travis --verbose"
   },
