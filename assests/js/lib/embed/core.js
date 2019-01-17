@@ -375,8 +375,8 @@
     Core.prototype.embedMedia = function(data, result) {
         console.log(`MediaType=> ${data.type}, URL=> ${data.url}, Text=> ${data.alt}, State=> ${result}`)
         if(result === 'success' && data.type === 'img') {
-              const elements = this.extend.createContent(data)
-              this.extend.updateContent(this.pe, elements);
+            //   const elements = this.extend.createContent(data)
+            //   this.extend.updateContent(this.pe, elements);
         }
         if(result > 0 && data.type === 'mov') {
             // uodate the video container
@@ -385,7 +385,7 @@
     }
 
     // image type checking function
-    Core.prototype.checkImageType = function (url, timeoutT) {
+    Core.prototype.imageValidate = function (url, timeoutT) {
         return new Promise(function(resolve) {
           var timeout = timeoutT || 2000;
           var timer, img = new Image();
@@ -407,14 +407,23 @@
         });
     }
 
-    Core.prototype.videoValidate = function (src) {
-        return new Promise(function(resolve) {
-            var audio = new Audio();
-            $(audio).on("loadedmetadata", function(){
-                resolve(audio.duration);
-            });
-            audio.src = src;
-        });
+    Core.prototype.videoValidate = function (src, callback) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log('validate media parse', this.responseText);
+           }
+        };
+        xhttp.open("GET", `iframe.ly/api/iframely?url=${src}&api_key=e9fb88937d4a97e3361b89`, true);
+        xhttp.send();
+
+        // return new Promise(function(resolve) {
+        //     var audio = new Audio();
+        //     $(audio).on("loadedmetadata", function(){
+        //         resolve(audio.duration);
+        //     });
+        //     audio.src = src;
+        // });
     }
 
     Core.prototype.checkMediaUrlParse = function (mediaType,  filePath) {
@@ -456,11 +465,10 @@
                 const data = {url: filePath, alt: altText, type: mediaType}
                 
                 if(mediaType === 'img') {
-                    this.checkImageType(filePath)
+                    this.imageValidate(filePath)
                     .then(this.embedMedia.bind(null, data));
                 } else {
-                    this.checkVideoType(filePath)
-                    .then(this.embedMedia.bind(null, data));
+                    this.videoValidate(filePath, this.embedMedia)
                 }
                 
                 // return {preText: preText, lastText: lastText, data: data}
