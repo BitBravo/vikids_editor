@@ -372,13 +372,18 @@
         }
     };
 
-    Core.prototype.embedMedia = function(data, result) {
+    Core.prototype.embedMedia = function(data, that, result) {
         console.log(`MediaType=> ${data.type}, URL=> ${data.url}, Text=> ${data.alt}, State=> ${result}`)
         if(result === 'success' && data.type === 'img') {
+            that.$el.data('plugin_' + pluginName + ucfirst('images'))[parseUrl](data.url);
+
             //   const elements = this.extend.createContent(data)
             //   this.extend.updateContent(this.pe, elements);
         }
-        if(result > 0 && data.type === 'mov') {
+        console.log(result, data)
+        if(result === 'success' && data.type === 'mov') {
+            console.log('core 384 ===>  valid video file')
+            that.$el.data('plugin_' + pluginName + ucfirst('embeds'))['serializeDOM'](data.url);
             // uodate the video container
         }
    
@@ -411,19 +416,11 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                console.log('validate media parse', this.responseText);
+                callback('success');
            }
         };
-        xhttp.open("GET", `iframe.ly/api/iframely?url=${src}&api_key=e9fb88937d4a97e3361b89`, true);
+        xhttp.open("GET", `https://iframe.ly/api/iframely?url=${src}&api_key=e9fb88937d4a97e3361b89`, true);
         xhttp.send();
-
-        // return new Promise(function(resolve) {
-        //     var audio = new Audio();
-        //     $(audio).on("loadedmetadata", function(){
-        //         resolve(audio.duration);
-        //     });
-        //     audio.src = src;
-        // });
     }
 
     Core.prototype.checkMediaUrlParse = function (mediaType,  filePath) {
@@ -462,16 +459,15 @@
                 const lastPos = matches.index + matches[0].length;
                 const preText = str.slice(0, startPos);
                 const lastText = str.slice(lastPos);
-                const data = {url: filePath, alt: altText, type: mediaType}
+                const data = {url: filePath, alt: altText, type: mediaType, preText: preText, lastText: lastText}
                 
                 if(mediaType === 'img') {
                     this.imageValidate(filePath)
-                    .then(this.embedMedia.bind(null, data));
+                    .then(this.embedMedia.bind(null, data, this));
                 } else {
-                    this.videoValidate(filePath, this.embedMedia)
+                    this.videoValidate(filePath, this.embedMedia.bind(null, data, this))
                 }
-                
-                // return {preText: preText, lastText: lastText, data: data}
+                                
             } else {
                 console.log('File is not valid media file')
                 return false;
@@ -699,7 +695,8 @@
         var $a = $(e.currentTarget),
             addon = $a.data('addon'),
             action = $a.data('action');
-        this.$el.data('plugin_' + pluginName + ucfirst('text'))[action]();
+        this.$el.data('plugin_' + pluginName + ucfirst(addon))[action]();
+        // this.$el.data('plugin_' + pluginName + ucfirst('Embeds'))['test']();
     };
 
     /**
