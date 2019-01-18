@@ -37,8 +37,6 @@
 
     function Core(el, options) {
         var editor;
-        console.log('core start ===>', window)
-        console.log('core editor 40', el, options)
 
         this.el = el;
         this.$el = $(el);
@@ -559,7 +557,6 @@
             addon = $a.data('addon'),
             action = $a.data('action');
         this.$el.data('plugin_' + pluginName + ucfirst(addon))[action]();
-        // this.$el.data('plugin_' + pluginName + ucfirst('Embeds'))['test']();
     };
 
     /**
@@ -668,22 +665,12 @@
 
         const newelement = this.targetEl.clone()
         const newMediaDiv = document.createElement("div")
-        newMediaDiv.html('<p>ffffff</p>')
-        // newMediaDiv.className = "medium-insert-images"; 
-console.log(document)
-console.log(newMediaDiv)
-        // this.targetEl.before(newelement.html(data.preText));
-        // this.targetEl.after(newelement.html(data.lastText));
+        newMediaDiv.className = "medium-insert-embeds-active"; 
+        newMediaDiv.innerHTML = data.alt
 
-        // this.targetEl.replaceWith(newMediaDiv.innerHTML(data.type + data.alt));
-        // A.replaceWith(span);
-
-        // $(this.pe ).after('hello world');
-        // $(this.pe ).html('<h1>hello world');
-        // var peC = this.pe.innerHTML;
-        // console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        // console.log($(an))
-        // console.log($(this.pe))
+        this.targetEl.before(newelement.innerHTML = data.preText);
+        this.targetEl.after(newelement.innerHTML = data.lastText);
+        this.targetEl.replaceWith(newMediaDiv);
     };
 
 
@@ -699,16 +686,13 @@ console.log(newMediaDiv)
     Core.prototype.embedMedia = function(data, that, result) {
         console.log(`MediaType=> ${data.type}, URL=> ${data.url}, Text=> ${data.alt}, State=> ${result}`)
         if(result === 'success' && data.type === 'img') {
-            // that.$el.data('plugin_' + pluginName + ucfirst('images'))[parseUrl](data.url);
             that.createEmptyMediaDiv(data)
-            //   const elements = this.extend.createContent(data)
-            //   this.extend.updateContent(this.pe, elements);
+            that.$el.data('plugin_' + pluginName + ucfirst('images'))[parseUrl](data.url);
         }
         console.log(result, data)
         if(result === 'success' && data.type === 'mov') {
-            console.log('core 384 ===>  valid video file')
-            // that.$el.data('plugin_' + pluginName + ucfirst('embeds'))['serializeDOM'](data.url);
-            // uodate the video container
+            that.createEmptyMediaDiv(data)            
+            that.$el.data('plugin_' + pluginName + ucfirst('embeds'))['embed'](data.url);
         }
     }
 
@@ -797,6 +781,7 @@ console.log(newMediaDiv)
 
     Core.prototype.checkTemplateValidate = function () {
         const str = this.targetEl[0].innerText;
+
         // const regex = /\[\!\[(.*?)\]\((.+\.(png|jpg|jpeg))\)\]/g;
         const regex = /\[(!|@)\[(.*?)\]\((.+)\)\]/g;
         const matches = regex.exec(str);
@@ -840,6 +825,13 @@ console.log(newMediaDiv)
     Core.prototype.checkCustomPattern = function () {
         var an = window.getSelection().anchorNode;
         this.targetEl = $(an.parentElement);
+
+
+        // var $place1 = this.$el.find('.medium-insert-images');
+        // var $place2 = this.$el.find('.medium-insert-embeds-active');
+        // console.log(this.$el)
+        // console.log($place1)
+        // console.log($place2)
 
         // Parsed element data || false
         const templateValidate = this.checkTemplateValidate();  
