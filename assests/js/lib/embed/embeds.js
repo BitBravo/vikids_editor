@@ -431,6 +431,12 @@
      */
 
     Embeds.prototype.embed = function (html, pastedUrl) {
+        var $place1 = this.$el.find('.medium-insert-images');
+        var $place2 = this.$el.find('.medium-insert-embeds-active');
+        console.log(this.$el)
+        console.log($place1)
+        console.log($place2)
+
         var $place = this.$el.find('.medium-insert-embeds-active'),
             $div;
             // https://www.youtube.com/watch?v=2Lwd46qBrqU
