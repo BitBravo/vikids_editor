@@ -44,7 +44,7 @@
         this.$el = $(el);
         this.templates = window.MediumInsert.Templates;
         this.extend = new Extend();
-        this.pe = ''
+        this.targetEl = ''
 
         if (options) {
             // Fix #142
@@ -372,143 +372,6 @@
         }
     };
 
-    Core.prototype.embedMedia = function(data, that, result) {
-        console.log(`MediaType=> ${data.type}, URL=> ${data.url}, Text=> ${data.alt}, State=> ${result}`)
-        if(result === 'success' && data.type === 'img') {
-            that.$el.data('plugin_' + pluginName + ucfirst('images'))[parseUrl](data.url);
-
-            //   const elements = this.extend.createContent(data)
-            //   this.extend.updateContent(this.pe, elements);
-        }
-        console.log(result, data)
-        if(result === 'success' && data.type === 'mov') {
-            console.log('core 384 ===>  valid video file')
-            that.$el.data('plugin_' + pluginName + ucfirst('embeds'))['serializeDOM'](data.url);
-            // uodate the video container
-        }
-   
-    }
-
-    // image type checking function
-    Core.prototype.imageValidate = function (url, timeoutT) {
-        return new Promise(function(resolve) {
-          var timeout = timeoutT || 2000;
-          var timer, img = new Image();
-          img.onerror = img.onabort = function() {
-              clearTimeout(timer);
-              resolve("error");
-          };
-          img.onload = function() {
-               clearTimeout(timer);
-               resolve("success");
-          };
-          timer = setTimeout(function() {
-              // reset .src to invalid URL so it stops previous
-              // loading, but doens't trigger new load
-              img.src = "//!!!!/noexist.jpg";
-              resolve("timeout");
-          }, timeout); 
-          img.src = url;
-        });
-    }
-
-    Core.prototype.videoValidate = function (src, callback) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                callback('success');
-           }
-        };
-        xhttp.open("GET", `https://iframe.ly/api/iframely?url=${src}&api_key=e9fb88937d4a97e3361b89`, true);
-        xhttp.send();
-    }
-
-    Core.prototype.checkMediaUrlParse = function (mediaType,  filePath) {
-        return mediaType === 'img' ?
-            (()=>{
-                const regex = /(.+\.(jpg|png|jpeg))/g;
-                const matches = regex.exec(filePath);
-                return matches ? true: false;
-            })()
-            :
-            (()=>{
-                const regex = /(www\..+\..+)/g;
-                const matches = regex.exec(filePath);
-                return matches ? true: false;
-            })();
-    };
-
-    // check if there is a validate html pattern
-    Core.prototype.checkTemplateValidate = function (str) {
-        // const regex = /\[\!\[(.*?)\]\((.+\.(png|jpg|jpeg))\)\]/g;
-        const regex = /\[(!|@)\[(.*?)\]\((.+)\)\]/g;
-        const matches = regex.exec(str);
-    
-       return  matches && matches[2] ?
-        (()=>{
-            const mediaType = matches[1] === '!' ? 'img' : 'mov';
-            const altText = matches[2]
-            const filePath = matches[3];
-
-            console.log('template validate')
-            console.log(`PatternType => ${mediaType}, AltText => ${altText}, FilePath => ${filePath}`)
-            // check if the current file is valid media file
-            const fileURLValidate= this.checkMediaUrlParse(mediaType, filePath)
-            if (fileURLValidate) {
-                const startPos = matches.index;
-                const lastPos = matches.index + matches[0].length;
-                const preText = str.slice(0, startPos);
-                const lastText = str.slice(lastPos);
-                const data = {url: filePath, alt: altText, type: mediaType, preText: preText, lastText: lastText}
-                
-                if(mediaType === 'img') {
-                    this.imageValidate(filePath)
-                    .then(this.embedMedia.bind(null, data, this));
-                } else {
-                    this.videoValidate(filePath, this.embedMedia.bind(null, data, this))
-                }
-                                
-            } else {
-                console.log('File is not valid media file')
-                return false;
-            }         
-        })()
-        :
-        (()=>{
-            return false
-        })();
-    };
-
-    Core.prototype.checkCustomPattern = function () {
-        var an = window.getSelection().anchorNode;
-        this.pe = an.parentElement;
-        
-        var peC = this.pe.innerHTML;
-        const parseData = this.checkTemplateValidate(peC);
-
-        // if (parseData) {
-        //   const elements = this.extend.createContent(parseData)
-        //   this.extend.updateContent(pe, elements);
-        // }
-    }
-    
-    Core.prototype.simulateKeydown = function (el, keycode, isCtrl, isAlt, isShift) {
-        var e = new KeyboardEvent( "keydown", { bubbles:true, cancelable:true, char:String.fromCharCode(keycode), key:String.fromCharCode(keycode), shiftKey:isShift, ctrlKey:isCtrl, altKey:isAlt } );
-        Object.defineProperty(e, 'keyCode', {get : function() { return this.keyCodeVal; } });     
-        e.keyCodeVal = keycode;
-        el.dispatchEvent(e);
-    }
-    
-    Core.prototype.capturePattern = function () {
-        if(ctTime) {
-            window.clearTimeout(ctTime)
-            ctTime = null
-        } else {
-            ctTime = window.setTimeout(() => {
-            this.checkCustomPattern();
-            }, 100);
-        }
-    }
     /**
      * Move buttons to current active, empty paragraph and show them
      *
@@ -776,6 +639,7 @@
         });
     };
 
+
     /**
      * Remove caption placeholder
      *
@@ -792,6 +656,226 @@
                 .removeAttr('data-placeholder');
         }
     };
+
+    /**
+     * Create the empty media container
+     *
+     * @param {object} data
+     * @return {void}
+     */
+
+    Core.prototype.createEmptyMediaDiv = function (data) {
+
+        const newelement = this.targetEl.clone()
+        const newMediaDiv = document.createElement("div")
+        newMediaDiv.html('<p>ffffff</p>')
+        // newMediaDiv.className = "medium-insert-images"; 
+console.log(document)
+console.log(newMediaDiv)
+        // this.targetEl.before(newelement.html(data.preText));
+        // this.targetEl.after(newelement.html(data.lastText));
+
+        // this.targetEl.replaceWith(newMediaDiv.innerHTML(data.type + data.alt));
+        // A.replaceWith(span);
+
+        // $(this.pe ).after('hello world');
+        // $(this.pe ).html('<h1>hello world');
+        // var peC = this.pe.innerHTML;
+        // console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        // console.log($(an))
+        // console.log($(this.pe))
+    };
+
+
+     /**
+     * Media validation's Callback
+     *
+     * @param {Object} data
+     * @param {Object} result
+     * @param {jQuery Element} $el
+     * @return {void}
+     */
+
+    Core.prototype.embedMedia = function(data, that, result) {
+        console.log(`MediaType=> ${data.type}, URL=> ${data.url}, Text=> ${data.alt}, State=> ${result}`)
+        if(result === 'success' && data.type === 'img') {
+            // that.$el.data('plugin_' + pluginName + ucfirst('images'))[parseUrl](data.url);
+            that.createEmptyMediaDiv(data)
+            //   const elements = this.extend.createContent(data)
+            //   this.extend.updateContent(this.pe, elements);
+        }
+        console.log(result, data)
+        if(result === 'success' && data.type === 'mov') {
+            console.log('core 384 ===>  valid video file')
+            // that.$el.data('plugin_' + pluginName + ucfirst('embeds'))['serializeDOM'](data.url);
+            // uodate the video container
+        }
+    }
+
+
+    /**
+     * Image file validation by MIME type
+     *
+     * @param {string} url
+     * @param {int} timeoutT
+     * @return {function} 
+     */
+
+    Core.prototype.imageValidate = function (url, timeoutT) {
+        return new Promise(function(resolve) {
+          var timeout = timeoutT || 2000;
+          var timer, img = new Image();
+          img.onerror = img.onabort = function() {
+              clearTimeout(timer);
+              resolve("error");
+          };
+          img.onload = function() {
+               clearTimeout(timer);
+               resolve("success");
+          };
+          timer = setTimeout(function() {
+              // reset .src to invalid URL so it stops previous
+              // loading, but doens't trigger new load
+              img.src = "//!!!!/noexist.jpg";
+              resolve("timeout");
+          }, timeout); 
+          img.src = url;
+        });
+    }
+
+
+    /**
+     * Video file validation by Iframe API (Youtube, Vimemo, Facebook, Linkedin, Instagram)
+     *
+     * @param {string} url
+     * @param {function} callback
+     * @return {function} 
+     */
+
+    Core.prototype.videoValidate = function (src, callback) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                callback('success');
+           }
+        };
+        xhttp.open("GET", `https://iframe.ly/api/iframely?url=${src}&api_key=e9fb88937d4a97e3361b89`, true);
+        xhttp.send();
+    }
+
+
+    /**
+     *  Media URL Validation by the special URL pattern and Regex.
+     *
+     * @param {string} mediaTyepe
+     * @param {string} mediaPath
+     * @return {bool} 
+     */
+
+    Core.prototype.checkMediaUrlParse = function (mediaType,  mediaPath) {
+        return mediaType === 'img' ?
+            (()=>{
+                const regex = /(.+\.(jpg|png|jpeg))/g;
+                const matches = regex.exec(mediaPath);
+                return matches ? true: false;
+            })()
+            :
+            (()=>{
+                const regex = /(www\..+\..+)/g;
+                const matches = regex.exec(mediaPath);
+                return matches ? true: false;
+            })();
+    };
+
+
+    /**
+    *  Pattern validation check
+    *
+    * @param {html elements} targetEl
+    * @return {object} 
+    */
+
+    Core.prototype.checkTemplateValidate = function () {
+        const str = this.targetEl[0].innerText;
+        // const regex = /\[\!\[(.*?)\]\((.+\.(png|jpg|jpeg))\)\]/g;
+        const regex = /\[(!|@)\[(.*?)\]\((.+)\)\]/g;
+        const matches = regex.exec(str);
+    
+       return  matches && matches[2] ?
+        (()=>{
+            const mediaType = matches[1] === '!' ? 'img' : 'mov';
+            const altText = matches[2]
+            const filePath = matches[3];
+
+            console.log('template validate')
+            console.log(`PatternType => ${mediaType}, AltText => ${altText}, FilePath => ${filePath}`)
+
+            // check if the current file is valid media file
+            const fileURLValidate= this.checkMediaUrlParse(mediaType, filePath)
+            if (fileURLValidate) {
+                const startPos = matches.index;
+                const lastPos = matches.index + matches[0].length;
+                const preText = str.slice(0, startPos);
+                const lastText = str.slice(lastPos);
+
+                return {
+                    url: filePath, 
+                    alt: altText, 
+                    type: mediaType,
+                    preText: preText, 
+                    lastText: lastText
+                };
+               
+            } else {
+                console.log('File is not valid media file')
+                return false;
+            }         
+        })()
+        :
+        (()=>{
+            return false
+        })();
+    };
+
+    Core.prototype.checkCustomPattern = function () {
+        var an = window.getSelection().anchorNode;
+        this.targetEl = $(an.parentElement);
+
+        // Parsed element data || false
+        const templateValidate = this.checkTemplateValidate();  
+        console.log('template validate', templateValidate)
+        if (templateValidate) {
+            const mediaTyepe = templateValidate.type;
+            const mediaPath = templateValidate.url;
+
+            // Check the the media file validation provided by URL
+            if(mediaTyepe === 'img') {
+                this.imageValidate(mediaPath)
+                .then(this.embedMedia.bind(null, templateValidate, this));
+            } else {
+                this.videoValidate(mediaPath, this.embedMedia.bind(null, templateValidate, this))
+            }
+
+        }
+    }
+    
+    Core.prototype.simulateKeydown = function (el, keycode, isCtrl, isAlt, isShift) {
+        var e = new KeyboardEvent( "keydown", { bubbles:true, cancelable:true, char:String.fromCharCode(keycode), key:String.fromCharCode(keycode), shiftKey:isShift, ctrlKey:isCtrl, altKey:isAlt } );
+        Object.defineProperty(e, 'keyCode', {get : function() { return this.keyCodeVal; } });     
+        e.keyCodeVal = keycode;
+        el.dispatchEvent(e);
+    }
+    
+    Core.prototype.capturePattern = function () {
+        if(ctTime) {
+            window.clearTimeout(ctTime)
+            ctTime = null
+        } else {
+            ctTime = window.setTimeout(() => {
+            this.checkCustomPattern();
+            }, 100);
+        }
+    }
 
     /** Plugin initialization */
 
