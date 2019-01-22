@@ -610,7 +610,7 @@
 
         if ($caption.length === 0) {
             $el.append(this.templates['src/js/templates/core-caption.hbs']({
-                placeholder: placeholder
+                placeholder: placeholder,
             }));
         }
     };
@@ -655,18 +655,36 @@
     };
 
     /**
+     * Remove caption placeholder
+     *
+     * @param {jQuery Element} $el
+     * @return {void}
+     */
+
+    Core.prototype.addCaptionContent = function ($el, text) {
+        var $caption = $el.is('figcaption') ? $el : $el.find('figcaption');
+
+        if ($caption.length) {
+            $caption[0].innerHTML = text;
+            $caption
+                .removeClass('medium-insert-caption-placeholder')
+                .removeAttr('data-placeholder');
+        }
+    };
+
+    /**
      * Create the empty media container
      *
      * @param {object} data
      * @return {void}
      */
 
-    Core.prototype.createEmptyMediaDiv = function (data) {
+    Core.prototype.createEmptyMediaDiv = function (data, className) {
 
         const newelement = this.targetEl.clone()
         const newMediaDiv = document.createElement("div")
-        newMediaDiv.className = "medium-insert-embeds-active"; 
-        newMediaDiv.innerHTML = data.alt
+        newMediaDiv.className = className;
+        // newMediaDiv.innerHTML = '</br>'
 
         this.targetEl.before(newelement.innerHTML = data.preText);
         this.targetEl.after(newelement.innerHTML = data.lastText);
@@ -684,15 +702,16 @@
      */
 
     Core.prototype.embedMedia = function(data, that, result) {
-        console.log(`MediaType=> ${data.type}, URL=> ${data.url}, Text=> ${data.alt}, State=> ${result}`)
+        console.log('Validate Response successflully ===>', result, data)
+
         if(result === 'success' && data.type === 'img') {
-            that.createEmptyMediaDiv(data)
-            that.$el.data('plugin_' + pluginName + ucfirst('images'))[parseUrl](data.url);
+            that.createEmptyMediaDiv(data, "medium-insert-active")
+            that.$el.data('plugin_' + pluginName + ucfirst('images'))['uploadAdd'](data, {});
         }
-        console.log(result, data)
+
         if(result === 'success' && data.type === 'mov') {
-            that.createEmptyMediaDiv(data)            
-            that.$el.data('plugin_' + pluginName + ucfirst('embeds'))['embed'](data.url);
+            that.createEmptyMediaDiv(data, "medium-insert-embeds-active")            
+            that.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed'](data.url, null, data.alt);
         }
     }
 
