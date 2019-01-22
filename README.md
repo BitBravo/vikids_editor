@@ -4,7 +4,7 @@ User can generate all html contents by using special pattern.
 
 - How to create img elements 
             
-    [![title](image_path)]
+    '[![title](image_path)]'
 
     Example: 
       [![Houses](http://sfeizigroup.com/wp-content/uploads/2017/05/slide-5.jpg)]
