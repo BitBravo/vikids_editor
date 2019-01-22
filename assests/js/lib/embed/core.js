@@ -665,8 +665,8 @@
 
         const newelement = this.targetEl.clone()
         const newMediaDiv = document.createElement("div")
-        newMediaDiv.className = "medium-insert-embeds-active"; 
-        newMediaDiv.innerHTML = data.alt
+        newMediaDiv.className = "medium-insert-active"; 
+        // newMediaDiv.innerHTML = '</br>'
 
         this.targetEl.before(newelement.innerHTML = data.preText);
         this.targetEl.after(newelement.innerHTML = data.lastText);
@@ -687,12 +687,12 @@
         console.log(`MediaType=> ${data.type}, URL=> ${data.url}, Text=> ${data.alt}, State=> ${result}`)
         if(result === 'success' && data.type === 'img') {
             that.createEmptyMediaDiv(data)
-            that.$el.data('plugin_' + pluginName + ucfirst('images'))[parseUrl](data.url);
+            that.$el.data('plugin_' + pluginName + ucfirst('images'))['uploadAdd'](data.url, {});
         }
         console.log(result, data)
         if(result === 'success' && data.type === 'mov') {
-            that.createEmptyMediaDiv(data)            
-            that.$el.data('plugin_' + pluginName + ucfirst('embeds'))['embed'](data.url);
+            // that.createEmptyMediaDiv(data)            
+            // that.$el.data('plugin_' + pluginName + ucfirst('embeds'))['embed'](data.url);
         }
     }
 
