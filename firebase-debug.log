@@ -1,3 +1,28 @@
+[debug] [2019-01-21T07:44:27.785Z] ----------------------------------------------------------------------
+[debug] [2019-01-21T07:44:27.787Z] Command:       /usr/local/Cellar/node/11.7.0/bin/node /usr/local/bin/firebase serve
+[debug] [2019-01-21T07:44:27.787Z] CLI Version:   6.3.0
+[debug] [2019-01-21T07:44:27.787Z] Platform:      darwin
+[debug] [2019-01-21T07:44:27.787Z] Node Version:  v11.7.0
+[debug] [2019-01-21T07:44:27.788Z] Time:          Sun Jan 20 2019 23:44:27 GMT-0800 (Pacific Standard Time)
+[debug] [2019-01-21T07:44:27.788Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-01-21T07:44:27.796Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-01-21T07:44:27.796Z] > authorizing via signed-in user
+[debug] [2019-01-21T07:44:27.797Z] [iam] checking project medium-editor-3379b for permissions ["firebase.projects.get"]
+[debug] [2019-01-21T07:44:27.798Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/medium-editor-3379b:testIamPermissions  
+
+[debug] [2019-01-21T07:44:29.060Z] <<< HTTP RESPONSE 200
+[debug] [2019-01-21T07:44:29.062Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/medium-editor-3379b  
+ 
+[debug] [2019-01-21T07:44:30.066Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Volumes/DATA/Projects/Mikhail/vikids_editor'...
+[info] 
+[debug] [2019-01-21T07:44:30.068Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/207703689499/clients/_:getWebAppConfig  
+ 
+[debug] [2019-01-21T07:44:31.054Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: /
+[info] ✔  hosting: Local server: http://localhost:5000
 [debug] [2019-01-17T15:36:50.645Z] ----------------------------------------------------------------------
 [debug] [2019-01-17T15:36:50.647Z] Command:       /usr/local/Cellar/node/11.6.0/bin/node /usr/local/bin/firebase serve
 [debug] [2019-01-17T15:36:50.647Z] CLI Version:   6.3.0

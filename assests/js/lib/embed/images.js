@@ -239,64 +239,69 @@
         var $place = this.$el.find('.medium-insert-active'),
             that = this,
             uploadErrors = [],
-            file = data.files[0],
+            file = data.files? data.files[0] : '',
             acceptFileTypes = this.options.fileUploadOptions.acceptFileTypes,
             maxFileSize = this.options.fileUploadOptions.maxFileSize,
             reader;
-
-        if (acceptFileTypes && !acceptFileTypes.test(file.type)) {
-            uploadErrors.push(this.options.messages.acceptFileTypesError + file.name);
-        } else if (maxFileSize && file.size > maxFileSize) {
-            uploadErrors.push(this.options.messages.maxFileSizeError + file.name);
-        }
-        if (uploadErrors.length > 0) {
-            if (this.options.uploadFailed && typeof this.options.uploadFailed === "function") {
-                this.options.uploadFailed(uploadErrors, data);
-
-                return;
-            }
-
-            alert(uploadErrors.join("\n"));
-
-            return;
-        }
-
-        this.core.hideButtons();
-
-        // Replace paragraph with div, because figure elements can't be inside paragraph
-        if ($place.is('p')) {
-            $place.replaceWith('<div class="medium-insert-active">' + $place.html() + '</div>');
-            $place = this.$el.find('.medium-insert-active');
-            if ($place.next().is('p')) {
-                this.core.moveCaret($place.next());
-            } else {
-                $place.after('<p><br></p>'); // add empty paragraph so we can move the caret to the next line.
-                this.core.moveCaret($place.next());
-            }
-        }
-
-        $place.addClass('medium-insert-images');
-
-        if (this.options.preview === false && $place.find('progress').length === 0 && (new XMLHttpRequest().upload)) {
-            $place.append(this.templates['src/js/templates/images-progressbar.hbs']());
-        }
-
-        if (data.autoUpload || (data.autoUpload !== false && $(e.target).fileupload('option', 'autoUpload'))) {
-            data.process().done(function () {
-                // If preview is set to true, let the showImage handle the upload start
-                if (that.options.preview) {
-                    reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        $.proxy(that, 'showImage', e.target.result, data)();
-                    };
-
-                    reader.readAsDataURL(data.files[0]);
-                } else {
-                    data.submit();
+            
+            if(file) {
+                if (acceptFileTypes && !acceptFileTypes.test(file.type)) {
+                    uploadErrors.push(this.options.messages.acceptFileTypesError + file.name);
+                } else if (maxFileSize && file.size > maxFileSize) {
+                    uploadErrors.push(this.options.messages.maxFileSizeError + file.name);
                 }
-            });
-        }
+
+                if (uploadErrors.length > 0) {
+                    if (this.options.uploadFailed && typeof this.options.uploadFailed === "function") {
+                        this.options.uploadFailed(uploadErrors, data);
+                        return;
+                    }
+        
+                    alert(uploadErrors.join("\n"));
+                    return;
+                }
+    
+                this.core.hideButtons();
+    
+                // Replace paragraph with div, because figure elements can't be inside paragraph
+                if ($place.is('p')) {
+                    $place.replaceWith('<div class="medium-insert-active">' + $place.html() + '</div>');
+                    $place = this.$el.find('.medium-insert-active');
+                    if ($place.next().is('p')) {
+                        this.core.moveCaret($place.next());
+                    } else {
+                        $place.after('<p><br></p>'); // add empty paragraph so we can move the caret to the next line.
+                        this.core.moveCaret($place.next());
+                    }
+                }
+    
+                $place.addClass('medium-insert-images');
+    
+                if (this.options.preview === false && $place.find('progress').length === 0 && (new XMLHttpRequest().upload)) {
+                    $place.append(this.templates['src/js/templates/images-progressbar.hbs']());
+                }
+        
+                if (data.autoUpload || (data.autoUpload !== false && $(e.target).fileupload('option', 'autoUpload'))) {
+                    data.process().done(function () {
+                        // If preview is set to true, let the showImage handle the upload start
+                        if (that.options.preview) {
+                            reader = new FileReader();
+        
+                            reader.onload = function (e) {
+                                $.proxy(that, 'showImage', e.target.result, data)();
+                            };
+        
+                            reader.readAsDataURL(data.files[0]);
+                        } else {
+                            data.submit();
+                        }
+                    });
+                }
+            } else {
+
+                $place.addClass('medium-insert-images');
+                $.proxy(that, 'showImage', e, {})();
+            }
     };
 
     /**
@@ -376,7 +381,7 @@
         var $place = this.$el.find('.medium-insert-active'),
             domImage,
             that;
-
+ 
         // Hide editor's placeholder
         $place.click();
 
@@ -397,11 +402,23 @@
             domImage.src = img;
         } else {
             data.context = $(this.templates['src/js/templates/images-image.hbs']({
-                img: img,
+                img: typeof img === 'object'? img.url : img,
                 progress: this.options.preview
             })).appendTo($place);
 
             $place.find('br').remove();
+            
+            if (typeof img === 'object' && that.options.captions) {
+                const $image = $place.find('img');
+
+                img.alt? 
+                   (()=>{
+                       that.core.addCaption($image.closest('figure'), that.options.captionPlaceholder)
+                       that.core.addCaptionContent($place, img.alt)
+                   })()
+                   :
+                   null;
+            }
 
             if (this.options.autoGrid && $place.find('figure').length >= this.options.autoGrid) {
                 $.each(this.options.styles, function (style, options) {

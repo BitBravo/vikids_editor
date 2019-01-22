@@ -7,7 +7,7 @@
     defaults = {
         label: '<span class="fa fa-youtube-play"></span>',
         placeholder: 'Paste a YouTube, Vimeo, Facebook, Twitter or Instagram link and press Enter',
-        oembedProxy: 'http://medium.iframe.ly/api/oembed?iframe=1',
+        oembedProxy: 'http://iframe.ly/api/oembed?iframe=1&v=2Lwd46qBrqU&key=11a71596c5f82d2a76aed5cf07cfef4c',
         captions: true,
         captionPlaceholder: 'Type caption (optional)',
         storeMeta: false,
@@ -328,7 +328,7 @@
      * @return {void}
      */
 
-    Embeds.prototype.oembed = function (url, pasted) {
+    Embeds.prototype.oembed = function (url, pasted, altText) {
         console.log('Embded->Oembed 335 ===>', url, pasted)
         var that = this;
 
@@ -362,7 +362,7 @@
                 if (pasted) {
                     $.proxy(that, 'embed', html, url)();
                 } else {
-                    $.proxy(that, 'embed', html)();
+                    $.proxy(that, 'embed', html, null, altText)();
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -430,18 +430,11 @@
      * @return {void}
      */
 
-    Embeds.prototype.embed = function (html, pastedUrl) {
-        var $place1 = this.$el.find('.medium-insert-images');
-        var $place2 = this.$el.find('.medium-insert-embeds-active');
-        console.log(this.$el)
-        console.log($place1)
-        console.log($place2)
+    Embeds.prototype.embed = function (html, pastedUrl, altText) {
+            var $place = this.$el.find('.medium-insert-embeds-active'),
+            $div, that;
+            that = this;
 
-        var $place = this.$el.find('.medium-insert-embeds-active'),
-            $div;
-            // https://www.youtube.com/watch?v=2Lwd46qBrqU
-        console.log('Added new embed div into active dom')
-        console.log(html, $place, $div)
         if (!html) {
             alert('Incorrect URL format specified');
             return false;
@@ -454,7 +447,7 @@
                     .html(html);
                 html = $('<div>').append($div).html();
             }
-            console.log('Embed->embed 453 ===>', html)
+
             if (pastedUrl) {
                 // Get the element with the pasted url
                 // place the embed template and remove the pasted text
@@ -469,10 +462,23 @@
                 }));
                 $place.text($place.text().replace(pastedUrl, ''));
             } else {
-                $place.after(this.templates['src/js/templates/embeds-wrapper.hbs']({
-                    html: html
-                }));
-                $place.remove();
+                if(altText) {
+                    $place.append(this.templates['src/js/templates/embeds-wrapper.hbs']({
+                        html: html
+                    }));
+
+                    if (that.options.captions) {
+                        that.core.addCaption($place.find('figure'), that.options.captionPlaceholder);
+                        that.core.addCaptionContent($place, altText)
+                    }
+                    
+                    $place.replaceWith($place.find('.medium-insert-embeds'))
+                } else {
+                    $place.after(this.templates['src/js/templates/embeds-wrapper.hbs']({
+                        html: html
+                    }));
+                    $place.remove();
+                }
             }
 
 
