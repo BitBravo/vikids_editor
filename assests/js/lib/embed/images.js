@@ -402,11 +402,23 @@
             domImage.src = img;
         } else {
             data.context = $(this.templates['src/js/templates/images-image.hbs']({
-                img: img,
+                img: typeof img === 'object'? img.url : img,
                 progress: this.options.preview
             })).appendTo($place);
 
             $place.find('br').remove();
+            
+            if (typeof img === 'object' && that.options.captions) {
+                const $image = $place.find('img');
+
+                img.alt? 
+                   (()=>{
+                       that.core.addCaption($image.closest('figure'), that.options.captionPlaceholder)
+                       that.core.addCaptionContent($place, img.alt)
+                   })()
+                   :
+                   null;
+            }
 
             if (this.options.autoGrid && $place.find('figure').length >= this.options.autoGrid) {
                 $.each(this.options.styles, function (style, options) {

@@ -610,7 +610,7 @@
 
         if ($caption.length === 0) {
             $el.append(this.templates['src/js/templates/core-caption.hbs']({
-                placeholder: placeholder
+                placeholder: placeholder,
             }));
         }
     };
@@ -655,6 +655,24 @@
     };
 
     /**
+     * Remove caption placeholder
+     *
+     * @param {jQuery Element} $el
+     * @return {void}
+     */
+
+    Core.prototype.addCaptionContent = function ($el, text) {
+        var $caption = $el.is('figcaption') ? $el : $el.find('figcaption');
+
+        if ($caption.length) {
+            $caption[0].innerHTML = text;
+            $caption
+                .removeClass('medium-insert-caption-placeholder')
+                .removeAttr('data-placeholder');
+        }
+    };
+
+    /**
      * Create the empty media container
      *
      * @param {object} data
@@ -687,7 +705,7 @@
         console.log(`MediaType=> ${data.type}, URL=> ${data.url}, Text=> ${data.alt}, State=> ${result}`)
         if(result === 'success' && data.type === 'img') {
             that.createEmptyMediaDiv(data)
-            that.$el.data('plugin_' + pluginName + ucfirst('images'))['uploadAdd'](data.url, {});
+            that.$el.data('plugin_' + pluginName + ucfirst('images'))['uploadAdd'](data, {});
         }
         console.log(result, data)
         if(result === 'success' && data.type === 'mov') {
