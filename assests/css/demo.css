@@ -175,3 +175,7 @@ footer a {
 footer .fa {
     font-size: 2.5em;
 }
+
+.medium-insert-embeds>figure {
+    margin: 0;
+}
