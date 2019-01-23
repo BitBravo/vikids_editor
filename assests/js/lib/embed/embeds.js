@@ -344,7 +344,6 @@
             },
             success: function (data) {
                 var html = data && data.html;
-                console.log('response data ===>', html)
 
                 if (that.options.storeMeta) {
                     html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify(data) + '</script></div>';
@@ -461,7 +460,6 @@
                 $place.after(this.templates['src/js/templates/embeds-wrapper.hbs']({
                     html: html
                 }));
-
                 $place.text($place.text().replace(pastedUrl, ''));
             } else {
                 if(altText) {
