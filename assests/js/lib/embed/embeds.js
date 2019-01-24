@@ -26,7 +26,7 @@
                 label: '<span class="fa fa-align-right"></span>'
                 // added: function ($el) {},
                 // removed: function ($el) {}
-            }
+            },
         },
         actions: {
             remove: {
@@ -177,7 +177,6 @@
      */
 
     Embeds.prototype.add = function () {
-        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
         var $place = this.$el.find('.medium-insert-active');
 
         // Fix #132
@@ -726,7 +725,7 @@
 
         $lis.find('button').each(function () {
             var className = 'medium-insert-embeds-' + $(this).data('action');
-
+            console.log(className)
             if ($(this).hasClass('medium-editor-button-active')) {
                 $embed.addClass(className);
 
