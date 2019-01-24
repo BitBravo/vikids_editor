@@ -521,7 +521,6 @@
      */
 
     Core.prototype.toggleAddons = function () {
-        console.log('insert new medias (core->toglleAddons)')
         if (this.$el.find('.medium-insert-buttons').attr('data-active-addon') === 'images') {
             this.$el.find('.medium-insert-buttons').find('button[data-addon="images"]').click();
             return;

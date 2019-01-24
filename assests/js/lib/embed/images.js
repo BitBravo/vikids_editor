@@ -15,9 +15,9 @@
             captions: true,
             captionPlaceholder: 'Type caption for image (optional)',
             autoGrid: 3,
-            fileUploadOptions: { // See https://github.com/blueimp/jQuery-File-Upload/wiki/Options
+            fileUploadOptions: {
                 url: null,
-                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                acceptFileTypes: /(\.|\/)(gif|jpe?g|png|mp4|avi|mpeg|)$/i
             },
             fileDeleteOptions: {},
             styles: {
@@ -206,6 +206,7 @@
                     $.proxy(that, 'uploadDone', e, data)();
                 }
             };
+          
 
         // Only add progress callbacks for browsers that support XHR2,
         // and test for XHR2 per:
@@ -236,6 +237,9 @@
      */
 
     Images.prototype.uploadAdd = function (e, data) {
+
+        console.log('~~~~~~~~~~     option    ~~~~~~~~~~~~~~~')
+        console.log(data)
         var $place = this.$el.find('.medium-insert-active'),
             that = this,
             uploadErrors = [],
@@ -243,7 +247,7 @@
             acceptFileTypes = this.options.fileUploadOptions.acceptFileTypes,
             maxFileSize = this.options.fileUploadOptions.maxFileSize,
             reader;
-            
+
             if(file) {
                 if (acceptFileTypes && !acceptFileTypes.test(file.type)) {
                     uploadErrors.push(this.options.messages.acceptFileTypesError + file.name);
@@ -262,7 +266,7 @@
                 }
     
                 this.core.hideButtons();
-    
+
                 // Replace paragraph with div, because figure elements can't be inside paragraph
                 if ($place.is('p')) {
                     $place.replaceWith('<div class="medium-insert-active">' + $place.html() + '</div>');
@@ -282,6 +286,7 @@
                 }
         
                 if (data.autoUpload || (data.autoUpload !== false && $(e.target).fileupload('option', 'autoUpload'))) {
+
                     data.process().done(function () {
                         // If preview is set to true, let the showImage handle the upload start
                         if (that.options.preview) {
