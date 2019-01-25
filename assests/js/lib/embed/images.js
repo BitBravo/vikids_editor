@@ -16,8 +16,10 @@
             captionPlaceholder: 'Type caption for image (optional)',
             autoGrid: 3,
             fileUploadOptions: {
-                url: null,
-                acceptFileTypes: /(\.|\/)(gif|jpe?g|png|mp4|avi|mpeg|)$/i
+                url: 'http://localhost:3000/upload',
+                type: 'POST',
+                acceptFileTypes: /(\.|\/)(gif|jpe?g|png|mp4|avi|mpeg|)$/i,
+                sequentialUploads: true,
             },
             fileDeleteOptions: {},
             styles: {
@@ -212,15 +214,16 @@
         // and test for XHR2 per:
         // http://stackoverflow.com/questions/6767887/
         // what-is-the-best-way-to-check-for-xhr2-file-upload-support
-        if (new XMLHttpRequest().upload) {
-            fileUploadOptions.progress = function (e, data) {
-                $.proxy(that, 'uploadProgress', e, data)();
-            };
+        // if (new XMLHttpRequest().upload) {
+        //     fileUploadOptions.progress = function (e, data) {
+        //         $.proxy(that, 'uploadProgress', e, data)();
+        //     };
 
-            fileUploadOptions.progressall = function (e, data) {
-                $.proxy(that, 'uploadProgressall', e, data)();
-            };
-        }
+        //     fileUploadOptions.progressall = function (e, data) {
+        //         $.proxy(that, 'uploadProgressall', e, data)();
+        //     };
+        // }
+
 
         $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
 
@@ -238,8 +241,6 @@
 
     Images.prototype.uploadAdd = function (e, data) {
 
-        console.log('~~~~~~~~~~     option    ~~~~~~~~~~~~~~~')
-        console.log(data)
         var $place = this.$el.find('.medium-insert-active'),
             that = this,
             uploadErrors = [],
@@ -303,7 +304,6 @@
                     });
                 }
             } else {
-
                 $place.addClass('medium-insert-images');
                 $.proxy(that, 'showImage', e, {})();
             }
@@ -369,6 +369,7 @@
      */
 
     Images.prototype.uploadDone = function (e, data) {
+        console.log(data)
         $.proxy(this, 'showImage', data.result.files[0].url, data)();
 
         this.core.clean();
@@ -383,6 +384,7 @@
      */
 
     Images.prototype.showImage = function (img, data) {
+        console.log('Showimage =>', data)
         var $place = this.$el.find('.medium-insert-active'),
             domImage,
             that;
