@@ -432,9 +432,11 @@
      */
 
     Embeds.prototype.embed = function (html, pastedUrl, altText) {
-            var $place = this.$el.find('.medium-insert-embeds-active'),
+            var $place = this.$el.find('.medium-insert-embeds-active').length? this.$el.find('.medium-insert-embeds-active') : this.$el.find('.medium-insert-active'),
             $div, that;
             that = this;
+
+        $place.attr('class', 'medium-insert-embeds-active');
 
         if (!html) {
             alert('Incorrect URL format specified');
