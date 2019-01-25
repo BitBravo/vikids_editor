@@ -79,6 +79,10 @@
             // uploadCompleted: function ($el, data) {}
         };
 
+    function ucfirst(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
     /**
      * Images object
      *
@@ -214,19 +218,18 @@
         // and test for XHR2 per:
         // http://stackoverflow.com/questions/6767887/
         // what-is-the-best-way-to-check-for-xhr2-file-upload-support
-        // if (new XMLHttpRequest().upload) {
-        //     fileUploadOptions.progress = function (e, data) {
-        //         $.proxy(that, 'uploadProgress', e, data)();
-        //     };
+        if (new XMLHttpRequest().upload) {
+            fileUploadOptions.progress = function (e, data) {
+                $.proxy(that, 'uploadProgress', e, data)();
+            };
 
-        //     fileUploadOptions.progressall = function (e, data) {
-        //         $.proxy(that, 'uploadProgressall', e, data)();
-        //     };
-        // }
+            fileUploadOptions.progressall = function (e, data) {
+                $.proxy(that, 'uploadProgressall', e, data)();
+            };
+        }
 
 
         $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
-
         $file.click();
     };
 
@@ -248,72 +251,62 @@
             maxFileSize = this.options.fileUploadOptions.maxFileSize,
             reader;
 
-            // If second parameter of uploadAdd, data has valid object value, 
-            // Add classname for image content and let showimage handle to uplad media files.   
-            if(file) {
-                console.log('file in upload function => ', file)
 
-                if (acceptFileTypes && !acceptFileTypes.test(file.type)) {
-                    uploadErrors.push(this.options.messages.acceptFileTypesError + file.name);
-                } else if (maxFileSize && file.size > maxFileSize) {
-                    uploadErrors.push(this.options.messages.maxFileSizeError + file.name);
-                }
+        if (acceptFileTypes && !acceptFileTypes.test(file.type)) {
+            uploadErrors.push(this.options.messages.acceptFileTypesError + file.name);
+        } else if (maxFileSize && file.size > maxFileSize) {
+            uploadErrors.push(this.options.messages.maxFileSizeError + file.name);
+        }
 
-                if (uploadErrors.length > 0) {
-                    if (this.options.uploadFailed && typeof this.options.uploadFailed === "function") {
-                        this.options.uploadFailed(uploadErrors, data);
-                        return;
-                    }
-        
-                    alert(uploadErrors.join("\n"));
-                    return;
-                }
-    
-                this.core.hideButtons();
-
-                //  Replace paragraph with div, because figure elements can't be inside paragraph,              
-                if ($place.is('p')) {
-                    $place.replaceWith('<div class="medium-insert-active">' + $place.html() + '</div>');
-                    $place = this.$el.find('.medium-insert-active');
-                    if ($place.next().is('p')) {
-                        this.core.moveCaret($place.next());
-                    } else {
-                        $place.after('<p><br></p>'); // add empty paragraph so we can move the caret to the next line.
-                        this.core.moveCaret($place.next());
-                    }
-                }
-    
-                $place.addClass('medium-insert-images');
-    
-                if (this.options.preview === false && $place.find('progress').length === 0 && (new XMLHttpRequest().upload)) {
-                    $place.append(this.templates['src/js/templates/images-progressbar.hbs']());
-                }
-        
-                if (data.autoUpload || (data.autoUpload !== false && $(e.target).fileupload('option', 'autoUpload'))) {
-
-                    data.process().done(function () {
-                        // If preview is set to true, let the showImage handle the upload start
-                        if (that.options.preview) {
-                            reader = new FileReader();
-        
-                            reader.onload = function (e) {
-                                // first parameter is File content (data:image/jpeg;base64)
-                                $.proxy(that, 'showImage', e.target.result, data)();
-                            };
-        
-                            reader.readAsDataURL(data.files[0]);
-                        } else {
-                            // If preview is set to false, then do force upload
-                            data.submit();
-                        }
-                    });
-                }
-            } else {
-                $place.addClass('medium-insert-images');
-                console.log('file doesn\'t exist in upload function')
-                // e is File URL
-                $.proxy(that, 'showImage', e, {})();
+        if (uploadErrors.length > 0) {
+            if (this.options.uploadFailed && typeof this.options.uploadFailed === "function") {
+                this.options.uploadFailed(uploadErrors, data);
+                return;
             }
+
+            alert(uploadErrors.join("\n"));
+            return;
+        }
+
+        this.core.hideButtons();
+
+        //  Replace paragraph with div, because figure elements can't be inside paragraph,              
+        if ($place.is('p')) {
+            $place.replaceWith('<div class="medium-insert-active">' + $place.html() + '</div>');
+            $place = this.$el.find('.medium-insert-active');
+            if ($place.next().is('p')) {
+                this.core.moveCaret($place.next());
+            } else {
+                $place.after('<p><br></p>'); // add empty paragraph so we can move the caret to the next line.
+                this.core.moveCaret($place.next());
+            }
+        }
+
+        $place.addClass('medium-insert-images');
+
+        if (this.options.preview === false && $place.find('progress').length === 0 && (new XMLHttpRequest().upload)) {
+            $place.append(this.templates['src/js/templates/images-progressbar.hbs']());
+        }
+
+        if (data.autoUpload || (data.autoUpload !== false && $(e.target).fileupload('option', 'autoUpload'))) {
+
+            data.process().done(function () {
+                // If preview is set to true, let the showImage handle the upload start
+                if (that.options.preview) {
+                    reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        // first parameter is File content (data:image/jpeg;base64)
+                        $.proxy(that, 'showImage', e.target.result, data)();
+                    };
+
+                    reader.readAsDataURL(data.files[0]);
+                } else {
+                    // If preview is set to false, then do force upload
+                    data.submit();
+                }
+            });
+        }
     };
 
     /**
@@ -376,8 +369,14 @@
      */
 
     Images.prototype.uploadDone = function (e, data) {
-        console.log('uploaddon=> ', data)
-        $.proxy(this, 'showImage', data.result, data)();
+        console.log('uploadDone=> ', data)
+        // data.result: expect value -> {type: '', url: ''}
+        if(data.type ==='img') {
+            $.proxy(this, 'showImage', data.result, data)();
+        } else {
+            // this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed'](data.result.url);
+            this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed']('https://www.youtube.com/watch?v=2Lwd46qBrqU');
+        }
 
         this.core.clean();
         this.sorting();
@@ -391,7 +390,7 @@
      */
 
     Images.prototype.showImage = function (img, data) {
-        console.log('Showimage =>', img, data)
+        console.log(img)
         var $place = this.$el.find('.medium-insert-active'),
             domImage,
             that;
@@ -420,25 +419,12 @@
 
         } else {
             console.log('data content does not exist')
-
             data.context = $(this.templates['src/js/templates/images-image.hbs']({
                 img: typeof img === 'object'? img.url : img,
                 progress: this.options.preview
             })).appendTo($place);
 
             $place.find('br').remove();
-            
-            if (typeof img === 'object' && that.options.captions) {
-                const $image = $place.find('img');
-
-                img.alt? 
-                   (()=>{
-                       that.core.addCaption($image.closest('figure'), that.options.captionPlaceholder)
-                       that.core.addCaptionContent($place, img.alt)
-                   })()
-                   :
-                   null;
-            }
 
             if (this.options.autoGrid && $place.find('figure').length >= this.options.autoGrid) {
                 $.each(this.options.styles, function (style, options) {
@@ -459,7 +445,7 @@
             }
 
             // Preview is to set as true, then upload media files here
-            if (this.options.preview && typeof img !== 'object') {
+            if (this.options.preview) {
                 data.submit();
             } else if (this.options.uploadCompleted) {
                 this.options.uploadCompleted(data.context, data);
@@ -478,7 +464,7 @@
      * @returns {void}
      */
     Images.prototype.showImageByURL = function (img) {
-        console.log('ShowimageByURL =>', img, data)
+        console.log('ShowimageByURL =>', img)
         var $place = this.$el.find('.medium-insert-active').length? this.$el.find('.medium-insert-active') : this.$el.find('.medium-insert-embeds-active'),
             that = this;
         
