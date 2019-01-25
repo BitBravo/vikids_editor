@@ -551,7 +551,7 @@
      */
 
     Core.prototype.addonAction = function (e) {
-        console.log('select any media type here', e.currentTarget)
+        console.log('select any media type here: core->addonAction')
         var $a = $(e.currentTarget),
             addon = $a.data('addon'),
             action = $a.data('action');
@@ -810,7 +810,6 @@
             const altText = matches[2]
             const filePath = matches[3];
 
-            console.log('template validate')
             console.log(`PatternType => ${mediaType}, AltText => ${altText}, FilePath => ${filePath}`)
 
             // check if the current file is valid media file
@@ -853,7 +852,6 @@
 
         // Parsed element data || false
         const templateValidate = this.checkTemplateValidate();  
-        console.log('template validate', templateValidate)
         if (templateValidate) {
             const mediaTyepe = templateValidate.type;
             const mediaPath = templateValidate.url;

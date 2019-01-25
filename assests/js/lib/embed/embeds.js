@@ -56,7 +56,6 @@
 
     function Embeds(el, options) {
 
-        console.log('emped ===>  @@@@@@@@@@@@@@')
         this.el = el;
         this.$el = $(el);
         this.templates = window.MediumInsert.Templates;
@@ -266,9 +265,6 @@
      */
 
     Embeds.prototype.processLink = function (e) {
-        // console.log(this.core.capturePattern)
-        console.log('------------   Embded ProcessLink    ---------------')
-
         var $place = this.$el.find('.medium-insert-embeds-active'),
             url;
 

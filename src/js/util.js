@@ -124,7 +124,6 @@
         },
 
         defaults: function defaults(/*dest, source1, source2, ...*/) {
-            console.log(`5th ->  utils.default`)
             var args = [false].concat(Array.prototype.slice.call(arguments));
             return copyInto.apply(this, args);
         },
