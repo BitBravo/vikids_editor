@@ -395,7 +395,7 @@
         var $place = this.$el.find('.medium-insert-active'),
             domImage,
             that;
- 
+
         // Hide editor's placeholder
         $place.click();
 
@@ -469,6 +469,59 @@
         this.core.triggerInput();
 
         return data.context;
+    };
+
+     /**
+     * Display image to DOM
+     *
+     * @param {string} img   // File data or File URL
+     * @returns {void}
+     */
+    Images.prototype.showImageByURL = function (img) {
+        console.log('ShowimageByURL =>', img, data)
+        var $place = this.$el.find('.medium-insert-active').length? this.$el.find('.medium-insert-active') : this.$el.find('.medium-insert-embeds-active'),
+            that = this;
+        
+        $place.attr('class', 'medium-insert-active medium-insert-images');
+        $place.click();
+
+        $place[0].innerHTML = this.templates['src/js/templates/images-image.hbs']({
+            img: typeof img === 'object'? img.url : img,
+            progress: this.options.preview
+        })
+       
+        $place.find('br').remove();
+            
+        if (typeof img === 'object' && that.options.captions) {
+            const $image = $place.find('img');
+
+            img.alt? 
+                (()=>{
+                    that.core.addCaption($image.closest('figure'), that.options.captionPlaceholder)
+                    that.core.addCaptionContent($place, img.alt)
+                })()
+                :
+                null;
+        }
+
+        if (this.options.autoGrid && $place.find('figure').length >= this.options.autoGrid) {
+            $.each(this.options.styles, function (style, options) {
+                var className = 'medium-insert-images-' + style;
+
+                $place.removeClass(className);
+
+                if (options.removed) {
+                    options.removed($place);
+                }
+            });
+
+            $place.addClass('medium-insert-images-grid');
+
+            if (this.options.styles.grid.added) {
+                this.options.styles.grid.added($place);
+            }
+        }
+        this.core.triggerInput();
     };
 
     Images.prototype.getDOMImage = function () {

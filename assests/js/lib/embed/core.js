@@ -705,7 +705,8 @@
 
         if(result === 'success' && data.type === 'img') {
             that.createEmptyMediaDiv(data, "medium-insert-active")
-            that.$el.data('plugin_' + pluginName + ucfirst('images'))['uploadAdd'](data, {});
+            // that.$el.data('plugin_' + pluginName + ucfirst('images'))['uploadAdd'](data, {});
+            that.$el.data('plugin_' + pluginName + ucfirst('images'))['showImageByURL'](data, {});
         }
 
         if(result === 'success' && data.type === 'mov') {
