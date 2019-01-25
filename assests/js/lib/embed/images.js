@@ -197,6 +197,7 @@
      */
 
     Images.prototype.add = function () {
+        console.log('add function')
         var that = this,
             $file = $(this.templates['src/js/templates/images-fileupload.hbs']()),
             fileUploadOptions = {
@@ -208,7 +209,6 @@
                     $.proxy(that, 'uploadDone', e, data)();
                 }
             };
-          
 
         // Only add progress callbacks for browsers that support XHR2,
         // and test for XHR2 per:
@@ -232,7 +232,6 @@
 
     /**
      * Callback invoked as soon as files are added to the fileupload widget - via file input selection, drag & drop or add API call.
-     * https://github.com/blueimp/jQuery-File-Upload/wiki/Options#add
      *
      * @param {Event} e
      * @param {object} data
@@ -249,7 +248,11 @@
             maxFileSize = this.options.fileUploadOptions.maxFileSize,
             reader;
 
+            // If second parameter of uploadAdd, data has valid object value, 
+            // Add classname for image content and let showimage handle to uplad media files.   
             if(file) {
+                console.log('file in upload function => ', file)
+
                 if (acceptFileTypes && !acceptFileTypes.test(file.type)) {
                     uploadErrors.push(this.options.messages.acceptFileTypesError + file.name);
                 } else if (maxFileSize && file.size > maxFileSize) {
@@ -268,7 +271,7 @@
     
                 this.core.hideButtons();
 
-                // Replace paragraph with div, because figure elements can't be inside paragraph
+                //  Replace paragraph with div, because figure elements can't be inside paragraph,              
                 if ($place.is('p')) {
                     $place.replaceWith('<div class="medium-insert-active">' + $place.html() + '</div>');
                     $place = this.$el.find('.medium-insert-active');
@@ -294,17 +297,21 @@
                             reader = new FileReader();
         
                             reader.onload = function (e) {
+                                // first parameter is File content (data:image/jpeg;base64)
                                 $.proxy(that, 'showImage', e.target.result, data)();
                             };
         
                             reader.readAsDataURL(data.files[0]);
                         } else {
+                            // If preview is set to false, then do force upload
                             data.submit();
                         }
                     });
                 }
             } else {
                 $place.addClass('medium-insert-images');
+                console.log('file doesn\'t exist in upload function')
+                // e is File URL
                 $.proxy(that, 'showImage', e, {})();
             }
     };
@@ -369,8 +376,8 @@
      */
 
     Images.prototype.uploadDone = function (e, data) {
-        console.log(data)
-        $.proxy(this, 'showImage', data.result.files[0].url, data)();
+        console.log('uploaddon=> ', data)
+        $.proxy(this, 'showImage', data.result, data)();
 
         this.core.clean();
         this.sorting();
@@ -379,12 +386,12 @@
     /**
      * Add uploaded / preview image to DOM
      *
-     * @param {string} img
+     * @param {string} img   // File data or File URL
      * @returns {void}
      */
 
     Images.prototype.showImage = function (img, data) {
-        console.log('Showimage =>', data)
+        console.log('Showimage =>', img, data)
         var $place = this.$el.find('.medium-insert-active'),
             domImage,
             that;
@@ -396,9 +403,12 @@
         // replace it with uploaded image
         that = this;
         if (this.options.preview && data.context) {
+            console.log('data content exist, replace the real data', img.url)
             domImage = this.getDOMImage();
+            const fileUrl = img.url.match(/(http|https):\/\//)? ima.url: `http://${img.url}`;
+
             domImage.onload = function () {
-                data.context.find('img').attr('src', img);
+                data.context.find('img').attr('src', fileUrl);
 
                 if (this.options.uploadCompleted) {
                     this.options.uploadCompleted(data.context, data);
@@ -406,8 +416,11 @@
 
                 that.core.triggerInput();
             }.bind(this);
-            domImage.src = img;
+            domImage.src = fileUrl;
+
         } else {
+            console.log('data content does not exist')
+
             data.context = $(this.templates['src/js/templates/images-image.hbs']({
                 img: typeof img === 'object'? img.url : img,
                 progress: this.options.preview
@@ -445,7 +458,8 @@
                 }
             }
 
-            if (this.options.preview) {
+            // Preview is to set as true, then upload media files here
+            if (this.options.preview && typeof img !== 'object') {
                 data.submit();
             } else if (this.options.uploadCompleted) {
                 this.options.uploadCompleted(data.context, data);
