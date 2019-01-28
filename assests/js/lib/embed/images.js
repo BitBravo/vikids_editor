@@ -369,8 +369,6 @@
      */
 
     Images.prototype.uploadDone = function (e, data) {
-        console.log('uploadDone=> ', data)
-        // data.result: expect value -> {type: '', url: ''}
         if(data.type ==='img') {
             $.proxy(this, 'showImage', data.result, data)();
         } else {
