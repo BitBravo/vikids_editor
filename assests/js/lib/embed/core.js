@@ -42,7 +42,8 @@
         this.$el = $(el);
         this.templates = window.MediumInsert.Templates;
         this.extend = new Extend();
-        this.targetEl = ''
+        this.targetEl = '',
+        this.ctTime = null;
 
         if (options) {
             // Fix #142
@@ -483,6 +484,7 @@
      */
 
     Core.prototype.positionButtons = function (activeAddon) {
+        // console.log(activeAddon)
         var $buttons = this.$el.find('.medium-insert-buttons'),
             $p = this.$el.find('.medium-insert-active'),
             $lastCaption = $p.hasClass('medium-insert-images-grid') ? [] : $p.find('figure:last figcaption'),
@@ -521,6 +523,7 @@
      */
 
     Core.prototype.toggleAddons = function () {
+        console.log('~~~~~~~~~~~~~~~    toggleAddons    ~~~~~~~~~~~~~~~~~')
         if (this.$el.find('.medium-insert-buttons').attr('data-active-addon') === 'images') {
             this.$el.find('.medium-insert-buttons').find('button[data-addon="images"]').click();
             return;
@@ -839,17 +842,78 @@
         })();
     };
 
+    Core.prototype.getCursorPosition = function (element) {
+        element = element || document.querySelector('.editable')
+        var caretOffset = 0;
+        var preCaretRange = '';
+        var doc = element.ownerDocument || element.document;
+        var win = doc.defaultView || doc.parentWindow;
+        var sel;
+        if (typeof win.getSelection != "undefined") {
+            sel = win.getSelection();
+            if (sel.rangeCount > 0) {
+                var range = win.getSelection().getRangeAt(0);
+                preCaretRange = range.cloneRange();
+                preCaretRange.selectNodeContents(element);
+                preCaretRange.setEnd(range.endContainer, range.endOffset);
+                caretOffset = preCaretRange.toString().length;
+            }
+        } else if ( (sel = doc.selection) && sel.type != "Control") {
+            var textRange = sel.createRange();
+            var preCaretTextRange = doc.body.createTextRange();
+            preCaretTextRange.moveToElementText(element);
+            preCaretTextRange.setEndPoint("EndToEnd", textRange);
+            caretOffset = preCaretTextRange.text.length;
+        }
+
+        return {point: caretOffset, text: preCaretRange.toString()}
+    }
+  
+    Core.prototype.getAllTextnodes = function (el) {
+        el = el || document.querySelector('.editable')
+        var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
+        while(n=walk.nextNode()) a.push(n);
+        return a;
+    }
+
+    Core.prototype.getCursorData = function (el, position){
+        el = el || document.querySelector('.editable')
+        var node, nodes = this.getAllTextnodes(el);
+        for(var n = 0; n < nodes.length; n++) {
+            if (position > nodes[n].nodeValue.length && nodes[n+1]) {
+                // remove amount from the position, go to next node
+                position -= nodes[n].nodeValue.length;
+            } else {
+                node = nodes[n];
+                break;
+            }
+        }
+        // you'll need the node and the position (offset) to set the caret
+        return { node: node, position: position };
+    }
+
+    Core.prototype.setCursorPosition = function (d) {
+        var sel = window.getSelection(),
+        range = document.createRange();
+        range.setStart(d.node, d.position);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+
+    Core.prototype.checkInputMediaToolbar = function () {
+        const cPoint = this.getCursorPosition();
+        const cPointDetail = this.getCursorData(null, cPoint.point);
+        console.log(cPointDetail)
+        // cPointDetail.node.parentElement.replaceChild('<h2>New heading</h2>');
+
+    }
+
     Core.prototype.checkCustomPattern = function () {
         var an = window.getSelection().anchorNode;
         this.targetEl = $(an.parentElement);
 
-
-        // var $place1 = this.$el.find('.medium-insert-images');
-        // var $place2 = this.$el.find('.medium-insert-embeds-active');
-        // console.log(this.$el)
-        // console.log($place1)
-        // console.log($place2)
-
+        this.checkInputMediaToolbar();
         // Parsed element data || false
         const templateValidate = this.checkTemplateValidate();  
         if (templateValidate) {
@@ -866,23 +930,17 @@
 
         }
     }
-    
-    Core.prototype.simulateKeydown = function (el, keycode, isCtrl, isAlt, isShift) {
-        var e = new KeyboardEvent( "keydown", { bubbles:true, cancelable:true, char:String.fromCharCode(keycode), key:String.fromCharCode(keycode), shiftKey:isShift, ctrlKey:isCtrl, altKey:isAlt } );
-        Object.defineProperty(e, 'keyCode', {get : function() { return this.keyCodeVal; } });     
-        e.keyCodeVal = keycode;
-        el.dispatchEvent(e);
-    }
-    
+        
     Core.prototype.capturePattern = function () {
-        if(ctTime) {
-            window.clearTimeout(ctTime)
-            ctTime = null
-        } else {
-            ctTime = window.setTimeout(() => {
+        if(this.ctTime) {
+            window.clearTimeout(this.ctTime)
+            this.ctTime = null
+        } 
+        
+        this.ctTime = window.setTimeout(() => {
             this.checkCustomPattern();
-            }, 100);
-        }
+        }, 500);
+
     }
 
     /** Plugin initialization */
