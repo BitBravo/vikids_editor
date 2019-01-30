@@ -202,12 +202,15 @@
 
     Images.prototype.add = function (mediaData) {
         console.log('add function')
-        if(!mediaData) {
             var that = this,
                 $file = $(this.templates['src/js/templates/images-fileupload.hbs']()),
                 fileUploadOptions = {
                     dataType: 'json',
-                    files: null,
+                    replaceFileInput: true,
+                    drop: function (e, data) {
+                        console.log('drop axction', data)
+
+                    },
                     add: function (e, data) {
                         console.log('new add call back', data)
 
@@ -236,11 +239,11 @@
         
         
             $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
-            $file.click();
-
-        // $file.fileupload('add', {files: mediaData});
-        } else {
-            $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
+            if(mediaData) {
+                
+                // $file.fileupload('add', {files: mediaData});
+            } else {
+                $file.click();
         }
     };
 

@@ -113,8 +113,8 @@
 
         this.$el
             .on('dragover drop', function (e) {
-                e.preventDefault();
-                $.proxy(that, 'dragDropAction')(e)
+                // e.preventDefault();
+                // $.proxy(that, 'dragDropAction')(e)
             })
             .on('keyup click', $.proxy(this, 'toggleButtons'))
             .on('selectstart mousedown', '.medium-insert, .medium-insert-buttons', $.proxy(this, 'disableSelection'))
@@ -299,6 +299,7 @@
             that.$el[addonName](options);
             that.options.addons[addon] = that.$el.data('plugin_' + addonName).options;
         });
+        this.$el.data('plugin_' + pluginName + ucfirst('images'))['add'](true);
         
     };
 
@@ -585,7 +586,7 @@
             newMediaDiv.className = 'medium-insert-active'
             targetElement.after(newMediaDiv);
             
-            // this.$el.data('plugin_' + pluginName + ucfirst('images'))['add'](mediaData);
+            // this.$el.data('plugin_' + pluginName + ucfirst('images'))['add'](true);
         }
     };
 
