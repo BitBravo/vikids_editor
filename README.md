@@ -5,12 +5,14 @@ Live URL: https://medium-editor-3379b.firebaseapp.com
 - How to create img and video elements 
             
     ```[![image caption](image_path)]```
+    
     ```[@[video caption](video url)]```
 
     Example: 
+      ```[![Houses](http://sfeizigroup.com/wp-content/uploads/2017/05/slide-5.jpg)]```
       [![Houses](http://sfeizigroup.com/wp-content/uploads/2017/05/slide-5.jpg)]
 
-  ![url parse](./asserts/img/a.png)
+      ```[@[video caption](video url)]```
 
 ## Main features
 
