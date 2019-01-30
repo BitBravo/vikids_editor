@@ -200,37 +200,48 @@
      * @return {void}
      */
 
-    Images.prototype.add = function () {
+    Images.prototype.add = function (mediaData) {
         console.log('add function')
-        var that = this,
-            $file = $(this.templates['src/js/templates/images-fileupload.hbs']()),
-            fileUploadOptions = {
-                dataType: 'json',
-                add: function (e, data) {
-                    $.proxy(that, 'uploadAdd', e, data)();
-                },
-                done: function (e, data) {
-                    $.proxy(that, 'uploadDone', e, data)();
-                }
-            };
+        if(!mediaData) {
+            var that = this,
+                $file = $(this.templates['src/js/templates/images-fileupload.hbs']()),
+                fileUploadOptions = {
+                    dataType: 'json',
+                    files: null,
+                    add: function (e, data) {
+                        console.log('new add call back', data)
+
+                        $.proxy(that, 'uploadAdd', e, data)();
+                        that.core.clean();
+                        that.sorting();
+                    },
+                    done: function (e, data) {
+                        $.proxy(that, 'uploadDone', e, data)();
+                    }
+                };
 
         // Only add progress callbacks for browsers that support XHR2,
         // and test for XHR2 per:
         // http://stackoverflow.com/questions/6767887/
         // what-is-the-best-way-to-check-for-xhr2-file-upload-support
-        if (new XMLHttpRequest().upload) {
-            fileUploadOptions.progress = function (e, data) {
-                $.proxy(that, 'uploadProgress', e, data)();
-            };
+        // if (new XMLHttpRequest().upload) {
+        //     fileUploadOptions.progress = function (e, data) {
+        //         $.proxy(that, 'uploadProgress', e, data)();
+        //     };
 
-            fileUploadOptions.progressall = function (e, data) {
-                $.proxy(that, 'uploadProgressall', e, data)();
-            };
+        //     fileUploadOptions.progressall = function (e, data) {
+        //         $.proxy(that, 'uploadProgressall', e, data)();
+        //     };
+        // }
+        
+        
+            $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
+            $file.click();
+
+        // $file.fileupload('add', {files: mediaData});
+        } else {
+            $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
         }
-
-
-        $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
-        $file.click();
     };
 
     /**
@@ -242,7 +253,6 @@
      */
 
     Images.prototype.uploadAdd = function (e, data) {
-
         var $place = this.$el.find('.medium-insert-active'),
             that = this,
             uploadErrors = [],
@@ -251,13 +261,12 @@
             maxFileSize = this.options.fileUploadOptions.maxFileSize,
             reader;
 
-
         if (acceptFileTypes && !acceptFileTypes.test(file.type)) {
             uploadErrors.push(this.options.messages.acceptFileTypesError + file.name);
         } else if (maxFileSize && file.size > maxFileSize) {
             uploadErrors.push(this.options.messages.maxFileSizeError + file.name);
         }
-
+            
         if (uploadErrors.length > 0) {
             if (this.options.uploadFailed && typeof this.options.uploadFailed === "function") {
                 this.options.uploadFailed(uploadErrors, data);
@@ -320,7 +329,7 @@
 
     Images.prototype.uploadProgressall = function (e, data) {
         var progress, $progressbar;
-
+        
         if (this.options.preview === false) {
             progress = parseInt(data.loaded / data.total * 100, 10);
             $progressbar = this.$el.find('.medium-insert-active').find('progress');
@@ -345,6 +354,7 @@
      */
 
     Images.prototype.uploadProgress = function (e, data) {
+
         var progress, $progressbar;
 
         if (this.options.preview) {
@@ -369,13 +379,14 @@
      */
 
     Images.prototype.uploadDone = function (e, data) {
-        if(data.type ==='img') {
-            $.proxy(this, 'showImage', data.result, data)();
-        } else {
-            // this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed'](data.result.url);
-            this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed']('https://www.youtube.com/watch?v=2Lwd46qBrqU');
+        if(data.result) {
+            if(data.result.type ==='img') {
+                $.proxy(this, 'showImage', data.result, data)();
+            } else {
+                // this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed'](data.result.url);
+                this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed']('https://www.youtube.com/watch?v=2Lwd46qBrqU');
+            }
         }
-
         this.core.clean();
         this.sorting();
     };
@@ -388,7 +399,7 @@
      */
 
     Images.prototype.showImage = function (img, data) {
-        console.log(img)
+
         var $place = this.$el.find('.medium-insert-active'),
             domImage,
             that;
@@ -462,6 +473,7 @@
      * @returns {void}
      */
     Images.prototype.showImageByURL = function (img) {
+
         console.log('ShowimageByURL =>', img)
         var $place = this.$el.find('.medium-insert-active').length? this.$el.find('.medium-insert-active') : this.$el.find('.medium-insert-embeds-active'),
             that = this;
@@ -520,6 +532,7 @@
      */
 
     Images.prototype.selectImage = function (e) {
+
         var that = this,
             $image;
 
@@ -552,6 +565,7 @@
      */
 
     Images.prototype.unselectImage = function (e) {
+
         var $el = $(e.target),
             $image = this.$el.find('.medium-insert-image-active');
 
@@ -581,6 +595,7 @@
      */
 
     Images.prototype.removeImage = function (e) {
+
         var images = [],
             $selectedImage = this.$el.find('.medium-insert-image-active'),
             $parent, $empty, selection, range, current, caretPosition, $current, $sibling, selectedHtml, i;

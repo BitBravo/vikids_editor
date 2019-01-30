@@ -1,6 +1,5 @@
-(function () {
+;(function ($, document, window) {
     'use strict';
-
     var CLASS_DRAG_OVER = 'medium-editor-dragover';
 
     function clearClassNames(element) {
@@ -87,4 +86,4 @@
     });
 
     MediumEditor.extensions.fileDragging = FileDragging;
-}());
+})($, document, window);

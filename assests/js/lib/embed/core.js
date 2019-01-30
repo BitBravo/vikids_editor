@@ -114,6 +114,7 @@
         this.$el
             .on('dragover drop', function (e) {
                 e.preventDefault();
+                $.proxy(that, 'dragDropAction')(e)
             })
             .on('keyup click', $.proxy(this, 'toggleButtons'))
             .on('selectstart mousedown', '.medium-insert, .medium-insert-buttons', $.proxy(this, 'disableSelection'))
@@ -298,6 +299,7 @@
             that.$el[addonName](options);
             that.options.addons[addon] = that.$el.data('plugin_' + addonName).options;
         });
+        
     };
 
     /**
@@ -561,6 +563,33 @@
         this.$el.data('plugin_' + pluginName + ucfirst(addon))[action]();
     };
 
+
+    /**
+     * Call drag-drop's action
+     *
+     * @param {Event} e
+     * @return {void}
+     */
+
+    Core.prototype.dragDropAction = function (e) {
+
+        const targetElement = e.target;
+        if(e.type === 'drop') {
+            console.log(targetElement)
+            const mediaData = e.originalEvent.dataTransfer.files;
+            this.$el.find('.medium-insert-active').removeClass('medium-insert-active');
+            this.$el.find('.medium-insert-embeds-active').removeClass('medium-insert-embeds-active');
+            e.target.click();
+
+            const newMediaDiv = document.createElement("div")
+            newMediaDiv.className = 'medium-insert-active'
+            targetElement.after(newMediaDiv);
+            
+            // this.$el.data('plugin_' + pluginName + ucfirst('images'))['add'](mediaData);
+        }
+    };
+
+
     /**
      * Move caret at the beginning of the empty paragraph
      *
@@ -708,6 +737,7 @@
 
         if(result === 'success' && data.type === 'img') {
             that.createEmptyMediaDiv(data, "medium-insert-active")
+
             that.$el.data('plugin_' + pluginName + ucfirst('images'))['showImageByURL'](data);
         }
 
