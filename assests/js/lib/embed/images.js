@@ -10,7 +10,7 @@
         defaults = {
             label: '<span class="fa fa-camera"></span>',
             deleteMethod: 'POST',
-            deleteScript: 'delete.php',
+            deleteScript: 'http://localhost:3000/delete',
             preview: true,
             captions: true,
             captionPlaceholder: 'Type caption for image (optional)',
@@ -209,7 +209,7 @@
                     dataType: 'json',
                     replaceFileInput: true,
                     drop: function (e, data) {
-                        e.preventDefault();
+                        // e.preventDefault();
                     },
                     add: function (e, data) {
                         $.proxy(that, 'uploadAdd', e, data)();

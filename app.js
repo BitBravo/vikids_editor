@@ -2,7 +2,7 @@ let express = require('express')
 let path = require('path')
 
 let app = express()
-const port = 8080;
+const port = 3000;
 app.use(express.static(path.join(__dirname, '/')));
 
 
