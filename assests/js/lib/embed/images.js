@@ -16,6 +16,7 @@
             captionPlaceholder: 'Type caption for image (optional)',
             autoGrid: 3,
             fileUploadOptions: {
+                // url: 'https://www.vikids.ru/medias',
                 url: 'http://localhost:3000/upload',
                 type: 'POST',
                 acceptFileTypes: /(\.|\/)(gif|jpe?g|png|mp4|avi|mpeg|)$/i,
@@ -201,7 +202,6 @@
      */
 
     Images.prototype.add = function (mediaData) {
-        console.log('add function')
         if(mediaData) {
             var that = this,
                 $file = $('input:file'),
@@ -209,15 +209,10 @@
                     dataType: 'json',
                     replaceFileInput: true,
                     drop: function (e, data) {
-                        console.log('drop axction', data)
-
+                        e.preventDefault();
                     },
                     add: function (e, data) {
-                        console.log('new add call back', data)
-
                         $.proxy(that, 'uploadAdd', e, data)();
-                        that.core.clean();
-                        that.sorting();
                     },
                     done: function (e, data) {
                         $.proxy(that, 'uploadDone', e, data)();
@@ -413,7 +408,6 @@
         // replace it with uploaded image
         that = this;
         if (this.options.preview && data.context) {
-            console.log('data content exist, replace the real data', img.url)
             domImage = this.getDOMImage();
             const fileUrl = img.url.match(/(http|https):\/\//)? ima.url: `http://${img.url}`;
 
@@ -429,7 +423,6 @@
             domImage.src = fileUrl;
 
         } else {
-            console.log('data content does not exist')
             data.context = $(this.templates['src/js/templates/images-image.hbs']({
                 img: typeof img === 'object'? img.url : img,
                 progress: this.options.preview
@@ -475,8 +468,6 @@
      * @returns {void}
      */
     Images.prototype.showImageByURL = function (img) {
-
-        console.log('ShowimageByURL =>', img)
         var $place = this.$el.find('.medium-insert-active').length? this.$el.find('.medium-insert-active') : this.$el.find('.medium-insert-embeds-active'),
             that = this;
         

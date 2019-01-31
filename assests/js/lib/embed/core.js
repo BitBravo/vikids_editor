@@ -112,10 +112,10 @@
         var that = this;
 
         this.$el
-            // .on('dragover drop', function (e) {
-            //     e.preventDefault();
-            //     // $.proxy(that, 'dragDropAction')(e)
-            // })
+            .on('dragover drop', function (e) {
+                e.preventDefault();
+                $.proxy(that, 'dragDropAction')(e)
+            })
             .on('keyup click', $.proxy(this, 'toggleButtons'))
             .on('selectstart mousedown', '.medium-insert, .medium-insert-buttons', $.proxy(this, 'disableSelection'))
             .on('click', '.medium-insert-buttons-show', $.proxy(this, 'toggleAddons'))
@@ -489,7 +489,6 @@
      */
 
     Core.prototype.positionButtons = function (activeAddon) {
-        // console.log(activeAddon)
         var $buttons = this.$el.find('.medium-insert-buttons'),
             $p = this.$el.find('.medium-insert-active'),
             $lastCaption = $p.hasClass('medium-insert-images-grid') ? [] : $p.find('figure:last figcaption'),
@@ -528,7 +527,6 @@
      */
 
     Core.prototype.toggleAddons = function () {
-        console.log('~~~~~~~~~~~~~~~    toggleAddons    ~~~~~~~~~~~~~~~~~')
         if (this.$el.find('.medium-insert-buttons').attr('data-active-addon') === 'images') {
             this.$el.find('.medium-insert-buttons').find('button[data-addon="images"]').click();
             return;
@@ -559,7 +557,6 @@
      */
 
     Core.prototype.addonAction = function (e) {
-        console.log('select any media type here: core->addonAction')
         var $a = $(e.currentTarget),
             addon = $a.data('addon'),
             action = $a.data('action');
@@ -578,17 +575,13 @@
 
         const targetElement = e.target;
         if(e.type === 'drop') {
-            console.log(targetElement)
-            const mediaData = e.originalEvent.dataTransfer.files;
             this.$el.find('.medium-insert-active').removeClass('medium-insert-active');
             this.$el.find('.medium-insert-embeds-active').removeClass('medium-insert-embeds-active');
             e.target.click();
 
             const newMediaDiv = document.createElement("div")
             newMediaDiv.className = 'medium-insert-active'
-            targetElement.after(newMediaDiv);
-            
-            // this.$el.data('plugin_' + pluginName + ucfirst('images'))['add'](true);
+            targetElement.after(newMediaDiv);            
         }
     };
 
@@ -736,8 +729,6 @@
      */
 
     Core.prototype.embedMedia = function(data, that, result) {
-        console.log('Validate Response successflully ===>', result, data)
-
         if(result === 'success' && data.type === 'img') {
             that.createEmptyMediaDiv(data, "medium-insert-active")
 
@@ -846,8 +837,6 @@
             const altText = matches[2]
             const filePath = matches[3];
 
-            console.log(`PatternType => ${mediaType}, AltText => ${altText}, FilePath => ${filePath}`)
-
             // check if the current file is valid media file
             const fileURLValidate= this.checkMediaUrlParse(mediaType, filePath)
             if (fileURLValidate) {
@@ -937,7 +926,7 @@
     Core.prototype.checkInputMediaToolbar = function () {
         const cPoint = this.getCursorPosition();
         const cPointDetail = this.getCursorData(null, cPoint.point);
-        console.log(cPointDetail)
+
         // cPointDetail.node.parentElement.replaceChild('<h2>New heading</h2>');
 
     }
