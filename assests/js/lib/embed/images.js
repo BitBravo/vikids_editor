@@ -202,8 +202,9 @@
 
     Images.prototype.add = function (mediaData) {
         console.log('add function')
+        if(mediaData) {
             var that = this,
-                $file = $(this.templates['src/js/templates/images-fileupload.hbs']()),
+                $file = $('input:file'),
                 fileUploadOptions = {
                     dataType: 'json',
                     replaceFileInput: true,
@@ -223,27 +224,25 @@
                     }
                 };
 
-        // Only add progress callbacks for browsers that support XHR2,
-        // and test for XHR2 per:
-        // http://stackoverflow.com/questions/6767887/
-        // what-is-the-best-way-to-check-for-xhr2-file-upload-support
-        // if (new XMLHttpRequest().upload) {
-        //     fileUploadOptions.progress = function (e, data) {
-        //         $.proxy(that, 'uploadProgress', e, data)();
-        //     };
+            // Only add progress callbacks for browsers that support XHR2,
+            // and test for XHR2 per:
+            // http://stackoverflow.com/questions/6767887/
+            // what-is-the-best-way-to-check-for-xhr2-file-upload-support
+            if (new XMLHttpRequest().upload) {
+                fileUploadOptions.progress = function (e, data) {
+                    $.proxy(that, 'uploadProgress', e, data)();
+                };
 
-        //     fileUploadOptions.progressall = function (e, data) {
-        //         $.proxy(that, 'uploadProgressall', e, data)();
-        //     };
-        // }
-        
+                fileUploadOptions.progressall = function (e, data) {
+                    $.proxy(that, 'uploadProgressall', e, data)();
+                };
+            }
         
             $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
-            if(mediaData) {
                 
-                // $file.fileupload('add', {files: mediaData});
-            } else {
-                $file.click();
+        } else {
+            var $file = $('input:file');
+            $file.click();
         }
     };
 

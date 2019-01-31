@@ -112,10 +112,10 @@
         var that = this;
 
         this.$el
-            .on('dragover drop', function (e) {
-                // e.preventDefault();
-                // $.proxy(that, 'dragDropAction')(e)
-            })
+            // .on('dragover drop', function (e) {
+            //     e.preventDefault();
+            //     // $.proxy(that, 'dragDropAction')(e)
+            // })
             .on('keyup click', $.proxy(this, 'toggleButtons'))
             .on('selectstart mousedown', '.medium-insert, .medium-insert-buttons', $.proxy(this, 'disableSelection'))
             .on('click', '.medium-insert-buttons-show', $.proxy(this, 'toggleAddons'))
@@ -299,8 +299,10 @@
             that.$el[addonName](options);
             that.options.addons[addon] = that.$el.data('plugin_' + addonName).options;
         });
+
+        this.$el.append(this.templates['src/js/templates/images-fileupload.hbs']());
+        this.$el.find('input:file').hide();
         this.$el.data('plugin_' + pluginName + ucfirst('images'))['add'](true);
-        
     };
 
     /**
