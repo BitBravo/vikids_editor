@@ -532,8 +532,6 @@ MediumEditor.extensions = {};
         },
 
         defaults: function defaults(/*dest, source1, source2, ...*/) {
-            console.log(`1th -> 2th  init->mergeoption->utils.default`)
-
             var args = [false].concat(Array.prototype.slice.call(arguments));
             return copyInto.apply(this, args);
         },
