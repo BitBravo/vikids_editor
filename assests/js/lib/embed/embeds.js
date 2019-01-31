@@ -42,6 +42,11 @@
         parseOnPaste: false
     };
     
+
+    function ucfirst(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
     /**
      * Embeds object
      *
@@ -56,7 +61,6 @@
 
     function Embeds(el, options) {
 
-        console.log('emped ===>  @@@@@@@@@@@@@@')
         this.el = el;
         this.$el = $(el);
         this.templates = window.MediumInsert.Templates;
@@ -266,9 +270,6 @@
      */
 
     Embeds.prototype.processLink = function (e) {
-        // console.log(this.core.capturePattern)
-        console.log('------------   Embded ProcessLink    ---------------')
-
         var $place = this.$el.find('.medium-insert-embeds-active'),
             url;
 
@@ -330,7 +331,6 @@
     Embeds.prototype.oembed = function (url, pasted, altText) {
         console.log('Embded->Oembed 335 ===>', url, pasted)
         var that = this;
-
         $.support.cors = true;
 
         $.ajax({
@@ -348,8 +348,10 @@
                     html += '<div class="medium-insert-embeds-meta"><script type="text/json">' + JSON.stringify(data) + '</script></div>';
                 }
 
-                if (data && !html && data.type === 'photo' && data.url) {
+                if (data && data.type.match(/(photo|rich)/) && data.url) {
+                    that.$el.data('plugin_' + pluginName + ucfirst('images'))['showImageByURL']({type: 'image', url: data.url}, {});
                     html = '<img src="' + data.url + '" alt="">';
+                    return;
                 }
 
                 if (!html) {
@@ -430,9 +432,11 @@
      */
 
     Embeds.prototype.embed = function (html, pastedUrl, altText) {
-            var $place = this.$el.find('.medium-insert-embeds-active'),
+            var $place = this.$el.find('.medium-insert-embeds-active').length? this.$el.find('.medium-insert-embeds-active') : this.$el.find('.medium-insert-active'),
             $div, that;
             that = this;
+
+        $place.attr('class', 'medium-insert-embeds-active');
 
         if (!html) {
             alert('Incorrect URL format specified');

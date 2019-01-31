@@ -153,7 +153,7 @@
         },
 
         triggerCustomEvent: function (name, data, editable) {
-            if (this.customEvents[name] && !this.disabledEvents[name]) {
+               if (this.customEvents[name] && !this.disabledEvents[name]) {
                 this.customEvents[name].forEach(function (listener) {
                     listener(data, editable);
                 });
@@ -365,19 +365,19 @@
                     break;
                 case 'editableDrag':
                     // Detecting dragover and dragleave on the contenteditables
-                    this.attachToEachElement('dragover', this.handleDragging);
-                    this.attachToEachElement('dragleave', this.handleDragging);
+                    // this.attachToEachElement('dragover', this.handleDragging);
+                    // this.attachToEachElement('dragleave', this.handleDragging);
                     break;
-                case 'editableDrop':
-                    // Detecting drop on the contenteditables
-                    this.attachToEachElement('drop', this.handleDrop);
-                    break;
-                // TODO: We need to have a custom 'paste' event separate from 'editablePaste'
-                // Need to think about the way to introduce this without breaking folks
-                case 'editablePaste':
-                    // Detecting paste on the contenteditables
-                    this.attachToEachElement('paste', this.handlePaste);
-                    break;
+                // case 'editableDrop':
+                //     // Detecting drop on the contenteditables
+                //     this.attachToEachElement('drop', this.handleDrop);
+                //     break;
+                // // TODO: We need to have a custom 'paste' event separate from 'editablePaste'
+                // // Need to think about the way to introduce this without breaking folks
+                // case 'editablePaste':
+                //     // Detecting paste on the contenteditables
+                //     this.attachToEachElement('paste', this.handlePaste);
+                //     break;
             }
             this.listeners[name] = true;
         },

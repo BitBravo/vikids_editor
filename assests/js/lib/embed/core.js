@@ -42,7 +42,8 @@
         this.$el = $(el);
         this.templates = window.MediumInsert.Templates;
         this.extend = new Extend();
-        this.targetEl = ''
+        this.targetEl = '',
+        this.ctTime = null;
 
         if (options) {
             // Fix #142
@@ -113,6 +114,7 @@
         this.$el
             .on('dragover drop', function (e) {
                 e.preventDefault();
+                $.proxy(that, 'dragDropAction')(e)
             })
             .on('keyup click', $.proxy(this, 'toggleButtons'))
             .on('selectstart mousedown', '.medium-insert, .medium-insert-buttons', $.proxy(this, 'disableSelection'))
@@ -297,6 +299,10 @@
             that.$el[addonName](options);
             that.options.addons[addon] = that.$el.data('plugin_' + addonName).options;
         });
+
+        this.$el.append(this.templates['src/js/templates/images-fileupload.hbs']());
+        this.$el.find('input:file').hide();
+        this.$el.data('plugin_' + pluginName + ucfirst('images'))['add'](true);
     };
 
     /**
@@ -551,12 +557,34 @@
      */
 
     Core.prototype.addonAction = function (e) {
-        console.log('select any media type here', e.currentTarget)
         var $a = $(e.currentTarget),
             addon = $a.data('addon'),
             action = $a.data('action');
         this.$el.data('plugin_' + pluginName + ucfirst(addon))[action]();
     };
+
+
+    /**
+     * Call drag-drop's action
+     *
+     * @param {Event} e
+     * @return {void}
+     */
+
+    Core.prototype.dragDropAction = function (e) {
+
+        const targetElement = e.target;
+        if(e.type === 'drop') {
+            this.$el.find('.medium-insert-active').removeClass('medium-insert-active');
+            this.$el.find('.medium-insert-embeds-active').removeClass('medium-insert-embeds-active');
+            e.target.click();
+
+            const newMediaDiv = document.createElement("div")
+            newMediaDiv.className = 'medium-insert-active'
+            targetElement.after(newMediaDiv);            
+        }
+    };
+
 
     /**
      * Move caret at the beginning of the empty paragraph
@@ -701,11 +729,10 @@
      */
 
     Core.prototype.embedMedia = function(data, that, result) {
-        console.log('Validate Response successflully ===>', result, data)
-
         if(result === 'success' && data.type === 'img') {
             that.createEmptyMediaDiv(data, "medium-insert-active")
-            that.$el.data('plugin_' + pluginName + ucfirst('images'))['uploadAdd'](data, {});
+
+            that.$el.data('plugin_' + pluginName + ucfirst('images'))['showImageByURL'](data);
         }
 
         if(result === 'success' && data.type === 'mov') {
@@ -810,9 +837,6 @@
             const altText = matches[2]
             const filePath = matches[3];
 
-            console.log('template validate')
-            console.log(`PatternType => ${mediaType}, AltText => ${altText}, FilePath => ${filePath}`)
-
             // check if the current file is valid media file
             const fileURLValidate= this.checkMediaUrlParse(mediaType, filePath)
             if (fileURLValidate) {
@@ -840,20 +864,80 @@
         })();
     };
 
+    Core.prototype.getCursorPosition = function (element) {
+        element = element || document.querySelector('.editable')
+        var caretOffset = 0;
+        var preCaretRange = '';
+        var doc = element.ownerDocument || element.document;
+        var win = doc.defaultView || doc.parentWindow;
+        var sel;
+        if (typeof win.getSelection != "undefined") {
+            sel = win.getSelection();
+            if (sel.rangeCount > 0) {
+                var range = win.getSelection().getRangeAt(0);
+                preCaretRange = range.cloneRange();
+                preCaretRange.selectNodeContents(element);
+                preCaretRange.setEnd(range.endContainer, range.endOffset);
+                caretOffset = preCaretRange.toString().length;
+            }
+        } else if ( (sel = doc.selection) && sel.type != "Control") {
+            var textRange = sel.createRange();
+            var preCaretTextRange = doc.body.createTextRange();
+            preCaretTextRange.moveToElementText(element);
+            preCaretTextRange.setEndPoint("EndToEnd", textRange);
+            caretOffset = preCaretTextRange.text.length;
+        }
+
+        return {point: caretOffset, text: preCaretRange.toString()}
+    }
+  
+    Core.prototype.getAllTextnodes = function (el) {
+        el = el || document.querySelector('.editable')
+        var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
+        while(n=walk.nextNode()) a.push(n);
+        return a;
+    }
+
+    Core.prototype.getCursorData = function (el, position){
+        el = el || document.querySelector('.editable')
+        var node, nodes = this.getAllTextnodes(el);
+        for(var n = 0; n < nodes.length; n++) {
+            if (position > nodes[n].nodeValue.length && nodes[n+1]) {
+                // remove amount from the position, go to next node
+                position -= nodes[n].nodeValue.length;
+            } else {
+                node = nodes[n];
+                break;
+            }
+        }
+        // you'll need the node and the position (offset) to set the caret
+        return { node: node, position: position };
+    }
+
+    Core.prototype.setCursorPosition = function (d) {
+        var sel = window.getSelection(),
+        range = document.createRange();
+        range.setStart(d.node, d.position);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+
+    Core.prototype.checkInputMediaToolbar = function () {
+        const cPoint = this.getCursorPosition();
+        const cPointDetail = this.getCursorData(null, cPoint.point);
+
+        // cPointDetail.node.parentElement.replaceChild('<h2>New heading</h2>');
+
+    }
+
     Core.prototype.checkCustomPattern = function () {
         var an = window.getSelection().anchorNode;
         this.targetEl = $(an.parentElement);
 
-
-        // var $place1 = this.$el.find('.medium-insert-images');
-        // var $place2 = this.$el.find('.medium-insert-embeds-active');
-        // console.log(this.$el)
-        // console.log($place1)
-        // console.log($place2)
-
+        this.checkInputMediaToolbar();
         // Parsed element data || false
         const templateValidate = this.checkTemplateValidate();  
-        console.log('template validate', templateValidate)
         if (templateValidate) {
             const mediaTyepe = templateValidate.type;
             const mediaPath = templateValidate.url;
@@ -868,23 +952,17 @@
 
         }
     }
-    
-    Core.prototype.simulateKeydown = function (el, keycode, isCtrl, isAlt, isShift) {
-        var e = new KeyboardEvent( "keydown", { bubbles:true, cancelable:true, char:String.fromCharCode(keycode), key:String.fromCharCode(keycode), shiftKey:isShift, ctrlKey:isCtrl, altKey:isAlt } );
-        Object.defineProperty(e, 'keyCode', {get : function() { return this.keyCodeVal; } });     
-        e.keyCodeVal = keycode;
-        el.dispatchEvent(e);
-    }
-    
+        
     Core.prototype.capturePattern = function () {
-        if(ctTime) {
-            window.clearTimeout(ctTime)
-            ctTime = null
-        } else {
-            ctTime = window.setTimeout(() => {
+        if(this.ctTime) {
+            window.clearTimeout(this.ctTime)
+            this.ctTime = null
+        } 
+        
+        this.ctTime = window.setTimeout(() => {
             this.checkCustomPattern();
-            }, 100);
-        }
+        }, 500);
+
     }
 
     /** Plugin initialization */
