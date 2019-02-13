@@ -926,9 +926,6 @@
     Core.prototype.checkInputMediaToolbar = function () {
         const cPoint = this.getCursorPosition();
         const cPointDetail = this.getCursorData(null, cPoint.point);
-
-        // cPointDetail.node.parentElement.replaceChild('<h2>New heading</h2>');
-
     }
 
     Core.prototype.checkCustomPattern = function () {
@@ -946,9 +943,10 @@
             if(mediaTyepe === 'img') {
                 this.imageValidate(mediaPath)
                 .then(this.embedMedia.bind(null, templateValidate, this));
-            } else {
-                this.videoValidate(mediaPath, this.embedMedia.bind(null, templateValidate, this))
-            }
+            } 
+            // else {
+            //     this.videoValidate(mediaPath, this.embedMedia.bind(null, templateValidate, this))
+            // }
 
         }
     }

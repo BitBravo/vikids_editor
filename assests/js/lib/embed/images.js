@@ -9,17 +9,14 @@
         addonName = 'Images', // first char is uppercase
         defaults = {
             label: '<span class="fa fa-camera"></span>',
-            deleteMethod: 'POST',
-            deleteScript: 'http://localhost:3000/delete',
             preview: true,
             captions: true,
             captionPlaceholder: 'Type caption for image (optional)',
             autoGrid: 3,
             fileUploadOptions: {
-                // url: 'https://www.vikids.ru/medias',
-                url: 'http://localhost:3000/upload',
+                url: null,
                 type: 'POST',
-                acceptFileTypes: /(\.|\/)(gif|jpe?g|png|mp4|avi|mpeg|)$/i,
+                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
                 sequentialUploads: true,
             },
             fileDeleteOptions: {},
@@ -288,7 +285,14 @@
             }
         }
 
-        $place.addClass('medium-insert-images');
+        if (this.$el) {
+            this.el.forEach(function (element) {
+                // element.removeAttribute('medium-insert-active');
+                // element.removeAttribute('medium-insert-embeds-active');
+            });
+        }
+
+        $place.addClass('medium-insert-images medium-insert-active');
 
         if (this.options.preview === false && $place.find('progress').length === 0 && (new XMLHttpRequest().upload)) {
             $place.append(this.templates['src/js/templates/images-progressbar.hbs']());
@@ -380,8 +384,8 @@
             if(data.result.type ==='img') {
                 $.proxy(this, 'showImage', data.result, data)();
             } else {
-                // this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed'](data.result.url);
-                this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed']('https://www.youtube.com/watch?v=2Lwd46qBrqU');
+                this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed'](data.result.url);
+                // this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed']('https://www.youtube.com/watch?v=2Lwd46qBrqU');
             }
         }
         this.core.clean();
