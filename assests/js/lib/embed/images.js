@@ -285,12 +285,12 @@
             }
         }
 
-        if (this.$el) {
-            this.el.forEach(function (element) {
-                // element.removeAttribute('medium-insert-active');
-                // element.removeAttribute('medium-insert-embeds-active');
-            });
-        }
+        this.$el.find('.medium-insert-active').map((element)=>{
+            element && element.removeClass('medium-insert-active');
+        });
+        this.$el.find('.medium-insert-embeds-active').map((element)=>{
+            element && element.removeClass('medium-insert-embeds-active')
+        });
 
         $place.addClass('medium-insert-images medium-insert-active');
 
