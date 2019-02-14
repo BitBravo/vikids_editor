@@ -14,7 +14,6 @@
    *  - htmlToInsert: the HTML code that should be inserted
    */
   function CustomHtml(options) {
-      console.log(window)
       this.button = document.createElement('button');
       this.button.className = 'medium-editor-action';
       if (this.button.innerText) {
@@ -55,7 +54,7 @@
                   sel.addRange(range);
               }
           }
-      } else if (document.selection && document.selection.type != "Control") {
+      } else if (document.selection && document.selection.type !== "Control") {
           // IE < 9
           document.selection.createRange().pasteHTML(html);
       }

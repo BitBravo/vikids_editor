@@ -8,16 +8,22 @@ module.exports = function (grunt) {
             src: 'src',
             dest: 'dev'
         },
+
         gruntConfig = {
             pkg: grunt.file.readJSON('package.json'),
             globalConfig: globalConfig
         },
+
         srcFiles = [
-            'src/js/globals.js',
-            'src/js/util.js',
-            'src/js/extension.js',
-            'src/js/selection.js',
+            'src/js/core.js',
+            'src/js/defaults/options.js',
             'src/js/events.js',
+            'src/js/extend.js',
+            'src/js/extension.js',
+            'src/js/globals.js',
+            'src/js/selection.js',
+            'src/js/util.js',
+            'src/js/version.js',
             'src/js/extensions/button.js',
             'src/js/defaults/buttons.js',
             'src/js/extensions/form.js',
@@ -32,9 +38,6 @@ module.exports = function (grunt) {
             'src/js/extensions/placeholder.js',
             'src/js/extensions/toolbar.js',
             'src/js/extensions/deprecated/image-dragging.js',
-            'src/js/core.js',
-            'src/js/defaults/options.js',
-            'src/js/version.js'
         ],
         browsers = [{
             browserName: 'internet explorer',
@@ -95,7 +98,8 @@ module.exports = function (grunt) {
         options: {
             ignores: ['src/js/polyfills.js'],
             jshintrc: true,
-            reporter: require('jshint-stylish')
+            reporter: require('jshint-stylish'),
+            fix: true
         },
         all: {
             src: [
@@ -105,6 +109,21 @@ module.exports = function (grunt) {
             ]
         }
     };
+
+    gruntConfig.eslint =  {
+        options: {
+            format: require('eslint-tap'),
+            reset: false,
+            fix: true
+        },
+        all: {
+            src: [
+                'src/js/**/*.js',
+                'spec/*.spec.js',
+                'Gruntfile.js'
+            ]
+        }
+    }
 
     // TODO: "maximumLineLength": 120
     gruntConfig.jscs = {
@@ -332,6 +351,7 @@ module.exports = function (grunt) {
         ]
     });
 
+
     if (parseInt(process.env.TRAVIS_PULL_REQUEST, 10) > 0) {
         grunt.registerTask('travis', ['jshint', 'jscs', 'jasmine:suite', 'csslint', 'coveralls']);
     } else {
@@ -343,6 +363,7 @@ module.exports = function (grunt) {
     grunt.registerTask('js', ['jshint', 'jscs', 'concat', 'jasmine:suite', 'uglify']);
     grunt.registerTask('css', ['sass', 'autoprefixer', 'cssmin', 'csslint']);
     grunt.registerTask('default', ['js', 'css']);
+    grunt.registerTask('default', ['eslint']);
 
     // release tasks
     grunt.registerTask('patch', ['bump', 'css', 'js']);

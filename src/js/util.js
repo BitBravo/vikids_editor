@@ -1018,9 +1018,8 @@
         },
 
         deprecated: function (oldName, newName, version) {
-            console.log(`5th -> deprecated`)
             // simple deprecation warning mechanism.
-            var m = oldName + ' is deprecated, please use ' + newName + ' instead.';
+            let m = oldName + ' is deprecated, please use ' + newName + ' instead.';
             if (version) {
                 m += ' Will be removed in ' + version;
             }
