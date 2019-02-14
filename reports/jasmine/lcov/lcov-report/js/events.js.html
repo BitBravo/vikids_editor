@@ -1,0 +1,1859 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/events.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">js/</a> events.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.73% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>4/231</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0.68% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>1/148</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.69% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/59</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.73% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>4/231</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">(function () {
+    'use strict';
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function isElementDescendantOfExtension(extensions, element) {</span>
+<span class="cstat-no" title="statement not covered" >        if (!extensions) {</span>
+<span class="cstat-no" title="statement not covered" >            return false;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return extensions.some(<span class="fstat-no" title="function not covered" >function (extension) {</span></span>
+<span class="cstat-no" title="statement not covered" >            if (typeof extension.getInteractionElements !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var extensionElements = extension.getInteractionElements();</span>
+<span class="cstat-no" title="statement not covered" >            if (!extensionElements) {</span>
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (!Array.isArray(extensionElements)) {</span>
+<span class="cstat-no" title="statement not covered" >                extensionElements = [extensionElements];</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return extensionElements.some(<span class="fstat-no" title="function not covered" >function (el) {</span></span>
+<span class="cstat-no" title="statement not covered" >                return MediumEditor.util.isDescendant(el, element, true);</span>
+            });
+        });
+    }
+&nbsp;
+    var Events = <span class="fstat-no" title="function not covered" >function (instance) {</span>
+<span class="cstat-no" title="statement not covered" >        this.base = instance;</span>
+<span class="cstat-no" title="statement not covered" >        this.options = this.base.options;</span>
+<span class="cstat-no" title="statement not covered" >        this.events = [];</span>
+<span class="cstat-no" title="statement not covered" >        this.disabledEvents = {};</span>
+<span class="cstat-no" title="statement not covered" >        this.customEvents = {};</span>
+<span class="cstat-no" title="statement not covered" >        this.listeners = {};</span>
+    };
+&nbsp;
+    Events.prototype = {
+        InputEventOnContenteditableSupported: !MediumEditor.util.isIE &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!MediumEditor.util.isEdge,</span>
+&nbsp;
+        // Helpers for event handling
+&nbsp;
+        attachDOMEvent: <span class="fstat-no" title="function not covered" >function (targets, event, listener, useCapture) {</span>
+<span class="cstat-no" title="statement not covered" >            var win = this.base.options.contentWindow,</span>
+                doc = this.base.options.ownerDocument;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            targets = MediumEditor.util.isElement(targets) || [win, doc].indexOf(targets) &gt; -1 ? [targets] : targets;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            Array.prototype.forEach.call(targets, <span class="fstat-no" title="function not covered" >function (target) {</span></span>
+<span class="cstat-no" title="statement not covered" >                target.addEventListener(event, listener, useCapture);</span>
+<span class="cstat-no" title="statement not covered" >                this.events.push([target, event, listener, useCapture]);</span>
+            }.bind(this));
+        },
+&nbsp;
+        detachDOMEvent: <span class="fstat-no" title="function not covered" >function (targets, event, listener, useCapture) {</span>
+<span class="cstat-no" title="statement not covered" >            var index, e,</span>
+                win = this.base.options.contentWindow,
+                doc = this.base.options.ownerDocument;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (targets) {</span>
+<span class="cstat-no" title="statement not covered" >                targets = MediumEditor.util.isElement(targets) || [win, doc].indexOf(targets) &gt; -1 ? [targets] : targets;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                Array.prototype.forEach.call(targets, <span class="fstat-no" title="function not covered" >function (target) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    index = this.indexOfListener(target, event, listener, useCapture);</span>
+<span class="cstat-no" title="statement not covered" >                    if (index !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >                        e = this.events.splice(index, 1)[0];</span>
+<span class="cstat-no" title="statement not covered" >                        e[0].removeEventListener(e[1], e[2], e[3]);</span>
+                    }
+                }.bind(this));
+            }
+        },
+&nbsp;
+        indexOfListener: <span class="fstat-no" title="function not covered" >function (target, event, listener, useCapture) {</span>
+<span class="cstat-no" title="statement not covered" >            var i, n, item;</span>
+<span class="cstat-no" title="statement not covered" >            for (i = 0, n = this.events.length; i &lt; n; i = i + 1) {</span>
+<span class="cstat-no" title="statement not covered" >                item = this.events[i];</span>
+<span class="cstat-no" title="statement not covered" >                if (item[0] === target &amp;&amp; item[1] === event &amp;&amp; item[2] === listener &amp;&amp; item[3] === useCapture) {</span>
+<span class="cstat-no" title="statement not covered" >                    return i;</span>
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            return -1;</span>
+        },
+&nbsp;
+        detachAllDOMEvents: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var e = this.events.pop();</span>
+<span class="cstat-no" title="statement not covered" >            while (e) {</span>
+<span class="cstat-no" title="statement not covered" >                e[0].removeEventListener(e[1], e[2], e[3]);</span>
+<span class="cstat-no" title="statement not covered" >                e = this.events.pop();</span>
+            }
+        },
+&nbsp;
+        detachAllEventsFromElement: <span class="fstat-no" title="function not covered" >function (element) {</span>
+<span class="cstat-no" title="statement not covered" >            var filtered = this.events.filter(<span class="fstat-no" title="function not covered" >function (e) {</span></span>
+<span class="cstat-no" title="statement not covered" >                return e &amp;&amp; e[0].getAttribute &amp;&amp; e[0].getAttribute('medium-editor-index') === element.getAttribute('medium-editor-index');</span>
+            });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            for (var i = 0, len = filtered.length; i &lt; len; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var e = filtered[i];</span>
+<span class="cstat-no" title="statement not covered" >                this.detachDOMEvent(e[0], e[1], e[2], e[3]);</span>
+            }
+        },
+&nbsp;
+        // Attach all existing handlers to a new element
+        attachAllEventsToElement: <span class="fstat-no" title="function not covered" >function (element) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.listeners['editableInput']) {</span>
+<span class="cstat-no" title="statement not covered" >                this.contentCache[element.getAttribute('medium-editor-index')] = element.innerHTML;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (this.eventsCache) {</span>
+<span class="cstat-no" title="statement not covered" >                this.eventsCache.forEach(<span class="fstat-no" title="function not covered" >function (e) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    this.attachDOMEvent(element, e['name'], e['handler'].bind(this));</span>
+                }, this);
+            }
+        },
+&nbsp;
+        enableCustomEvent: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.disabledEvents[event] !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >                delete this.disabledEvents[event];</span>
+            }
+        },
+&nbsp;
+        disableCustomEvent: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.disabledEvents[event] = true;</span>
+        },
+&nbsp;
+        // custom events
+        attachCustomEvent: <span class="fstat-no" title="function not covered" >function (event, listener) {</span>
+<span class="cstat-no" title="statement not covered" >            this.setupListener(event);</span>
+<span class="cstat-no" title="statement not covered" >            if (!this.customEvents[event]) {</span>
+<span class="cstat-no" title="statement not covered" >                this.customEvents[event] = [];</span>
+            }
+<span class="cstat-no" title="statement not covered" >            this.customEvents[event].push(listener);</span>
+        },
+&nbsp;
+        detachCustomEvent: <span class="fstat-no" title="function not covered" >function (event, listener) {</span>
+<span class="cstat-no" title="statement not covered" >            var index = this.indexOfCustomListener(event, listener);</span>
+<span class="cstat-no" title="statement not covered" >            if (index !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >                this.customEvents[event].splice(index, 1);</span>
+                // TODO: If array is empty, should detach internal listeners via destroyListener()
+            }
+        },
+&nbsp;
+        indexOfCustomListener: <span class="fstat-no" title="function not covered" >function (event, listener) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!this.customEvents[event] || !this.customEvents[event].length) {</span>
+<span class="cstat-no" title="statement not covered" >                return -1;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return this.customEvents[event].indexOf(listener);</span>
+        },
+&nbsp;
+        detachAllCustomEvents: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.customEvents = {};</span>
+            // TODO: Should detach internal listeners here via destroyListener()
+        },
+&nbsp;
+        triggerCustomEvent: <span class="fstat-no" title="function not covered" >function (name, data, editable) {</span>
+<span class="cstat-no" title="statement not covered" >               if (this.customEvents[name] &amp;&amp; !this.disabledEvents[name]) {</span>
+<span class="cstat-no" title="statement not covered" >                this.customEvents[name].forEach(<span class="fstat-no" title="function not covered" >function (listener) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    listener(data, editable);</span>
+                });
+            }
+        },
+&nbsp;
+        // Cleaning up
+&nbsp;
+        destroy: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.detachAllDOMEvents();</span>
+<span class="cstat-no" title="statement not covered" >            this.detachAllCustomEvents();</span>
+<span class="cstat-no" title="statement not covered" >            this.detachExecCommand();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (this.base.elements) {</span>
+<span class="cstat-no" title="statement not covered" >                this.base.elements.forEach(<span class="fstat-no" title="function not covered" >function (element) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    element.removeAttribute('data-medium-focused');</span>
+                });
+            }
+        },
+&nbsp;
+        // Listening to calls to document.execCommand
+&nbsp;
+        // Attach a listener to be notified when document.execCommand is called
+        attachToExecCommand: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.execCommandListener) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+            // Store an instance of the listener so:
+            // 1) We only attach to execCommand once
+            // 2) We can remove the listener later
+<span class="cstat-no" title="statement not covered" >            this.execCommandListener = <span class="fstat-no" title="function not covered" >function (execInfo) {</span></span>
+<span class="cstat-no" title="statement not covered" >                this.handleDocumentExecCommand(execInfo);</span>
+            }.bind(this);
+&nbsp;
+            // Ensure that execCommand has been wrapped correctly
+<span class="cstat-no" title="statement not covered" >            this.wrapExecCommand();</span>
+&nbsp;
+            // Add listener to list of execCommand listeners
+<span class="cstat-no" title="statement not covered" >            this.options.ownerDocument.execCommand.listeners.push(this.execCommandListener);</span>
+        },
+&nbsp;
+        // Remove our listener for calls to document.execCommand
+        detachExecCommand: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var doc = this.options.ownerDocument;</span>
+<span class="cstat-no" title="statement not covered" >            if (!this.execCommandListener || !doc.execCommand.listeners) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+            // Find the index of this listener in the array of listeners so it can be removed
+<span class="cstat-no" title="statement not covered" >            var index = doc.execCommand.listeners.indexOf(this.execCommandListener);</span>
+<span class="cstat-no" title="statement not covered" >            if (index !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >                doc.execCommand.listeners.splice(index, 1);</span>
+            }
+&nbsp;
+            // If the list of listeners is now empty, put execCommand back to its original state
+<span class="cstat-no" title="statement not covered" >            if (!doc.execCommand.listeners.length) {</span>
+<span class="cstat-no" title="statement not covered" >                this.unwrapExecCommand();</span>
+            }
+        },
+&nbsp;
+        // Wrap document.execCommand in a custom method so we can listen to calls to it
+        wrapExecCommand: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var doc = this.options.ownerDocument;</span>
+&nbsp;
+            // Ensure all instance of MediumEditor only wrap execCommand once
+<span class="cstat-no" title="statement not covered" >            if (doc.execCommand.listeners) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+            // Helper method to call all listeners to execCommand
+<span class="cstat-no" title="statement not covered" >            var callListeners = <span class="fstat-no" title="function not covered" >function (args, result) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (doc.execCommand.listeners) {</span>
+<span class="cstat-no" title="statement not covered" >                    doc.execCommand.listeners.forEach(<span class="fstat-no" title="function not covered" >function (listener) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        listener({</span>
+                            command: args[0],
+                            value: args[2],
+                            args: args,
+                            result: result
+                        });
+                    });
+                }
+            },
+&nbsp;
+                // Create a wrapper method for execCommand which will:
+                // 1) Call document.execCommand with the correct arguments
+                // 2) Loop through any listeners and notify them that execCommand was called
+                //    passing extra info on the call
+                // 3) Return the result
+                wrapper = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                    var result = doc.execCommand.orig.apply(this, arguments);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    if (!doc.execCommand.listeners) {</span>
+<span class="cstat-no" title="statement not covered" >                        return result;</span>
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    var args = Array.prototype.slice.call(arguments);</span>
+<span class="cstat-no" title="statement not covered" >                    callListeners(args, result);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    return result;</span>
+                };
+&nbsp;
+            // Store a reference to the original execCommand
+<span class="cstat-no" title="statement not covered" >            wrapper.orig = doc.execCommand;</span>
+&nbsp;
+            // Attach an array for storing listeners
+<span class="cstat-no" title="statement not covered" >            wrapper.listeners = [];</span>
+&nbsp;
+            // Helper for notifying listeners
+<span class="cstat-no" title="statement not covered" >            wrapper.callListeners = callListeners;</span>
+&nbsp;
+            // Overwrite execCommand
+<span class="cstat-no" title="statement not covered" >            doc.execCommand = wrapper;</span>
+        },
+&nbsp;
+        // Revert document.execCommand back to its original self
+        unwrapExecCommand: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var doc = this.options.ownerDocument;</span>
+<span class="cstat-no" title="statement not covered" >            if (!doc.execCommand.orig) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+            // Use the reference to the original execCommand to revert back
+<span class="cstat-no" title="statement not covered" >            doc.execCommand = doc.execCommand.orig;</span>
+        },
+&nbsp;
+        // Listening to browser events to emit events medium-editor cares about
+        setupListener: <span class="fstat-no" title="function not covered" >function (name) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.listeners[name]) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            switch (name) {</span>
+                case 'externalInteraction':
+                    // Detecting when user has interacted with elements outside of MediumEditor
+<span class="cstat-no" title="statement not covered" >                    this.attachDOMEvent(this.options.ownerDocument.body, 'mousedown', this.handleBodyMousedown.bind(this), true);</span>
+<span class="cstat-no" title="statement not covered" >                    this.attachDOMEvent(this.options.ownerDocument.body, 'click', this.handleBodyClick.bind(this), true);</span>
+<span class="cstat-no" title="statement not covered" >                    this.attachDOMEvent(this.options.ownerDocument.body, 'focus', this.handleBodyFocus.bind(this), true);</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'blur':
+                    // Detecting when focus is lost
+<span class="cstat-no" title="statement not covered" >                    this.setupListener('externalInteraction');</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'focus':
+                    // Detecting when focus moves into some part of MediumEditor
+<span class="cstat-no" title="statement not covered" >                    this.setupListener('externalInteraction');</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'editableInput':
+                    // setup cache for knowing when the content has changed
+<span class="cstat-no" title="statement not covered" >                    this.contentCache = {};</span>
+<span class="cstat-no" title="statement not covered" >                    this.base.elements.forEach(<span class="fstat-no" title="function not covered" >function (element) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        this.contentCache[element.getAttribute('medium-editor-index')] = element.innerHTML;</span>
+                    }, this);
+&nbsp;
+                    // Attach to the 'oninput' event, handled correctly by most browsers
+<span class="cstat-no" title="statement not covered" >                    if (this.InputEventOnContenteditableSupported) {</span>
+<span class="cstat-no" title="statement not covered" >                        this.attachToEachElement('input', this.handleInput);</span>
+                    }
+&nbsp;
+                    // For browsers which don't support the input event on contenteditable (IE)
+                    // we'll attach to 'selectionchange' on the document and 'keypress' on the editables
+<span class="cstat-no" title="statement not covered" >                    if (!this.InputEventOnContenteditableSupported) {</span>
+<span class="cstat-no" title="statement not covered" >                        this.setupListener('editableKeypress');</span>
+<span class="cstat-no" title="statement not covered" >                        this.keypressUpdateInput = true;</span>
+<span class="cstat-no" title="statement not covered" >                        this.attachDOMEvent(document, 'selectionchange', this.handleDocumentSelectionChange.bind(this));</span>
+                        // Listen to calls to execCommand
+<span class="cstat-no" title="statement not covered" >                        this.attachToExecCommand();</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'editableClick':
+                    // Detecting click in the contenteditables
+<span class="cstat-no" title="statement not covered" >                    this.attachToEachElement('click', this.handleClick);</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'editableBlur':
+                    // Detecting blur in the contenteditables
+<span class="cstat-no" title="statement not covered" >                    this.attachToEachElement('blur', this.handleBlur);</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'editableKeypress':
+                    // Detecting keypress in the contenteditables
+<span class="cstat-no" title="statement not covered" >                    this.attachToEachElement('keypress', this.handleKeypress);</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'editableKeyup':
+                    // Detecting keyup in the contenteditables
+<span class="cstat-no" title="statement not covered" >                    this.attachToEachElement('keyup', this.handleKeyup);</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'editableKeydown':
+                    // Detecting keydown on the contenteditables
+<span class="cstat-no" title="statement not covered" >                    this.attachToEachElement('keydown', this.handleKeydown);</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'editableKeydownSpace':
+                    // Detecting keydown for SPACE on the contenteditables
+<span class="cstat-no" title="statement not covered" >                    this.setupListener('editableKeydown');</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'editableKeydownEnter':
+                    // Detecting keydown for ENTER on the contenteditables
+<span class="cstat-no" title="statement not covered" >                    this.setupListener('editableKeydown');</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'editableKeydownTab':
+                    // Detecting keydown for TAB on the contenteditable
+<span class="cstat-no" title="statement not covered" >                    this.setupListener('editableKeydown');</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'editableKeydownDelete':
+                    // Detecting keydown for DELETE/BACKSPACE on the contenteditables
+<span class="cstat-no" title="statement not covered" >                    this.setupListener('editableKeydown');</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'editableMouseover':
+                    // Detecting mouseover on the contenteditables
+<span class="cstat-no" title="statement not covered" >                    this.attachToEachElement('mouseover', this.handleMouseover);</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 'editableDrag':
+                    // Detecting dragover and dragleave on the contenteditables
+                    // this.attachToEachElement('dragover', this.handleDragging);
+                    // this.attachToEachElement('dragleave', this.handleDragging);
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                // case 'editableDrop':
+                //     // Detecting drop on the contenteditables
+                //     this.attachToEachElement('drop', this.handleDrop);
+                //     break;
+                // // TODO: We need to have a custom 'paste' event separate from 'editablePaste'
+                // // Need to think about the way to introduce this without breaking folks
+                // case 'editablePaste':
+                //     // Detecting paste on the contenteditables
+                //     this.attachToEachElement('paste', this.handlePaste);
+                //     break;
+            }
+<span class="cstat-no" title="statement not covered" >            this.listeners[name] = true;</span>
+        },
+&nbsp;
+        attachToEachElement: <span class="fstat-no" title="function not covered" >function (name, handler) {</span>
+            // build our internal cache to know which element got already what handler attached
+<span class="cstat-no" title="statement not covered" >            if (!this.eventsCache) {</span>
+<span class="cstat-no" title="statement not covered" >                this.eventsCache = [];</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.base.elements.forEach(<span class="fstat-no" title="function not covered" >function (element) {</span></span>
+<span class="cstat-no" title="statement not covered" >                this.attachDOMEvent(element, name, handler.bind(this));</span>
+            }, this);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.eventsCache.push({ 'name': name, 'handler': handler });</span>
+        },
+&nbsp;
+        cleanupElement: <span class="fstat-no" title="function not covered" >function (element) {</span>
+<span class="cstat-no" title="statement not covered" >            var index = element.getAttribute('medium-editor-index');</span>
+<span class="cstat-no" title="statement not covered" >            if (index) {</span>
+<span class="cstat-no" title="statement not covered" >                this.detachAllEventsFromElement(element);</span>
+<span class="cstat-no" title="statement not covered" >                if (this.contentCache) {</span>
+<span class="cstat-no" title="statement not covered" >                    delete this.contentCache[index];</span>
+                }
+            }
+        },
+&nbsp;
+        focusElement: <span class="fstat-no" title="function not covered" >function (element) {</span>
+<span class="cstat-no" title="statement not covered" >            element.focus();</span>
+<span class="cstat-no" title="statement not covered" >            this.updateFocus(element, { target: element, type: 'focus' });</span>
+        },
+&nbsp;
+        updateFocus: <span class="fstat-no" title="function not covered" >function (target, eventObj) {</span>
+<span class="cstat-no" title="statement not covered" >            var hadFocus = this.base.getFocusedElement(),</span>
+                toFocus;
+&nbsp;
+            // For clicks, we need to know if the mousedown that caused the click happened inside the existing focused element
+            // or one of the extension elements.  If so, we don't want to focus another element
+<span class="cstat-no" title="statement not covered" >            if (hadFocus &amp;&amp;</span>
+                eventObj.type === 'click' &amp;&amp;
+                this.lastMousedownTarget &amp;&amp;
+                (MediumEditor.util.isDescendant(hadFocus, this.lastMousedownTarget, true) ||
+                    isElementDescendantOfExtension(this.base.extensions, this.lastMousedownTarget))) {
+<span class="cstat-no" title="statement not covered" >                toFocus = hadFocus;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (!toFocus) {</span>
+<span class="cstat-no" title="statement not covered" >                this.base.elements.some(<span class="fstat-no" title="function not covered" >function (element) {</span></span>
+                    // If the target is part of an editor element, this is the element getting focus
+<span class="cstat-no" title="statement not covered" >                    if (!toFocus &amp;&amp; (MediumEditor.util.isDescendant(element, target, true))) {</span>
+<span class="cstat-no" title="statement not covered" >                        toFocus = element;</span>
+                    }
+&nbsp;
+                    // bail if we found an element that's getting focus
+<span class="cstat-no" title="statement not covered" >                    return !!toFocus;</span>
+                }, this);
+            }
+&nbsp;
+            // Check if the target is external (not part of the editor, toolbar, or any other extension)
+<span class="cstat-no" title="statement not covered" >            var externalEvent = !MediumEditor.util.isDescendant(hadFocus, target, true) &amp;&amp;</span>
+                !isElementDescendantOfExtension(this.base.extensions, target);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (toFocus !== hadFocus) {</span>
+                // If element has focus, and focus is going outside of editor
+                // Don't blur focused element if clicking on editor, toolbar, or anchorpreview
+<span class="cstat-no" title="statement not covered" >                if (hadFocus &amp;&amp; externalEvent) {</span>
+                    // Trigger blur on the editable that has lost focus
+<span class="cstat-no" title="statement not covered" >                    hadFocus.removeAttribute('data-medium-focused');</span>
+<span class="cstat-no" title="statement not covered" >                    this.triggerCustomEvent('blur', eventObj, hadFocus);</span>
+                }
+&nbsp;
+                // If focus is going into an editor element
+<span class="cstat-no" title="statement not covered" >                if (toFocus) {</span>
+                    // Trigger focus on the editable that now has focus
+<span class="cstat-no" title="statement not covered" >                    toFocus.setAttribute('data-medium-focused', true);</span>
+<span class="cstat-no" title="statement not covered" >                    this.triggerCustomEvent('focus', eventObj, toFocus);</span>
+                }
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (externalEvent) {</span>
+<span class="cstat-no" title="statement not covered" >                this.triggerCustomEvent('externalInteraction', eventObj);</span>
+            }
+        },
+&nbsp;
+        updateInput: <span class="fstat-no" title="function not covered" >function (target, eventObj) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!this.contentCache) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+            // An event triggered which signifies that the user may have changed someting
+            // Look in our cache of input for the contenteditables to see if something changed
+<span class="cstat-no" title="statement not covered" >            var index = target.getAttribute('medium-editor-index'),</span>
+                html = target.innerHTML;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (html !== this.contentCache[index]) {</span>
+                // The content has changed since the last time we checked, fire the event
+<span class="cstat-no" title="statement not covered" >                this.triggerCustomEvent('editableInput', eventObj, target);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            this.contentCache[index] = html;</span>
+        },
+&nbsp;
+        handleDocumentSelectionChange: <span class="fstat-no" title="function not covered" >function (event) {</span>
+            // When selectionchange fires, target and current target are set
+            // to document, since this is where the event is handled
+            // However, currentTarget will have an 'activeElement' property
+            // which will point to whatever element has focus.
+<span class="cstat-no" title="statement not covered" >            if (event.currentTarget &amp;&amp; event.currentTarget.activeElement) {</span>
+<span class="cstat-no" title="statement not covered" >                var activeElement = event.currentTarget.activeElement,</span>
+                    currentTarget;
+                // We can look at the 'activeElement' to determine if the selectionchange has
+                // happened within a contenteditable owned by this instance of MediumEditor
+<span class="cstat-no" title="statement not covered" >                this.base.elements.some(<span class="fstat-no" title="function not covered" >function (element) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    if (MediumEditor.util.isDescendant(element, activeElement, true)) {</span>
+<span class="cstat-no" title="statement not covered" >                        currentTarget = element;</span>
+<span class="cstat-no" title="statement not covered" >                        return true;</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    return false;</span>
+                }, this);
+&nbsp;
+                // We know selectionchange fired within one of our contenteditables
+<span class="cstat-no" title="statement not covered" >                if (currentTarget) {</span>
+<span class="cstat-no" title="statement not covered" >                    this.updateInput(currentTarget, { target: activeElement, currentTarget: currentTarget });</span>
+                }
+            }
+        },
+&nbsp;
+        handleDocumentExecCommand: <span class="fstat-no" title="function not covered" >function () {</span>
+            // document.execCommand has been called
+            // If one of our contenteditables currently has focus, we should
+            // attempt to trigger the 'editableInput' event
+<span class="cstat-no" title="statement not covered" >            var target = this.base.getFocusedElement();</span>
+<span class="cstat-no" title="statement not covered" >            if (target) {</span>
+<span class="cstat-no" title="statement not covered" >                this.updateInput(target, { target: target, currentTarget: target });</span>
+            }
+        },
+&nbsp;
+        handleBodyClick: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.updateFocus(event.target, event);</span>
+        },
+&nbsp;
+        handleBodyFocus: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.updateFocus(event.target, event);</span>
+        },
+&nbsp;
+        handleBodyMousedown: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.lastMousedownTarget = event.target;</span>
+        },
+&nbsp;
+        handleInput: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.updateInput(event.currentTarget, event);</span>
+        },
+&nbsp;
+        handleClick: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.triggerCustomEvent('editableClick', event, event.currentTarget);</span>
+        },
+&nbsp;
+        handleBlur: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.triggerCustomEvent('editableBlur', event, event.currentTarget);</span>
+        },
+&nbsp;
+        handleKeypress: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.triggerCustomEvent('editableKeypress', event, event.currentTarget);</span>
+&nbsp;
+            // If we're doing manual detection of the editableInput event we need
+            // to check for input changes during 'keypress'
+<span class="cstat-no" title="statement not covered" >            if (this.keypressUpdateInput) {</span>
+<span class="cstat-no" title="statement not covered" >                var eventObj = { target: event.target, currentTarget: event.currentTarget };</span>
+&nbsp;
+                // In IE, we need to let the rest of the event stack complete before we detect
+                // changes to input, so using setTimeout here
+<span class="cstat-no" title="statement not covered" >                setTimeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                    this.updateInput(eventObj.currentTarget, eventObj);</span>
+                }.bind(this), 0);
+            }
+        },
+&nbsp;
+        handleKeyup: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.triggerCustomEvent('editableKeyup', event, event.currentTarget);</span>
+        },
+&nbsp;
+        handleMouseover: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.triggerCustomEvent('editableMouseover', event, event.currentTarget);</span>
+        },
+&nbsp;
+        handleDragging: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.triggerCustomEvent('editableDrag', event, event.currentTarget);</span>
+        },
+&nbsp;
+        handleDrop: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.triggerCustomEvent('editableDrop', event, event.currentTarget);</span>
+        },
+&nbsp;
+        handlePaste: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.triggerCustomEvent('editablePaste', event, event.currentTarget);</span>
+        },
+&nbsp;
+        handleKeydown: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            this.triggerCustomEvent('editableKeydown', event, event.currentTarget);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (MediumEditor.util.isKey(event, MediumEditor.util.keyCode.SPACE)) {</span>
+<span class="cstat-no" title="statement not covered" >                return this.triggerCustomEvent('editableKeydownSpace', event, event.currentTarget);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (MediumEditor.util.isKey(event, MediumEditor.util.keyCode.ENTER) || (event.ctrlKey &amp;&amp; MediumEditor.util.isKey(event, MediumEditor.util.keyCode.M))) {</span>
+<span class="cstat-no" title="statement not covered" >                return this.triggerCustomEvent('editableKeydownEnter', event, event.currentTarget);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (MediumEditor.util.isKey(event, MediumEditor.util.keyCode.TAB)) {</span>
+<span class="cstat-no" title="statement not covered" >                return this.triggerCustomEvent('editableKeydownTab', event, event.currentTarget);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (MediumEditor.util.isKey(event, [MediumEditor.util.keyCode.DELETE, MediumEditor.util.keyCode.BACKSPACE])) {</span>
+<span class="cstat-no" title="statement not covered" >                return this.triggerCustomEvent('editableKeydownDelete', event, event.currentTarget);</span>
+            }
+        }
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    MediumEditor.Events = Events;</span>
+}());
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Feb 14 2019 02:10:57 GMT-0600 (Central Standard Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

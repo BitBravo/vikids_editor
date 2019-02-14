@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/extensions/anchor-preview.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">js/extensions/</a> anchor-preview.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.6% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>2/125</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/63</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.35% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/23</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.6% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>2/125</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">(function () {
+    'use strict';
+&nbsp;
+    var AnchorPreview = MediumEditor.Extension.extend({
+        name: 'anchor-preview',
+&nbsp;
+        // Anchor Preview Options
+&nbsp;
+        /* hideDelay: [number]  (previously options.anchorPreviewHideDelay)
+         * time in milliseconds to show the anchor tag preview after the mouse has left the anchor tag.
+         */
+        hideDelay: 500,
+&nbsp;
+        /* previewValueSelector: [string]
+         * the default selector to locate where to put the activeAnchor value in the preview
+         */
+        previewValueSelector: 'a',
+&nbsp;
+        /* showWhenToolbarIsVisible: [boolean]
+         * determines whether the anchor tag preview shows up when the toolbar is visible
+         */
+        showWhenToolbarIsVisible: false,
+&nbsp;
+        /* showOnEmptyLinks: [boolean]
+        * determines whether the anchor tag preview shows up on links with href="" or href="#something"
+        */
+        showOnEmptyLinks: true,
+&nbsp;
+        init: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.anchorPreview = this.createPreview();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.getEditorOption('elementsContainer').appendChild(this.anchorPreview);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.attachToEditables();</span>
+        },
+&nbsp;
+        getInteractionElements: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.getPreviewElement();</span>
+        },
+&nbsp;
+        // TODO: Remove this function in 6.0.0
+        getPreviewElement: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.anchorPreview;</span>
+        },
+&nbsp;
+        createPreview: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var el = this.document.createElement('div');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            el.id = 'medium-editor-anchor-preview-' + this.getEditorId();</span>
+<span class="cstat-no" title="statement not covered" >            el.className = 'medium-editor-anchor-preview';</span>
+<span class="cstat-no" title="statement not covered" >            el.innerHTML = this.getTemplate();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.on(el, 'click', this.handleClick.bind(this));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return el;</span>
+        },
+&nbsp;
+        getTemplate: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return '&lt;div class="medium-editor-toolbar-anchor-preview" id="medium-editor-toolbar-anchor-preview"&gt;' +</span>
+                '    &lt;a class="medium-editor-toolbar-anchor-preview-inner"&gt;&lt;/a&gt;' +
+                '&lt;/div&gt;';
+        },
+&nbsp;
+        destroy: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.anchorPreview) {</span>
+<span class="cstat-no" title="statement not covered" >                if (this.anchorPreview.parentNode) {</span>
+<span class="cstat-no" title="statement not covered" >                    this.anchorPreview.parentNode.removeChild(this.anchorPreview);</span>
+                }
+<span class="cstat-no" title="statement not covered" >                delete this.anchorPreview;</span>
+            }
+        },
+&nbsp;
+        hidePreview: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.anchorPreview) {</span>
+<span class="cstat-no" title="statement not covered" >                this.anchorPreview.classList.remove('medium-editor-anchor-preview-active');</span>
+            }
+<span class="cstat-no" title="statement not covered" >            this.activeAnchor = null;</span>
+        },
+&nbsp;
+        showPreview: <span class="fstat-no" title="function not covered" >function (anchorEl) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.anchorPreview.classList.contains('medium-editor-anchor-preview-active') ||</span>
+                    anchorEl.getAttribute('data-disable-preview')) {
+<span class="cstat-no" title="statement not covered" >                return true;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (this.previewValueSelector) {</span>
+<span class="cstat-no" title="statement not covered" >                this.anchorPreview.querySelector(this.previewValueSelector).textContent = anchorEl.attributes.href.value;</span>
+<span class="cstat-no" title="statement not covered" >                this.anchorPreview.querySelector(this.previewValueSelector).href = anchorEl.attributes.href.value;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.anchorPreview.classList.add('medium-toolbar-arrow-over');</span>
+<span class="cstat-no" title="statement not covered" >            this.anchorPreview.classList.remove('medium-toolbar-arrow-under');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (!this.anchorPreview.classList.contains('medium-editor-anchor-preview-active')) {</span>
+<span class="cstat-no" title="statement not covered" >                this.anchorPreview.classList.add('medium-editor-anchor-preview-active');</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.activeAnchor = anchorEl;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.positionPreview();</span>
+<span class="cstat-no" title="statement not covered" >            this.attachPreviewHandlers();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return this;</span>
+        },
+&nbsp;
+        positionPreview: <span class="fstat-no" title="function not covered" >function (activeAnchor) {</span>
+<span class="cstat-no" title="statement not covered" >            activeAnchor = activeAnchor || this.activeAnchor;</span>
+<span class="cstat-no" title="statement not covered" >            var containerWidth = this.window.innerWidth,</span>
+                buttonHeight = this.anchorPreview.offsetHeight,
+                boundary = activeAnchor.getBoundingClientRect(),
+                diffLeft = this.diffLeft,
+                diffTop = this.diffTop,
+                elementsContainer = this.getEditorOption('elementsContainer'),
+                elementsContainerAbsolute = ['absolute', 'fixed'].indexOf(window.getComputedStyle(elementsContainer).getPropertyValue('position')) &gt; -1,
+                relativeBoundary = {},
+                halfOffsetWidth, defaultLeft, middleBoundary, elementsContainerBoundary, top;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            halfOffsetWidth = this.anchorPreview.offsetWidth / 2;</span>
+<span class="cstat-no" title="statement not covered" >            var toolbarExtension = this.base.getExtensionByName('toolbar');</span>
+<span class="cstat-no" title="statement not covered" >            if (toolbarExtension) {</span>
+<span class="cstat-no" title="statement not covered" >                diffLeft = toolbarExtension.diffLeft;</span>
+<span class="cstat-no" title="statement not covered" >                diffTop = toolbarExtension.diffTop;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            defaultLeft = diffLeft - halfOffsetWidth;</span>
+&nbsp;
+            // If container element is absolute / fixed, recalculate boundaries to be relative to the container
+<span class="cstat-no" title="statement not covered" >            if (elementsContainerAbsolute) {</span>
+<span class="cstat-no" title="statement not covered" >                elementsContainerBoundary = elementsContainer.getBoundingClientRect();</span>
+<span class="cstat-no" title="statement not covered" >                ['top', 'left'].forEach(<span class="fstat-no" title="function not covered" >function (key) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    relativeBoundary[key] = boundary[key] - elementsContainerBoundary[key];</span>
+                });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                relativeBoundary.width = boundary.width;</span>
+<span class="cstat-no" title="statement not covered" >                relativeBoundary.height = boundary.height;</span>
+<span class="cstat-no" title="statement not covered" >                boundary = relativeBoundary;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                containerWidth = elementsContainerBoundary.width;</span>
+&nbsp;
+                // Adjust top position according to container scroll position
+<span class="cstat-no" title="statement not covered" >                top = elementsContainer.scrollTop;</span>
+            } else {
+                // Adjust top position according to window scroll position
+<span class="cstat-no" title="statement not covered" >                top = this.window.pageYOffset;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            middleBoundary = boundary.left + boundary.width / 2;</span>
+<span class="cstat-no" title="statement not covered" >            top += buttonHeight + boundary.top + boundary.height - diffTop - this.anchorPreview.offsetHeight;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.anchorPreview.style.top = Math.round(top) + 'px';</span>
+<span class="cstat-no" title="statement not covered" >            this.anchorPreview.style.right = 'initial';</span>
+<span class="cstat-no" title="statement not covered" >            if (middleBoundary &lt; halfOffsetWidth) {</span>
+<span class="cstat-no" title="statement not covered" >                this.anchorPreview.style.left = defaultLeft + halfOffsetWidth + 'px';</span>
+<span class="cstat-no" title="statement not covered" >                this.anchorPreview.style.right = 'initial';</span>
+            } else <span class="cstat-no" title="statement not covered" >if ((containerWidth - middleBoundary) &lt; halfOffsetWidth) {</span>
+<span class="cstat-no" title="statement not covered" >                this.anchorPreview.style.left = 'auto';</span>
+<span class="cstat-no" title="statement not covered" >                this.anchorPreview.style.right = 0;</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                this.anchorPreview.style.left = defaultLeft + middleBoundary + 'px';</span>
+<span class="cstat-no" title="statement not covered" >                this.anchorPreview.style.right = 'initial';</span>
+            }
+        },
+&nbsp;
+        attachToEditables: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.subscribe('editableMouseover', this.handleEditableMouseover.bind(this));</span>
+<span class="cstat-no" title="statement not covered" >            this.subscribe('positionedToolbar', this.handlePositionedToolbar.bind(this));</span>
+        },
+&nbsp;
+        handlePositionedToolbar: <span class="fstat-no" title="function not covered" >function () {</span>
+            // If the toolbar is visible and positioned, we don't need to hide the preview
+            // when showWhenToolbarIsVisible is true
+<span class="cstat-no" title="statement not covered" >            if (!this.showWhenToolbarIsVisible) {</span>
+<span class="cstat-no" title="statement not covered" >                this.hidePreview();</span>
+            }
+        },
+&nbsp;
+        handleClick: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            var anchorExtension = this.base.getExtensionByName('anchor'),</span>
+                activeAnchor = this.activeAnchor;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (anchorExtension &amp;&amp; activeAnchor) {</span>
+<span class="cstat-no" title="statement not covered" >                event.preventDefault();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                this.base.selectElement(this.activeAnchor);</span>
+&nbsp;
+                // Using setTimeout + delay because:
+                // We may actually be displaying the anchor form, which should be controlled by delay
+<span class="cstat-no" title="statement not covered" >                this.base.delay(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                    if (activeAnchor) {</span>
+<span class="cstat-no" title="statement not covered" >                        var opts = {</span>
+                            value: activeAnchor.attributes.href.value,
+                            target: activeAnchor.getAttribute('target'),
+                            buttonClass: activeAnchor.getAttribute('class')
+                        };
+<span class="cstat-no" title="statement not covered" >                        anchorExtension.showForm(opts);</span>
+<span class="cstat-no" title="statement not covered" >                        activeAnchor = null;</span>
+                    }
+                }.bind(this));
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.hidePreview();</span>
+        },
+&nbsp;
+        handleAnchorMouseout: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.anchorToPreview = null;</span>
+<span class="cstat-no" title="statement not covered" >            this.off(this.activeAnchor, 'mouseout', this.instanceHandleAnchorMouseout);</span>
+<span class="cstat-no" title="statement not covered" >            this.instanceHandleAnchorMouseout = null;</span>
+        },
+&nbsp;
+        handleEditableMouseover: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            var target = MediumEditor.util.getClosestTag(event.target, 'a');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (false === target) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+            // Detect empty href attributes
+            // The browser will make href="" or href="#top"
+            // into absolute urls when accessed as event.target.href, so check the html
+<span class="cstat-no" title="statement not covered" >            if (!this.showOnEmptyLinks &amp;&amp;</span>
+                (!/href=["']\S+["']/.test(target.outerHTML) || /href=["']#\S+["']/.test(target.outerHTML))) {
+<span class="cstat-no" title="statement not covered" >                return true;</span>
+            }
+&nbsp;
+            // only show when toolbar is not present
+<span class="cstat-no" title="statement not covered" >            var toolbar = this.base.getExtensionByName('toolbar');</span>
+<span class="cstat-no" title="statement not covered" >            if (!this.showWhenToolbarIsVisible &amp;&amp; toolbar &amp;&amp; toolbar.isDisplayed &amp;&amp; toolbar.isDisplayed()) {</span>
+<span class="cstat-no" title="statement not covered" >                return true;</span>
+            }
+&nbsp;
+            // detach handler for other anchor in case we hovered multiple anchors quickly
+<span class="cstat-no" title="statement not covered" >            if (this.activeAnchor &amp;&amp; this.activeAnchor !== target) {</span>
+<span class="cstat-no" title="statement not covered" >                this.detachPreviewHandlers();</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.anchorToPreview = target;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.instanceHandleAnchorMouseout = this.handleAnchorMouseout.bind(this);</span>
+<span class="cstat-no" title="statement not covered" >            this.on(this.anchorToPreview, 'mouseout', this.instanceHandleAnchorMouseout);</span>
+            // Using setTimeout + delay because:
+            // - We're going to show the anchor preview according to the configured delay
+            //   if the mouse has not left the anchor tag in that time
+<span class="cstat-no" title="statement not covered" >            this.base.delay(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (this.anchorToPreview) {</span>
+<span class="cstat-no" title="statement not covered" >                    this.showPreview(this.anchorToPreview);</span>
+                }
+            }.bind(this));
+        },
+&nbsp;
+        handlePreviewMouseover: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.lastOver = (new Date()).getTime();</span>
+<span class="cstat-no" title="statement not covered" >            this.hovering = true;</span>
+        },
+&nbsp;
+        handlePreviewMouseout: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!event.relatedTarget || !/anchor-preview/.test(event.relatedTarget.className)) {</span>
+<span class="cstat-no" title="statement not covered" >                this.hovering = false;</span>
+            }
+        },
+&nbsp;
+        updatePreview: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.hovering) {</span>
+<span class="cstat-no" title="statement not covered" >                return true;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            var durr = (new Date()).getTime() - this.lastOver;</span>
+<span class="cstat-no" title="statement not covered" >            if (durr &gt; this.hideDelay) {</span>
+                // hide the preview 1/2 second after mouse leaves the link
+<span class="cstat-no" title="statement not covered" >                this.detachPreviewHandlers();</span>
+            }
+        },
+&nbsp;
+        detachPreviewHandlers: <span class="fstat-no" title="function not covered" >function () {</span>
+            // cleanup
+<span class="cstat-no" title="statement not covered" >            clearInterval(this.intervalTimer);</span>
+<span class="cstat-no" title="statement not covered" >            if (this.instanceHandlePreviewMouseover) {</span>
+<span class="cstat-no" title="statement not covered" >                this.off(this.anchorPreview, 'mouseover', this.instanceHandlePreviewMouseover);</span>
+<span class="cstat-no" title="statement not covered" >                this.off(this.anchorPreview, 'mouseout', this.instanceHandlePreviewMouseout);</span>
+<span class="cstat-no" title="statement not covered" >                if (this.activeAnchor) {</span>
+<span class="cstat-no" title="statement not covered" >                    this.off(this.activeAnchor, 'mouseover', this.instanceHandlePreviewMouseover);</span>
+<span class="cstat-no" title="statement not covered" >                    this.off(this.activeAnchor, 'mouseout', this.instanceHandlePreviewMouseout);</span>
+                }
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.hidePreview();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.hovering = this.instanceHandlePreviewMouseover = this.instanceHandlePreviewMouseout = null;</span>
+        },
+&nbsp;
+        // TODO: break up method and extract out handlers
+        attachPreviewHandlers: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.lastOver = (new Date()).getTime();</span>
+<span class="cstat-no" title="statement not covered" >            this.hovering = true;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.instanceHandlePreviewMouseover = this.handlePreviewMouseover.bind(this);</span>
+<span class="cstat-no" title="statement not covered" >            this.instanceHandlePreviewMouseout = this.handlePreviewMouseout.bind(this);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.intervalTimer = setInterval(this.updatePreview.bind(this), 200);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.on(this.anchorPreview, 'mouseover', this.instanceHandlePreviewMouseover);</span>
+<span class="cstat-no" title="statement not covered" >            this.on(this.anchorPreview, 'mouseout', this.instanceHandlePreviewMouseout);</span>
+<span class="cstat-no" title="statement not covered" >            this.on(this.activeAnchor, 'mouseover', this.instanceHandlePreviewMouseover);</span>
+<span class="cstat-no" title="statement not covered" >            this.on(this.activeAnchor, 'mouseout', this.instanceHandlePreviewMouseout);</span>
+        }
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    MediumEditor.extensions.anchorPreview = AnchorPreview;</span>
+}());
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Feb 14 2019 02:10:57 GMT-0600 (Central Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

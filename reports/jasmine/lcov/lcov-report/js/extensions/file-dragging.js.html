@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/extensions/file-dragging.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">js/extensions/</a> file-dragging.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.13% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>2/39</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.13% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>2/39</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">;(<span class="fstat-no" title="function not covered" >function ($, document, window) {</span>
+    'use strict';
+<span class="cstat-no" title="statement not covered" >    var CLASS_DRAG_OVER = 'medium-editor-dragover';</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function clearClassNames(element) {</span>
+<span class="cstat-no" title="statement not covered" >        var editable = MediumEditor.util.getContainerEditorElement(element),</span>
+            existing = Array.prototype.slice.call(editable.parentElement.querySelectorAll('.' + CLASS_DRAG_OVER));
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        existing.forEach(<span class="fstat-no" title="function not covered" >function (el) {</span></span>
+<span class="cstat-no" title="statement not covered" >            el.classList.remove(CLASS_DRAG_OVER);</span>
+        });
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var FileDragging = MediumEditor.Extension.extend({</span>
+        name: 'fileDragging',
+&nbsp;
+        allowedTypes: ['image'],
+&nbsp;
+        init: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            MediumEditor.Extension.prototype.init.apply(this, arguments);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.subscribe('editableDrag', this.handleDrag.bind(this));</span>
+<span class="cstat-no" title="statement not covered" >            this.subscribe('editableDrop', this.handleDrop.bind(this));</span>
+        },
+&nbsp;
+        handleDrag: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >            event.dataTransfer.dropEffect = 'copy';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var target = event.target.classList ? event.target : event.target.parentElement;</span>
+&nbsp;
+            // Ensure the class gets removed from anything that had it before
+<span class="cstat-no" title="statement not covered" >            clearClassNames(target);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (event.type === 'dragover') {</span>
+<span class="cstat-no" title="statement not covered" >                target.classList.add(CLASS_DRAG_OVER);</span>
+            }
+        },
+&nbsp;
+        handleDrop: <span class="fstat-no" title="function not covered" >function (event) {</span>
+            // Prevent file from opening in the current window
+<span class="cstat-no" title="statement not covered" >            event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >            event.stopPropagation();</span>
+            // Select the dropping target, and set the selection to the end of the target
+            // https://github.com/yabwe/medium-editor/issues/980
+<span class="cstat-no" title="statement not covered" >            this.base.selectElement(event.target);</span>
+<span class="cstat-no" title="statement not covered" >            var selection = this.base.exportSelection();</span>
+<span class="cstat-no" title="statement not covered" >            selection.start = selection.end;</span>
+<span class="cstat-no" title="statement not covered" >            this.base.importSelection(selection);</span>
+            // IE9 does not support the File API, so prevent file from opening in the window
+            // but also don't try to actually get the file
+<span class="cstat-no" title="statement not covered" >            if (event.dataTransfer.files) {</span>
+<span class="cstat-no" title="statement not covered" >                Array.prototype.slice.call(event.dataTransfer.files).forEach(<span class="fstat-no" title="function not covered" >function (file) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    if (this.isAllowedFile(file)) {</span>
+<span class="cstat-no" title="statement not covered" >                        if (file.type.match('image')) {</span>
+<span class="cstat-no" title="statement not covered" >                            this.insertImageFile(file);</span>
+                        }
+                    }
+                }, this);
+            }
+&nbsp;
+            // Make sure we remove our class from everything
+<span class="cstat-no" title="statement not covered" >            clearClassNames(event.target);</span>
+        },
+&nbsp;
+        isAllowedFile: <span class="fstat-no" title="function not covered" >function (file) {</span>
+<span class="cstat-no" title="statement not covered" >            return this.allowedTypes.some(<span class="fstat-no" title="function not covered" >function (fileType) {</span></span>
+<span class="cstat-no" title="statement not covered" >                return !!file.type.match(fileType);</span>
+            });
+        },
+&nbsp;
+        insertImageFile: <span class="fstat-no" title="function not covered" >function (file) {</span>
+<span class="cstat-no" title="statement not covered" >            if (typeof FileReader !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            var fileReader = new FileReader();</span>
+<span class="cstat-no" title="statement not covered" >            fileReader.readAsDataURL(file);</span>
+&nbsp;
+            // attach the onload event handler, makes it easier to listen in with jasmine
+<span class="cstat-no" title="statement not covered" >            fileReader.addEventListener('load', <span class="fstat-no" title="function not covered" >function (e) {</span></span>
+<span class="cstat-no" title="statement not covered" >                var addImageElement = this.document.createElement('img');</span>
+<span class="cstat-no" title="statement not covered" >                addImageElement.src = e.target.result;</span>
+<span class="cstat-no" title="statement not covered" >                MediumEditor.util.insertHTMLCommand(this.document, addImageElement.outerHTML);</span>
+            }.bind(this));
+        }
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    MediumEditor.extensions.fileDragging = FileDragging;</span>
+})($, document, window);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Feb 14 2019 02:10:57 GMT-0600 (Central Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
