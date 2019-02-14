@@ -125,6 +125,22 @@ module.exports = function (grunt) {
         }
     }
 
+    gruntConfig.fixmyjs = {
+        fixmyjs: {
+            options: {
+                config: '.jshintrc',
+                indentpref: 'spaces'
+            },
+            all: {
+                src: [
+                    'src/js/**/*.js',
+                    'spec/*.spec.js',
+                    'Gruntfile.js'
+                ]
+            }
+        }
+    }
+    
     // TODO: "maximumLineLength": 120
     gruntConfig.jscs = {
         src: [
