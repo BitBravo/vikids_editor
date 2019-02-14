@@ -110,6 +110,21 @@ module.exports = function (grunt) {
         }
     };
 
+    gruntConfig.eslint =  {
+        options: {
+            format: require('eslint-tap'),
+            reset: false,
+            fix: true
+        },
+        all: {
+            src: [
+                'src/js/**/*.js',
+                'spec/*.spec.js',
+                'Gruntfile.js'
+            ]
+        }
+    }
+
     // TODO: "maximumLineLength": 120
     gruntConfig.jscs = {
         src: [
@@ -348,6 +363,7 @@ module.exports = function (grunt) {
     grunt.registerTask('js', ['jshint', 'jscs', 'concat', 'jasmine:suite', 'uglify']);
     grunt.registerTask('css', ['sass', 'autoprefixer', 'cssmin', 'csslint']);
     grunt.registerTask('default', ['js', 'css']);
+    grunt.registerTask('default', ['eslint']);
 
     // release tasks
     grunt.registerTask('patch', ['bump', 'css', 'js']);
