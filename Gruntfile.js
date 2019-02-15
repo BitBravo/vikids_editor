@@ -125,6 +125,20 @@ module.exports = function (grunt) {
         }
     }
 
+    gruntConfig.fixmyjs = { 
+        options: {
+            config: '.jshintrc',
+            indentpref: 'spaces'
+        },
+        all: {
+            src: [
+                'src/js/**/*.js',
+                'spec/*.spec.js',
+                'Gruntfile.js'
+            ]
+        }
+    }
+    
     // TODO: "maximumLineLength": 120
     gruntConfig.jscs = {
         src: [
@@ -364,6 +378,7 @@ module.exports = function (grunt) {
     grunt.registerTask('css', ['sass', 'autoprefixer', 'cssmin', 'csslint']);
     grunt.registerTask('default', ['js', 'css']);
     grunt.registerTask('default', ['eslint']);
+    grunt.registerTask('default', ['fixmyjs']);
 
     // release tasks
     grunt.registerTask('patch', ['bump', 'css', 'js']);
