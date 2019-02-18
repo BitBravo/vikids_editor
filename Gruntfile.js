@@ -240,40 +240,37 @@ module.exports = function (grunt) {
                 includePaths: ['src/sass/']
             },
             files: {
-                'dist/css/medium-editor.css': 'src/sass/medium-editor.scss',
-                'dist/css/themes/bootstrap.css': 'src/sass/themes/bootstrap.scss',
-                'dist/css/themes/default.css': 'src/sass/themes/default.scss',
-                'dist/css/themes/flat.css': 'src/sass/themes/flat.scss',
-                'dist/css/themes/mani.css': 'src/sass/themes/mani.scss',
-                'dist/css/themes/roman.css': 'src/sass/themes/roman.scss',
-                'dist/css/themes/tim.css': 'src/sass/themes/tim.scss',
-                'dist/css/themes/beagle.css': 'src/sass/themes/beagle.scss'
+                'src/css/medium-editor.css': 'src/sass/medium-editor.scss',
+                'src/css/themes/bootstrap.css': 'src/sass/themes/bootstrap.scss',
+                'src/css/themes/default.css': 'src/sass/themes/default.scss',
+                'src/css/themes/flat.css': 'src/sass/themes/flat.scss',
+                'src/css/themes/mani.css': 'src/sass/themes/mani.scss',
+                'src/css/themes/roman.css': 'src/sass/themes/roman.scss',
+                'src/css/themes/tim.css': 'src/sass/themes/tim.scss',
+                'src/css/themes/beagle.css': 'src/sass/themes/beagle.scss'
             }
         }
     };
 
-    gruntConfig.cssmin = {
-        main: {
-            options: {
-                noAdvanced: true
-            },
-
-            expand: true,
-            cwd: 'dist/css/',
-            src: ['*.css', '!*.min.css'],
-            dest: 'dist/css/',
-            ext: '.min.css'
+    gruntConfig.concat_css = {
+        options: {
+            // Task-specific options go here.
         },
-        themes: {
-            options: {
-                noAdvanced: true
-            },
+        all: {
+            src: ['src/css/medium-editor.css', 'src/css/themes/default.css', 'assests/css/insert-plugin.css', 'assests/css/demo.css'],
+            dest: "dist/css/vikids-editor.css"
+        },
+    };
 
-            expand: true,
-            cwd: 'dist/css/themes/',
-            src: ['*.css', '!*.min.css'],
-            dest: 'dist/css/themes/',
-            ext: '.min.css'
+    gruntConfig.cssmin = {
+        options: {
+            mergeIntoShorthands: false,
+            roundingPrecision: -1
+        },
+        target: {
+            files: {
+                'dist/css/vikids-editor.min.css': ['dist/css/vikids-editor.css']
+            }
         }
     };
 
@@ -386,7 +383,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['jshint', 'jscs', 'concat', 'jasmine:suite', 'csslint']);
     grunt.registerTask('sauce', ['connect', 'saucelabs-jasmine']);
     grunt.registerTask('js', ['concat', 'uglify']);
-    grunt.registerTask('css', ['sass', 'autoprefixer', 'cssmin', 'csslint']);
+    grunt.registerTask('css', ['sass', 'autoprefixer', 'concat_css', 'cssmin']);
     grunt.registerTask('default', ['js', 'css']);
     grunt.registerTask('default', ['eslint']);
     grunt.registerTask('default', ['fixmyjs']);

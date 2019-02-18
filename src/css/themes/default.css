@@ -12,8 +12,6 @@
   border: 1px solid #000;
   border-radius: 5px;
   box-shadow: 0 0 3px #000;
-  width: -webkit-max-content;
-  width: -moz-max-content;
   width: max-content; }
   .medium-editor-toolbar li button {
     background-color: #242424;
