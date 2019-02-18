@@ -38,6 +38,16 @@ module.exports = function (grunt) {
             'src/js/extensions/placeholder.js',
             'src/js/extensions/toolbar.js',
             'src/js/extensions/deprecated/image-dragging.js',
+            'assests/js/lib/file-upload/jquery.ui.widget.js',
+            'assests/js/lib/file-upload/jquery.fileupload.js',
+            'assests/js/lib/file-upload/jquery.iframe-transport.js',
+            'assests/js/lib/handlebars.runtime.min.js',
+            'assests/js/lib/jquery-sortable-min.js',
+            'assests/js/lib/embed/templates.js',
+            'assests/js/lib/embed/core.js',
+            'assests/js/lib/embed/embeds.js',
+            'assests/js/lib/embed/images.js',
+            'assests/js/custom.js',
         ],
         browsers = [{
             browserName: 'internet explorer',
@@ -104,6 +114,7 @@ module.exports = function (grunt) {
         all: {
             src: [
                 'src/js/**/*.js',
+                'assests/js/**/*.js',
                 'spec/*.spec.js',
                 'Gruntfile.js'
             ]
@@ -120,10 +131,11 @@ module.exports = function (grunt) {
             src: [
                 'src/js/**/*.js',
                 'spec/*.spec.js',
+                'assests/js/**/*.js',
                 'Gruntfile.js'
             ]
         }
-    }
+    };
 
     gruntConfig.fixmyjs = { 
         options: {
@@ -133,11 +145,12 @@ module.exports = function (grunt) {
         all: {
             src: [
                 'src/js/**/*.js',
+                'assests/js/**/*.js',
                 'spec/*.spec.js',
                 'Gruntfile.js'
             ]
         }
-    }
+    };
     
     // TODO: "maximumLineLength": 120
     gruntConfig.jscs = {

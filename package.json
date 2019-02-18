@@ -1,9 +1,8 @@
 {
-  "_from": "Advanced Medium Editor",
-  "_id": "Advanced Medium Editor",
+  "_from": "Vikids Editor",
+  "_id": "Vikids Editor",
   "_inBundle": false,
   "_integrity": "sha512-he9/TdjX8f8MGdXGfCs8AllrYnqXJJvjNkDKmPg3aPW/uoIrlRqtkFthrwvmd+u4QyzEiadhCCM0EwTiRdUCJw==",
-  "_location": "/medium-editor",
   "_phantomChildren": {},
   "_requested": {
     "type": "range",
@@ -67,8 +66,8 @@
     "custom Emoji"
   ],
   "license": "MIT",
-  "main": "dist/js/advanced-medium-editor.js",
-  "name": "advanced-medium-editor",
+  "main": "dist/js/vikids-editor.js",
+  "name": "vikids-editor",
   "publishConfig": {
     "registry": "http://registry.npmjs.org/"
   },
@@ -85,5 +84,7 @@
     "test:ci": "node node_modules/grunt-cli/bin/grunt travis --verbose"
   },
   "version": "2.0.0",
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }

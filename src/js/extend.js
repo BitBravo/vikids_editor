@@ -24,8 +24,8 @@
       const lastPos = matches.index + matches[0].length;
       const preText = str.slice(0, startPos);
       const lastText = str.slice(lastPos);
-      const data = {url: matches[2], alt: matches[1]}
-      return {preText: preText, lastText: lastText, data: data}
+      const data = {url: matches[2], alt: matches[1]};
+      return {preText: preText, lastText: lastText, data: data};
     }
   };
   
@@ -35,7 +35,7 @@
     
     const imgTag = this.templates['src/js/templates/images-image.hbs']({
       img: dt.data.url,
-    })
+    });
       
     let imgTagEl = document.createElement("div");
     node.append(imgTagEl);
@@ -45,7 +45,7 @@
       const captionTag = this.templates['src/js/templates/core-caption.hbs']({
         text: dt.data.alt,
         placeholder: null
-      })
+      });
 
       $("figure", node)[0].innerHTML += captionTag;
       let $el = $("figcaption", node);
@@ -62,16 +62,16 @@
  
     const newElement =  preElement.outerHTML + node.outerHTML + lastElement.outerHTML;
     return newElement;
-  }
+  };
 
   Extend.prototype.updateContent = function (el, element) {
     var that = this, $image;
     if (typeof element === 'string') {
       el.innerHTML = element;
     } else {
-      el.appendChild(element)
+      el.appendChild(element);
     }
-  }
+  };
 
 
   Extend.prototype.checkCustomPattern = function () {
@@ -80,30 +80,23 @@
     
     var peC = pe.innerHTML;
     const parseData = this.getFind(peC);
-    console.log('checkCustomPattern ===>', peC)
+
     if (parseData) {
-      const elements = this.createContent(parseData)
+      const elements = this.createContent(parseData);
       this.updateContent(pe, elements);
     }
-  }
-
-  Extend.prototype.simulateKeydown = function (el, keycode, isCtrl, isAlt, isShift) {
-    var e = new KeyboardEvent( "keydown", { bubbles:true, cancelable:true, char:String.fromCharCode(keycode), key:String.fromCharCode(keycode), shiftKey:isShift, ctrlKey:isCtrl, altKey:isAlt } );
-    Object.defineProperty(e, 'keyCode', {get : function() { return this.keyCodeVal; } });     
-    e.keyCodeVal = keycode;
-    el.dispatchEvent(e);
-  }
+  };
 
   Extend.prototype.capturePattern = function () {
     if(ctTime) {
-      window.clearTimeout(ctTime)
-      ctTime = null
+      window.clearTimeout(ctTime);
+      ctTime = null;
     } else {
       ctTime = window.setTimeout(() => {
         this.checkCustomPattern();
       }, 100);
     }
-  }
+  };
 
   window.Extend = Extend;
 })($, window, document);

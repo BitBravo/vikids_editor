@@ -289,7 +289,7 @@
             element && element.removeClass('medium-insert-active');
         });
         this.$el.find('.medium-insert-embeds-active').map((element)=>{
-            element && element.removeClass('medium-insert-embeds-active')
+            element && element.removeClass('medium-insert-embeds-active');
         });
 
         $place.addClass('medium-insert-images medium-insert-active');
@@ -413,7 +413,7 @@
         that = this;
         if (this.options.preview && data.context) {
             domImage = this.getDOMImage();
-            const fileUrl = img.url.match(/(http|https):\/\//)? ima.url: `http://${img.url}`;
+            const fileUrl = img.url.match(/(http|https):\/\//)? img.url: `http://${img.url}`;
 
             domImage.onload = function () {
                 data.context.find('img').attr('src', fileUrl);
@@ -481,7 +481,7 @@
         $place[0].innerHTML = this.templates['src/js/templates/images-image.hbs']({
             img: typeof img === 'object'? img.url : img,
             progress: this.options.preview
-        })
+        });
        
         $place.find('br').remove();
             
@@ -490,8 +490,8 @@
 
             img.alt? 
                 (()=>{
-                    that.core.addCaption($image.closest('figure'), that.options.captionPlaceholder)
-                    that.core.addCaptionContent($place, img.alt)
+                    that.core.addCaption($image.closest('figure'), that.options.captionPlaceholder);
+                    that.core.addCaptionContent($place, img.alt);
                 })()
                 :
                 null;

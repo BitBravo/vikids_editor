@@ -1,3 +1,11 @@
+var r_uploadURL = typeof uploadURL !=='undefined'? uploadURL : 'http://localhost:3000/upload';
+var r_deleteURL = typeof deleteURL !=='undefined'? deleteURL : 'http://localhost:3000/delete';
+var r_admin_permission = typeof admin_permission !=='undefined'? admin_permission : false;
+
+if (!r_admin_permission) {
+  $("p").removeClass("intro");
+}
+
 var editor = new MediumEditor('.editable', {
   buttonLabels: 'fontawesome',
   paste: {
@@ -9,14 +17,14 @@ var editor = new MediumEditor('.editable', {
 $(function () {
   $('.editable').mediumInsert({
       editor: editor,
-      enabled: true, 
+      enabled: r_admin_permission, 
       addons: { 
           images: { 
               fileDeleteOptions: {
-                url: 'http://localhost:3000/delete'
+                url: r_deleteURL,
               }, 
               fileUploadOptions: { 
-                  url: 'http://localhost:3000/upload', 
+                  url: r_uploadURL, 
               },
           }
       }

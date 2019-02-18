@@ -44,6 +44,9 @@
         this.extend = new Extend();
         this.targetEl = '',
         this.ctTime = null;
+        if(typeof admin_permission === 'undefined' || admin_permission === false) {
+        }
+        this.$el.find('figcaption').removeAttr('contenteditable');
 
         if (options) {
             // Fix #142
@@ -114,7 +117,7 @@
         this.$el
             .on('dragover drop', function (e) {
                 e.preventDefault();
-                $.proxy(that, 'dragDropAction')(e)
+                $.proxy(that, 'dragDropAction')(e);
             })
             .on('keyup click', $.proxy(this, 'toggleButtons'))
             .on('selectstart mousedown', '.medium-insert, .medium-insert-buttons', $.proxy(this, 'disableSelection'))
@@ -579,8 +582,8 @@
             this.$el.find('.medium-insert-embeds-active').removeClass('medium-insert-embeds-active');
             e.target.click();
 
-            const newMediaDiv = document.createElement("div")
-            newMediaDiv.className = 'medium-insert-active'
+            const newMediaDiv = document.createElement("div");
+            newMediaDiv.className = 'medium-insert-active';
             targetElement.after(newMediaDiv);            
         }
     };
@@ -603,7 +606,7 @@
             tokens[i].attrJoin('data-line', `${String([tokens[i].map[0], tokens[i].map[1]])}`);
             }
         }
-    }
+    };
 
     Core.prototype.moveCaret = function ($el, position) {
         var range, sel, el, textEl;
@@ -708,8 +711,8 @@
 
     Core.prototype.createEmptyMediaDiv = function (data, className) {
 
-        const newelement = this.targetEl.clone()
-        const newMediaDiv = document.createElement("div")
+        const newelement = this.targetEl.clone();
+        const newMediaDiv = document.createElement("div");
         newMediaDiv.className = className;
         // newMediaDiv.innerHTML = '</br>'
 
@@ -730,16 +733,16 @@
 
     Core.prototype.embedMedia = function(data, that, result) {
         if(result === 'success' && data.type === 'img') {
-            that.createEmptyMediaDiv(data, "medium-insert-active")
+            that.createEmptyMediaDiv(data, "medium-insert-active");
 
             that.$el.data('plugin_' + pluginName + ucfirst('images'))['showImageByURL'](data);
         }
 
         if(result === 'success' && data.type === 'mov') {
-            that.createEmptyMediaDiv(data, "medium-insert-embeds-active")            
+            that.createEmptyMediaDiv(data, "medium-insert-embeds-active");            
             that.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed'](data.url, null, data.alt);
         }
-    }
+    };
 
 
     /**
@@ -770,7 +773,7 @@
           }, timeout); 
           img.src = url;
         });
-    }
+    };
 
 
     /**
@@ -784,13 +787,13 @@
     Core.prototype.videoValidate = function (src, callback) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState === 4 && this.status === 200) {
                 callback('success');
            }
         };
         xhttp.open("GET", `https://iframe.ly/api/iframely?url=${src}&api_key=e9fb88937d4a97e3361b89`, true);
         xhttp.send();
-    }
+    };
 
 
     /**
@@ -834,11 +837,11 @@
        return  matches && matches[2] ?
         (()=>{
             const mediaType = matches[1] === '!' ? 'img' : 'mov';
-            const altText = matches[2]
+            const altText = matches[2];
             const filePath = matches[3];
 
             // check if the current file is valid media file
-            const fileURLValidate= this.checkMediaUrlParse(mediaType, filePath)
+            const fileURLValidate= this.checkMediaUrlParse(mediaType, filePath);
             if (fileURLValidate) {
                 const startPos = matches.index;
                 const lastPos = matches.index + matches[0].length;
@@ -854,24 +857,24 @@
                 };
                
             } else {
-                console.log('File is not valid media file')
+                console.log('File is not valid media file');
                 return false;
             }         
         })()
         :
         (()=>{
-            return false
+            return false;
         })();
     };
 
     Core.prototype.getCursorPosition = function (element) {
-        element = element || document.querySelector('.editable')
+        element = element || document.querySelector('.editable');
         var caretOffset = 0;
         var preCaretRange = '';
         var doc = element.ownerDocument || element.document;
         var win = doc.defaultView || doc.parentWindow;
         var sel;
-        if (typeof win.getSelection != "undefined") {
+        if (typeof win.getSelection !== "undefined") {
             sel = win.getSelection();
             if (sel.rangeCount > 0) {
                 var range = win.getSelection().getRangeAt(0);
@@ -880,7 +883,7 @@
                 preCaretRange.setEnd(range.endContainer, range.endOffset);
                 caretOffset = preCaretRange.toString().length;
             }
-        } else if ( (sel = doc.selection) && sel.type != "Control") {
+        } else if ( (sel = doc.selection) && sel.type !=="Control") {
             var textRange = sel.createRange();
             var preCaretTextRange = doc.body.createTextRange();
             preCaretTextRange.moveToElementText(element);
@@ -888,18 +891,18 @@
             caretOffset = preCaretTextRange.text.length;
         }
 
-        return {point: caretOffset, text: preCaretRange.toString()}
-    }
+        return {point: caretOffset, text: preCaretRange.toString()};
+    };
   
     Core.prototype.getAllTextnodes = function (el) {
-        el = el || document.querySelector('.editable')
+        el = el || document.querySelector('.editable');
         var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
         while(n=walk.nextNode()) a.push(n);
         return a;
-    }
+    };
 
     Core.prototype.getCursorData = function (el, position){
-        el = el || document.querySelector('.editable')
+        el = el || document.querySelector('.editable');
         var node, nodes = this.getAllTextnodes(el);
         for(var n = 0; n < nodes.length; n++) {
             if (position > nodes[n].nodeValue.length && nodes[n+1]) {
@@ -912,7 +915,7 @@
         }
         // you'll need the node and the position (offset) to set the caret
         return { node: node, position: position };
-    }
+    };
 
     Core.prototype.setCursorPosition = function (d) {
         var sel = window.getSelection(),
@@ -921,12 +924,12 @@
         range.collapse(true);
         sel.removeAllRanges();
         sel.addRange(range);
-    }
+    };
 
     Core.prototype.checkInputMediaToolbar = function () {
         const cPoint = this.getCursorPosition();
         const cPointDetail = this.getCursorData(null, cPoint.point);
-    }
+    };
 
     Core.prototype.checkCustomPattern = function () {
         var an = window.getSelection().anchorNode;
@@ -949,19 +952,19 @@
             // }
 
         }
-    }
+    };
         
     Core.prototype.capturePattern = function () {
         if(this.ctTime) {
-            window.clearTimeout(this.ctTime)
-            this.ctTime = null
+            window.clearTimeout(this.ctTime);
+            this.ctTime = null;
         } 
         
         this.ctTime = window.setTimeout(() => {
             this.checkCustomPattern();
         }, 500);
 
-    }
+    };
 
     /** Plugin initialization */
 

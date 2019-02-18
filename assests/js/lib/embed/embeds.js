@@ -203,10 +203,6 @@
         this.core.hideButtons();
     };
 
-    Embeds.prototype.test = function() {
-        console.log('Thisis a test function')
-    }
-
     /**
      * Toggles placeholder
      *
@@ -329,7 +325,7 @@
      */
 
     Embeds.prototype.oembed = function (url, pasted, altText) {
-        console.log('Embded->Oembed 335 ===>', url, pasted)
+
         var that = this;
         $.support.cors = true;
 
@@ -472,10 +468,10 @@
 
                     if (that.options.captions) {
                         that.core.addCaption($place.find('figure'), that.options.captionPlaceholder);
-                        that.core.addCaptionContent($place, altText)
+                        that.core.addCaptionContent($place, altText);
                     }
                     
-                    $place.replaceWith($place.find('.medium-insert-embeds'))
+                    $place.replaceWith($place.find('.medium-insert-embeds'));
                 } else {
                     $place.after(this.templates['src/js/templates/embeds-wrapper.hbs']({
                         html: html
@@ -506,7 +502,7 @@
      * @return {void}
      */
     Embeds.prototype.convertBadEmbed = function (content) {
-        console.log('Embed->convertBadEmbed 527 ===>', content)
+
         var $place, $empty, $content,
             emptyTemplate = this.templates['src/js/templates/core-empty-line.hbs']().trim();
 
@@ -729,7 +725,7 @@
 
         $lis.find('button').each(function () {
             var className = 'medium-insert-embeds-' + $(this).data('action');
-            console.log(className)
+
             if ($(this).hasClass('medium-editor-button-active')) {
                 $embed.addClass(className);
 
@@ -776,7 +772,7 @@
         const parseData = this.extend.getFind(peC);
 
         if (parseData) {
-          const elements = this.extend.createContent(parseData)
+          const elements = this.extend.createContent(parseData);
           this.extend.updateContent(pe, elements);
         }
     }
@@ -786,18 +782,18 @@
         Object.defineProperty(e, 'keyCode', {get : function() { return this.keyCodeVal; } });     
         e.keyCodeVal = keycode;
         el.dispatchEvent(e);
-    }
+    };
     
     Embeds.prototype.capturePattern = function () {
         if(ctTime) {
-            window.clearTimeout(ctTime)
-            ctTime = null
+            window.clearTimeout(ctTime);
+            ctTime = null;
         } else {
             ctTime = window.setTimeout(() => {
             this.checkCustomPattern();
             }, 100);
         }
-    }
+    };
 
     /** Plugin initialization */
 

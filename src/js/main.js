@@ -8,13 +8,13 @@ window.onload = function () {
         // , "header1"
         // , "header2"
         // , "quote"
-        , "customHtml"
-      ]
-    , extensions: {
+        "customHtml"
+      ], 
+      extensions: {
           "customHtml": new CustomHtml({
               buttonText: "<hr>"
             , htmlToInsert: "<hr class='someclass'>"
-          })
-      }
+          }),
+      },
   });
 };
