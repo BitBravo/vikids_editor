@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="container">
-        <div class="editable" data-placeholder="Type some text">
+        <div class="editable give-me-editor" data-placeholder="Type some text">
             <h2 class="test">Advanced Medium Editor</h2>
             What is Content Marketing?
             The Content Marketing Institute defines content marketing as “a strategic marketing approach focused on creating and distributing valuable, relevant, and consistent content to attract and retain a clearly defined audience — and, ultimately, to drive profitable customer action.”
@@ -64,18 +64,14 @@
         </div>
 
     </div>
-    <link rel="stylesheet" href="./dist/css/medium-editor.css">
-    <script src="./dist/js/vikids-editor.js"></script>
+    <script src="./assests/js/lib/jquery.min.js"></script>
 
-    <!-- <script src="./assests/js/lib/jquery.min.js"></script>
-    <script src="./assests/js/lib/file-upload/jquery.ui.widget.js"></script>
-    <script src="./assests/js/lib/file-upload/jquery.fileupload.js"></script>
-    <script src="./assests/js/lib/file-upload/jquery.iframe-transport.js"></script>
-    <script src="./assests/js/lib/handlebars.runtime.min.js"></script>
-    <script src="./assests/js/lib/jquery-sortable-min.js"></script>
-
-      
-    <script src="./src/js/globals.js"></script>
+    <script>
+        var admin_permission = true;
+        var uploadURL = 'http://localhost:9999/uploadurl', deleteURL= 'http://localhost:9999/uploadurl';
+    </script>
+    <script src="./dist/js/vikids-editor.min.js"></script>
+    <!-- <script src="./src/js/globals.js"></script>
     <script src="./src/js/util.js"></script>
     <script src="./src/js/extension.js"></script>
     <script src="./src/js/selection.js"></script>
@@ -97,7 +93,17 @@
     <script src="./src/js/core.js"></script>
     <script src="./src/js/defaults/options.js"></script>
     <script src="./src/js/version.js"></script>
-    <script src="./src/js/extend.js"></script>
+    <script src="./src/js/extend.js"></script> -->
+
+<!-- 
+    <script src="./assests/js/lib/file-upload/jquery.ui.widget.js"></script>
+    <script src="./assests/js/lib/file-upload/jquery.fileupload.js"></script>
+    <script src="./assests/js/lib/file-upload/jquery.iframe-transport.js"></script>
+    <script src="./assests/js/lib/handlebars.runtime.min.js"></script>
+    <script src="./assests/js/lib/jquery-sortable-min.js"></script>
+
+      
+
     
     
 
@@ -105,7 +111,8 @@
     <script src="./assests/js/lib/embed/core.js"></script>
     <script src="./assests/js/lib/embed/embeds.js"></script>
     <script src="./assests/js/lib/embed/images.js"></script>
-
     <script src="./assests/js/custom.js"></script> -->
+
+
 </body>
 </html>

@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/js/extensions/fontname.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">src/js/extensions/</a> fontname.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.9% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>2/69</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.56% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.9% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>2/69</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">(function () {
+    'use strict';
+&nbsp;
+    var FontNameForm = MediumEditor.extensions.form.extend({
+&nbsp;
+        name: 'fontname',
+        action: 'fontName',
+        aria: 'change font name',
+        contentDefault: '&amp;#xB1;', // ±
+        contentFA: '&lt;i class="fa fa-font"&gt;&lt;/i&gt;',
+&nbsp;
+        fonts: ['', 'Arial', 'Verdana', 'Times New Roman'],
+&nbsp;
+        init: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            MediumEditor.extensions.form.prototype.init.apply(this, arguments);</span>
+        },
+&nbsp;
+        // Called when the button the toolbar is clicked
+        // Overrides ButtonExtension.handleClick
+        handleClick: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >            event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >            event.stopPropagation();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (!this.isDisplayed()) {</span>
+                // Get FontName of current selection (convert to string since IE returns this as number)
+<span class="cstat-no" title="statement not covered" >                var fontName = this.document.queryCommandValue('fontName') + '';</span>
+<span class="cstat-no" title="statement not covered" >                this.showForm(fontName);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return false;</span>
+        },
+&nbsp;
+        // Called by medium-editor to append form to the toolbar
+        getForm: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (!this.form) {</span>
+<span class="cstat-no" title="statement not covered" >                this.form = this.createForm();</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return this.form;</span>
+        },
+&nbsp;
+        // Used by medium-editor when the default toolbar is to be displayed
+        isDisplayed: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.getForm().style.display === 'block';</span>
+        },
+&nbsp;
+        hideForm: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.getForm().style.display = 'none';</span>
+<span class="cstat-no" title="statement not covered" >            this.getSelect().value = '';</span>
+        },
+&nbsp;
+        showForm: <span class="fstat-no" title="function not covered" >function (fontName) {</span>
+<span class="cstat-no" title="statement not covered" >            var select = this.getSelect();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.base.saveSelection();</span>
+<span class="cstat-no" title="statement not covered" >            this.hideToolbarDefaultActions();</span>
+<span class="cstat-no" title="statement not covered" >            this.getForm().style.display = 'block';</span>
+<span class="cstat-no" title="statement not covered" >            this.setToolbarPosition();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            select.value = fontName || '';</span>
+<span class="cstat-no" title="statement not covered" >            select.focus();</span>
+        },
+&nbsp;
+        // Called by core when tearing down medium-editor (destroy)
+        destroy: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (!this.form) {</span>
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (this.form.parentNode) {</span>
+<span class="cstat-no" title="statement not covered" >                this.form.parentNode.removeChild(this.form);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            delete this.form;</span>
+        },
+&nbsp;
+        // core methods
+&nbsp;
+        doFormSave: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.base.restoreSelection();</span>
+<span class="cstat-no" title="statement not covered" >            this.base.checkSelection();</span>
+        },
+&nbsp;
+        doFormCancel: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.base.restoreSelection();</span>
+<span class="cstat-no" title="statement not covered" >            this.clearFontName();</span>
+<span class="cstat-no" title="statement not covered" >            this.base.checkSelection();</span>
+        },
+&nbsp;
+        // form creation and event handling
+        createForm: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var doc = this.document,</span>
+                form = doc.createElement('div'),
+                select = doc.createElement('select'),
+                close = doc.createElement('a'),
+                save = doc.createElement('a'),
+                option;
+&nbsp;
+            // Font Name Form (div)
+<span class="cstat-no" title="statement not covered" >            form.className = 'medium-editor-toolbar-form';</span>
+<span class="cstat-no" title="statement not covered" >            form.id = 'medium-editor-toolbar-form-fontname-' + this.getEditorId();</span>
+&nbsp;
+            // Handle clicks on the form itself
+<span class="cstat-no" title="statement not covered" >            this.on(form, 'click', this.handleFormClick.bind(this));</span>
+&nbsp;
+            // Add font names
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i&lt;this.fonts.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                option = doc.createElement('option');</span>
+<span class="cstat-no" title="statement not covered" >                option.innerHTML = this.fonts[i];</span>
+<span class="cstat-no" title="statement not covered" >                option.value = this.fonts[i];</span>
+<span class="cstat-no" title="statement not covered" >                select.appendChild(option);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            select.className = 'medium-editor-toolbar-select';</span>
+<span class="cstat-no" title="statement not covered" >            form.appendChild(select);</span>
+&nbsp;
+            // Handle typing in the textbox
+<span class="cstat-no" title="statement not covered" >            this.on(select, 'change', this.handleFontChange.bind(this));</span>
+&nbsp;
+            // Add save buton
+<span class="cstat-no" title="statement not covered" >            save.setAttribute('href', '#');</span>
+<span class="cstat-no" title="statement not covered" >            save.className = 'medium-editor-toobar-save';</span>
+<span class="cstat-no" title="statement not covered" >            save.innerHTML = this.getEditorOption('buttonLabels') === 'fontawesome' ?</span>
+                             '&lt;i class="fa fa-check"&gt;&lt;/i&gt;' :
+                             '&amp;#10003;';
+<span class="cstat-no" title="statement not covered" >            form.appendChild(save);</span>
+&nbsp;
+            // Handle save button clicks (capture)
+<span class="cstat-no" title="statement not covered" >            this.on(save, 'click', this.handleSaveClick.bind(this), true);</span>
+&nbsp;
+            // Add close button
+<span class="cstat-no" title="statement not covered" >            close.setAttribute('href', '#');</span>
+<span class="cstat-no" title="statement not covered" >            close.className = 'medium-editor-toobar-close';</span>
+<span class="cstat-no" title="statement not covered" >            close.innerHTML = this.getEditorOption('buttonLabels') === 'fontawesome' ?</span>
+                              '&lt;i class="fa fa-times"&gt;&lt;/i&gt;' :
+                              '&amp;times;';
+<span class="cstat-no" title="statement not covered" >            form.appendChild(close);</span>
+&nbsp;
+            // Handle close button clicks
+<span class="cstat-no" title="statement not covered" >            this.on(close, 'click', this.handleCloseClick.bind(this));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return form;</span>
+        },
+&nbsp;
+        getSelect: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.getForm().querySelector('select.medium-editor-toolbar-select');</span>
+        },
+&nbsp;
+        clearFontName: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            MediumEditor.selection.getSelectedElements(this.document).forEach(<span class="fstat-no" title="function not covered" >function (el) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (el.nodeName.toLowerCase() === 'font' &amp;&amp; el.hasAttribute('face')) {</span>
+<span class="cstat-no" title="statement not covered" >                    el.removeAttribute('face');</span>
+                }
+            });
+        },
+&nbsp;
+        handleFontChange: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var font = this.getSelect().value;</span>
+<span class="cstat-no" title="statement not covered" >            if (font === '') {</span>
+<span class="cstat-no" title="statement not covered" >                this.clearFontName();</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                this.execAction('fontName', { value: font });</span>
+            }
+        },
+&nbsp;
+        handleFormClick: <span class="fstat-no" title="function not covered" >function (event) {</span>
+            // make sure not to hide form when clicking inside the form
+<span class="cstat-no" title="statement not covered" >            event.stopPropagation();</span>
+        },
+&nbsp;
+        handleSaveClick: <span class="fstat-no" title="function not covered" >function (event) {</span>
+            // Clicking Save -&gt; create the font size
+<span class="cstat-no" title="statement not covered" >            event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >            this.doFormSave();</span>
+        },
+&nbsp;
+        handleCloseClick: <span class="fstat-no" title="function not covered" >function (event) {</span>
+            // Click Close -&gt; close the form
+<span class="cstat-no" title="statement not covered" >            event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >            this.doFormCancel();</span>
+        }
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    MediumEditor.extensions.fontName = FontNameForm;</span>
+}());
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 18 2019 03:51:06 GMT-0600 (Central Standard Time)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

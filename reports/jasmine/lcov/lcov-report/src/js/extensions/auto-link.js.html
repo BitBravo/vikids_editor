@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/js/extensions/auto-link.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">src/js/extensions/</a> auto-link.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">9% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>9/100</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/56</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.25% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">9% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>9/100</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">(function () {
+    'use strict';
+&nbsp;
+    var WHITESPACE_CHARS,
+        KNOWN_TLDS_FRAGMENT,
+        LINK_REGEXP_TEXT,
+        KNOWN_TLDS_REGEXP,
+        LINK_REGEXP;
+&nbsp;
+    WHITESPACE_CHARS = [' ', '\t', '\n', '\r', '\u00A0', '\u2000', '\u2001', '\u2002', '\u2003',
+                                    '\u2028', '\u2029'];
+    KNOWN_TLDS_FRAGMENT = 'com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|' +
+        'xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|' +
+        'bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|' +
+        'fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|' +
+        'is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|' +
+        'mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|' +
+        'pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|' +
+        'tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw';
+&nbsp;
+    LINK_REGEXP_TEXT =
+        '(' +
+        // Version of Gruber URL Regexp optimized for JS: http://stackoverflow.com/a/17733640
+        '((?:(https?://|ftps?://|nntp://)|www\\d{0,3}[.]|[a-z0-9.\\-]+[.](' + KNOWN_TLDS_FRAGMENT + ')\\\/)\\S+(?:[^\\s`!\\[\\]{};:\'\".,?\u00AB\u00BB\u201C\u201D\u2018\u2019]))' +
+        // Addition to above Regexp to support bare domains/one level subdomains with common non-i18n TLDs and without www prefix:
+        ')|(([a-z0-9\\-]+\\.)?[a-z0-9\\-]+\\.(' + KNOWN_TLDS_FRAGMENT + '))';
+&nbsp;
+    KNOWN_TLDS_REGEXP = new RegExp('^(' + KNOWN_TLDS_FRAGMENT + ')$', 'i');
+&nbsp;
+    LINK_REGEXP = new RegExp(LINK_REGEXP_TEXT, 'gi');
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function nodeIsNotInsideAnchorTag(node) {</span>
+<span class="cstat-no" title="statement not covered" >        return !MediumEditor.util.getClosestTag(node, 'a');</span>
+    }
+&nbsp;
+    var AutoLink = MediumEditor.Extension.extend({
+        init: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            MediumEditor.Extension.prototype.init.apply(this, arguments);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.disableEventHandling = false;</span>
+<span class="cstat-no" title="statement not covered" >            this.subscribe('editableKeypress', this.onKeypress.bind(this));</span>
+<span class="cstat-no" title="statement not covered" >            this.subscribe('editableBlur', this.onBlur.bind(this));</span>
+            // MS IE has it's own auto-URL detect feature but ours is better in some ways. Be consistent.
+<span class="cstat-no" title="statement not covered" >            this.document.execCommand('AutoUrlDetect', false, false);</span>
+        },
+&nbsp;
+        isLastInstance: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var activeInstances = 0;</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.window._mediumEditors.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var editor = this.window._mediumEditors[i];</span>
+<span class="cstat-no" title="statement not covered" >                if (editor !== null &amp;&amp; editor.getExtensionByName('autoLink') !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >                    activeInstances++;</span>
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            return activeInstances === 1;</span>
+        },
+&nbsp;
+        destroy: <span class="fstat-no" title="function not covered" >function () {</span>
+            // Turn AutoUrlDetect back on
+<span class="cstat-no" title="statement not covered" >            if (this.document.queryCommandSupported('AutoUrlDetect') &amp;&amp; this.isLastInstance()) {</span>
+<span class="cstat-no" title="statement not covered" >                this.document.execCommand('AutoUrlDetect', false, true);</span>
+            }
+        },
+&nbsp;
+        onBlur: <span class="fstat-no" title="function not covered" >function (blurEvent, editable) {</span>
+<span class="cstat-no" title="statement not covered" >            this.performLinking(editable);</span>
+        },
+&nbsp;
+        onKeypress: <span class="fstat-no" title="function not covered" >function (keyPressEvent) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.disableEventHandling) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (MediumEditor.util.isKey(keyPressEvent, [MediumEditor.util.keyCode.SPACE, MediumEditor.util.keyCode.ENTER])) {</span>
+<span class="cstat-no" title="statement not covered" >                clearTimeout(this.performLinkingTimeout);</span>
+                // Saving/restoring the selection in the middle of a keypress doesn't work well...
+<span class="cstat-no" title="statement not covered" >                this.performLinkingTimeout = setTimeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                    try {</span>
+<span class="cstat-no" title="statement not covered" >                        var sel = this.base.exportSelection();</span>
+<span class="cstat-no" title="statement not covered" >                        if (this.performLinking(keyPressEvent.target)) {</span>
+                            // pass true for favorLaterSelectionAnchor - this is needed for links at the end of a
+                            // paragraph in MS IE, or MS IE causes the link to be deleted right after adding it.
+<span class="cstat-no" title="statement not covered" >                            this.base.importSelection(sel, true);</span>
+                        }
+                    } catch (e) {
+<span class="cstat-no" title="statement not covered" >                        if (window.console) {</span>
+<span class="cstat-no" title="statement not covered" >                            window.console.error('Failed to perform linking', e);</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        this.disableEventHandling = true;</span>
+                    }
+                }.bind(this), 0);
+            }
+        },
+&nbsp;
+        performLinking: <span class="fstat-no" title="function not covered" >function (contenteditable) {</span>
+            /*
+            Perform linking on blockElement basis, blockElements are HTML elements with text content and without
+            child element.
+&nbsp;
+            Example:
+            - HTML content
+            &lt;blockquote&gt;
+              &lt;p&gt;link.&lt;/p&gt;
+              &lt;p&gt;my&lt;/p&gt;
+            &lt;/blockquote&gt;
+&nbsp;
+            - blockElements
+            [&lt;p&gt;link.&lt;/p&gt;, &lt;p&gt;my&lt;/p&gt;]
+&nbsp;
+            otherwise the detection can wrongly find the end of one paragraph and the beginning of another paragraph
+            to constitute a link, such as a paragraph ending "link." and the next paragraph beginning with "my" is
+            interpreted into "link.my" and the code tries to create a link across blockElements - which doesn't work
+            and is terrible.
+            (Medium deletes the spaces/returns between P tags so the textContent ends up without paragraph spacing)
+            */
+<span class="cstat-no" title="statement not covered" >            var blockElements = MediumEditor.util.splitByBlockElements(contenteditable),</span>
+                documentModified = false;
+<span class="cstat-no" title="statement not covered" >            if (blockElements.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                blockElements = [contenteditable];</span>
+            }
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; blockElements.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                documentModified = this.removeObsoleteAutoLinkSpans(blockElements[i]) || documentModified;</span>
+<span class="cstat-no" title="statement not covered" >                documentModified = this.performLinkingWithinElement(blockElements[i]) || documentModified;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            this.base.events.updateInput(contenteditable, { target: contenteditable, currentTarget: contenteditable });</span>
+<span class="cstat-no" title="statement not covered" >            return documentModified;</span>
+        },
+&nbsp;
+        removeObsoleteAutoLinkSpans: <span class="fstat-no" title="function not covered" >function (element) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!element || element.nodeType === 3) {</span>
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var spans = element.querySelectorAll('span[data-auto-link="true"]'),</span>
+                documentModified = false;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; spans.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var textContent = spans[i].textContent;</span>
+<span class="cstat-no" title="statement not covered" >                if (textContent.indexOf('://') === -1) {</span>
+<span class="cstat-no" title="statement not covered" >                    textContent = MediumEditor.util.ensureUrlHasProtocol(textContent);</span>
+                }
+<span class="cstat-no" title="statement not covered" >                if (spans[i].getAttribute('data-href') !== textContent &amp;&amp; nodeIsNotInsideAnchorTag(spans[i])) {</span>
+<span class="cstat-no" title="statement not covered" >                    documentModified = true;</span>
+<span class="cstat-no" title="statement not covered" >                    var trimmedTextContent = textContent.replace(/\s+$/, '');</span>
+<span class="cstat-no" title="statement not covered" >                    if (spans[i].getAttribute('data-href') === trimmedTextContent) {</span>
+<span class="cstat-no" title="statement not covered" >                        var charactersTrimmed = textContent.length - trimmedTextContent.length,</span>
+                            subtree = MediumEditor.util.splitOffDOMTree(spans[i], this.splitTextBeforeEnd(spans[i], charactersTrimmed));
+<span class="cstat-no" title="statement not covered" >                        spans[i].parentNode.insertBefore(subtree, spans[i].nextSibling);</span>
+                    } else {
+                        // Some editing has happened to the span, so just remove it entirely. The user can put it back
+                        // around just the href content if they need to prevent it from linking
+<span class="cstat-no" title="statement not covered" >                        MediumEditor.util.unwrap(spans[i], this.document);</span>
+                    }
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            return documentModified;</span>
+        },
+&nbsp;
+        splitTextBeforeEnd: <span class="fstat-no" title="function not covered" >function (element, characterCount) {</span>
+<span class="cstat-no" title="statement not covered" >            var treeWalker = this.document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false),</span>
+                lastChildNotExhausted = true;
+&nbsp;
+            // Start the tree walker at the last descendant of the span
+<span class="cstat-no" title="statement not covered" >            while (lastChildNotExhausted) {</span>
+<span class="cstat-no" title="statement not covered" >                lastChildNotExhausted = treeWalker.lastChild() !== null;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var currentNode,</span>
+                currentNodeValue,
+                previousNode;
+<span class="cstat-no" title="statement not covered" >            while (characterCount &gt; 0 &amp;&amp; previousNode !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                currentNode = treeWalker.currentNode;</span>
+<span class="cstat-no" title="statement not covered" >                currentNodeValue = currentNode.nodeValue;</span>
+<span class="cstat-no" title="statement not covered" >                if (currentNodeValue.length &gt; characterCount) {</span>
+<span class="cstat-no" title="statement not covered" >                    previousNode = currentNode.splitText(currentNodeValue.length - characterCount);</span>
+<span class="cstat-no" title="statement not covered" >                    characterCount = 0;</span>
+                } else {
+<span class="cstat-no" title="statement not covered" >                    previousNode = treeWalker.previousNode();</span>
+<span class="cstat-no" title="statement not covered" >                    characterCount -= currentNodeValue.length;</span>
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            return previousNode;</span>
+        },
+&nbsp;
+        performLinkingWithinElement: <span class="fstat-no" title="function not covered" >function (element) {</span>
+<span class="cstat-no" title="statement not covered" >            var matches = this.findLinkableText(element),</span>
+                linkCreated = false;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            for (var matchIndex = 0; matchIndex &lt; matches.length; matchIndex++) {</span>
+<span class="cstat-no" title="statement not covered" >                var matchingTextNodes = MediumEditor.util.findOrCreateMatchingTextNodes(this.document, element,</span>
+                        matches[matchIndex]);
+<span class="cstat-no" title="statement not covered" >                if (this.shouldNotLink(matchingTextNodes)) {</span>
+<span class="cstat-no" title="statement not covered" >                    continue;</span>
+                }
+<span class="cstat-no" title="statement not covered" >                this.createAutoLink(matchingTextNodes, matches[matchIndex].href);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return linkCreated;</span>
+        },
+&nbsp;
+        shouldNotLink: <span class="fstat-no" title="function not covered" >function (textNodes) {</span>
+<span class="cstat-no" title="statement not covered" >            var shouldNotLink = false;</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; textNodes.length &amp;&amp; shouldNotLink === false; i++) {</span>
+                // Do not link if the text node is either inside an anchor or inside span[data-auto-link]
+<span class="cstat-no" title="statement not covered" >                shouldNotLink = !!MediumEditor.util.traverseUp(textNodes[i], <span class="fstat-no" title="function not covered" >function (node) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    return node.nodeName.toLowerCase() === 'a' ||</span>
+                        (node.getAttribute &amp;&amp; node.getAttribute('data-auto-link') === 'true');
+                });
+            }
+<span class="cstat-no" title="statement not covered" >            return shouldNotLink;</span>
+        },
+&nbsp;
+        findLinkableText: <span class="fstat-no" title="function not covered" >function (contenteditable) {</span>
+<span class="cstat-no" title="statement not covered" >            var textContent = contenteditable.textContent,</span>
+                match = null,
+                matches = [];
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            while ((match = LINK_REGEXP.exec(textContent)) !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                var matchOk = true,</span>
+                    matchEnd = match.index + match[0].length;
+                // If the regexp detected something as a link that has text immediately preceding/following it, bail out.
+<span class="cstat-no" title="statement not covered" >                matchOk = (match.index === 0 || WHITESPACE_CHARS.indexOf(textContent[match.index - 1]) !== -1) &amp;&amp;</span>
+                    (matchEnd === textContent.length || WHITESPACE_CHARS.indexOf(textContent[matchEnd]) !== -1);
+                // If the regexp detected a bare domain that doesn't use one of our expected TLDs, bail out.
+<span class="cstat-no" title="statement not covered" >                matchOk = matchOk &amp;&amp; (match[0].indexOf('/') !== -1 ||</span>
+                    KNOWN_TLDS_REGEXP.test(match[0].split('.').pop().split('?').shift()));
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (matchOk) {</span>
+<span class="cstat-no" title="statement not covered" >                    matches.push({</span>
+                        href: match[0],
+                        start: match.index,
+                        end: matchEnd
+                    });
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            return matches;</span>
+        },
+&nbsp;
+        createAutoLink: <span class="fstat-no" title="function not covered" >function (textNodes, href) {</span>
+<span class="cstat-no" title="statement not covered" >            href = MediumEditor.util.ensureUrlHasProtocol(href);</span>
+<span class="cstat-no" title="statement not covered" >            var anchor = MediumEditor.util.createLink(this.document, textNodes, href, this.getEditorOption('targetBlank') ? '_blank' : null),</span>
+                span = this.document.createElement('span');
+<span class="cstat-no" title="statement not covered" >            span.setAttribute('data-auto-link', 'true');</span>
+<span class="cstat-no" title="statement not covered" >            span.setAttribute('data-href', href);</span>
+<span class="cstat-no" title="statement not covered" >            anchor.insertBefore(span, anchor.firstChild);</span>
+<span class="cstat-no" title="statement not covered" >            while (anchor.childNodes.length &gt; 1) {</span>
+<span class="cstat-no" title="statement not covered" >                span.appendChild(anchor.childNodes[1]);</span>
+            }
+        }
+&nbsp;
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    MediumEditor.extensions.autoLink = AutoLink;</span>
+}());
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 18 2019 03:51:06 GMT-0600 (Central Standard Time)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

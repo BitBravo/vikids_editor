@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for assests/js/lib/embed/templates.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">assests/js/lib/embed/</a> templates.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">23.91% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>11/46</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.9% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>4/210</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">23.91% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>11/46</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">this["MediumInsert"] = this["MediumInsert"] || {};
+this["MediumInsert"]["Templates"] = this["MediumInsert"]["Templates"] || {};
+&nbsp;
+this["MediumInsert"]["Templates"]["src/js/templates/core-buttons.hbs"] = Handlebars.template({"1":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "            &lt;li&gt;&lt;button data-addon=\""</span>
+    + container.escapeExpression(((helper = (helper = helpers.key || (data &amp;&amp; data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"&gt;"
+    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "&lt;/button&gt;&lt;/li&gt;\n";
+},"compiler":[7,"&gt;= 4.0.0"],"main":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "&lt;div class=\"medium-insert-buttons\" contenteditable=\"false\" style=\"display: none\"&gt;\n    &lt;button class=\"medium-insert-buttons-show\" type=\"button\"&gt;&lt;span&gt;+&lt;/span&gt;&lt;/button&gt;\n    &lt;ul class=\"medium-insert-buttons-addons\" style=\"display: none\"&gt;\n"</span>
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.addons : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    &lt;/ul&gt;\n&lt;/div&gt;\n";
+},"useData":true});
+&nbsp;
+this["MediumInsert"]["Templates"]["src/js/templates/core-caption.hbs"] = Handlebars.template({"compiler":[7,"&gt;= 4.0.0"],"main":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var helper;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "&lt;figcaption contenteditable=\"true\" class=\"medium-insert-caption-placeholder\" data-placeholder=\""</span>
+    + container.escapeExpression(((helper = (helper = helpers.placeholder || (depth0 != null ? depth0.placeholder : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"placeholder","hash":{},"data":data}) : helper)))
+    + "\"&gt;&lt;/figcaption&gt;";
+},"useData":true});
+&nbsp;
+this["MediumInsert"]["Templates"]["src/js/templates/core-empty-line.hbs"] = Handlebars.template({"compiler":[7,"&gt;= 4.0.0"],"main":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    return "&lt;p&gt;&lt;br&gt;&lt;/p&gt;\n";</span>
+},"useData":true});
+&nbsp;
+this["MediumInsert"]["Templates"]["src/js/templates/embeds-toolbar.hbs"] = Handlebars.template({"1":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "    &lt;div class=\"medium-insert-embeds-toolbar medium-editor-toolbar medium-toolbar-arrow-under medium-editor-toolbar-active\"&gt;\n        &lt;ul class=\"medium-editor-toolbar-actions clearfix\"&gt;\n"</span>
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.styles : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "        &lt;/ul&gt;\n    &lt;/div&gt;\n";
+},"2":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.label : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");</span>
+},"3":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "                    &lt;li&gt;\n                        &lt;button class=\"medium-editor-action\" data-action=\""</span>
+    + container.escapeExpression(((helper = (helper = helpers.key || (data &amp;&amp; data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\"&gt;"
+    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "&lt;/button&gt;\n                    &lt;/li&gt;\n";
+},"5":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "    &lt;div class=\"medium-insert-embeds-toolbar2 medium-editor-toolbar medium-editor-toolbar-active\"&gt;\n        &lt;ul class=\"medium-editor-toolbar-actions clearfix\"&gt;\n"</span>
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.actions : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "        &lt;/ul&gt;\n    &lt;/div&gt;\n";
+},"compiler":[7,"&gt;= 4.0.0"],"main":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.styles : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")</span>
+    + "\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.actions : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"useData":true});
+&nbsp;
+this["MediumInsert"]["Templates"]["src/js/templates/embeds-wrapper.hbs"] = Handlebars.template({"compiler":[7,"&gt;= 4.0.0"],"main":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1, helper;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "&lt;div class=\"medium-insert-embeds\" contenteditable=\"false\"&gt;\n	&lt;figure&gt;\n		&lt;div class=\"medium-insert-embed\"&gt;\n			"</span>
+    + ((stack1 = ((helper = (helper = helpers.html || (depth0 != null ? depth0.html : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"html","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\n		&lt;/div&gt;\n	&lt;/figure&gt;\n	&lt;div class=\"medium-insert-embeds-overlay\"&gt;&lt;/div&gt;\n&lt;/div&gt;";
+},"useData":true});
+&nbsp;
+this["MediumInsert"]["Templates"]["src/js/templates/images-fileupload.hbs"] = Handlebars.template({"compiler":[7,"&gt;= 4.0.0"],"main":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    return "&lt;input type=\"file\" multiple&gt;";</span>
+},"useData":true});
+&nbsp;
+this["MediumInsert"]["Templates"]["src/js/templates/images-image.hbs"] = Handlebars.template({"1":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+    // return "        &lt;div class=\"medium-insert-images-progress\"&gt;&lt;/div&gt;\n";
+},"compiler":[7,"&gt;= 4.0.0"],"main":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "&lt;figure contenteditable=\"false\"&gt;\n    &lt;img src=\""</span>
+    + container.escapeExpression(((helper = (helper = helpers.img || (depth0 != null ? depth0.img : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"img","hash":{},"data":data}) : helper)))
+    + "\" alt=\"\"  class=\"editable-content\" /&gt;\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.progress : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "&lt;/figure&gt;\n";
+},"useData":true});
+&nbsp;
+this["MediumInsert"]["Templates"]["src/js/templates/images-progressbar.hbs"] = Handlebars.template({"compiler":[7,"&gt;= 4.0.0"],"main":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    return "&lt;progress min=\"0\" max=\"100\" value=\"0\"&gt;0&lt;/progress&gt;";</span>
+},"useData":true});
+&nbsp;
+this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handlebars.template({"1":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.label : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");</span>
+},"2":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "                &lt;li&gt;\n                    &lt;button class=\"medium-editor-action\" data-action=\""</span>
+    + container.escapeExpression(((helper = (helper = helpers.key || (data &amp;&amp; data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\"&gt;"
+    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "&lt;/button&gt;\n                &lt;/li&gt;\n";
+},"4":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "	&lt;div class=\"medium-insert-images-toolbar2 medium-editor-toolbar medium-editor-toolbar-active\"&gt;\n		&lt;ul class=\"medium-editor-toolbar-actions clearfix\"&gt;\n"</span>
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.actions : depth0),{"name":"each","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    	&lt;/ul&gt;\n    &lt;/div&gt;\n";
+},"5":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.label : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");</span>
+},"6":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "        	        &lt;li&gt;\n        	            &lt;button class=\"medium-editor-action\" data-action=\""</span>
+    + container.escapeExpression(((helper = (helper = helpers.key || (data &amp;&amp; data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\"&gt;"
+    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "&lt;/button&gt;\n        	        &lt;/li&gt;\n";
+},"compiler":[7,"&gt;= 4.0.0"],"main":<span class="fstat-no" title="function not covered" >function(container,depth0,helpers,partials,data) {</span>
+<span class="cstat-no" title="statement not covered" >    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "&lt;div class=\"medium-insert-images-toolbar medium-editor-toolbar medium-toolbar-arrow-under medium-editor-toolbar-active\"&gt;\n    &lt;ul class=\"medium-editor-toolbar-actions clearfix\"&gt;\n"</span>
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.styles : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    &lt;/ul&gt;\n&lt;/div&gt;\n\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.actions : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"useData":true});</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 18 2019 03:51:06 GMT-0600 (Central Standard Time)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

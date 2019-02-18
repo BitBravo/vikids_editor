@@ -14,16 +14,12 @@ module.exports = function (grunt) {
             globalConfig: globalConfig
         },
 
-        srcFiles = [
-            'src/js/core.js',
-            'src/js/defaults/options.js',
-            'src/js/events.js',
-            'src/js/extend.js',
-            'src/js/extension.js',
+        srcFiles = [         
             'src/js/globals.js',
-            'src/js/selection.js',
             'src/js/util.js',
-            'src/js/version.js',
+            'src/js/extension.js',
+            'src/js/selection.js',
+            'src/js/events.js',
             'src/js/extensions/button.js',
             'src/js/defaults/buttons.js',
             'src/js/extensions/form.js',
@@ -38,6 +34,10 @@ module.exports = function (grunt) {
             'src/js/extensions/placeholder.js',
             'src/js/extensions/toolbar.js',
             'src/js/extensions/deprecated/image-dragging.js',
+            'src/js/version.js',
+            'src/js/core.js',
+            'src/js/defaults/options.js',
+            'src/js/extend.js',
             'assests/js/lib/file-upload/jquery.ui.widget.js',
             'assests/js/lib/file-upload/jquery.fileupload.js',
             'assests/js/lib/file-upload/jquery.iframe-transport.js',
@@ -213,11 +213,11 @@ module.exports = function (grunt) {
             report: 'gzip'
         },
         build: {
-            src: 'dist/js/medium-editor.js',
+            src: 'dist/js/<%= pkg.name %>.js',
             dest: 'dist/js/<%= pkg.name %>.min.js'
         }
     };
-
+  
     gruntConfig.csslint = {
         strict: {
             options: {
@@ -296,7 +296,7 @@ module.exports = function (grunt) {
 
     gruntConfig.watch = {
         scripts: {
-            files: ['src/js/**/*.js', 'spec/**/*.js', 'Gruntfile.js'],
+            files: ['src/js/**/*.js', 'assests/js/**/*.js', 'spec/**/*.js', 'Gruntfile.js'],
             tasks: ['js'],
             options: {
                 debounceDelay: 250
@@ -317,9 +317,7 @@ module.exports = function (grunt) {
         },
         dist: {
             src: ['src/js/polyfills.js']
-                .concat(['src/wrappers/start.js'])
-                .concat(srcFiles)
-                .concat(['src/wrappers/end.js']),
+                .concat(srcFiles),
             dest: 'dist/js/<%= pkg.name %>.js',
             nonull: true
         }
@@ -387,11 +385,12 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', ['jshint', 'jscs', 'concat', 'jasmine:suite', 'csslint']);
     grunt.registerTask('sauce', ['connect', 'saucelabs-jasmine']);
-    grunt.registerTask('js', ['jshint', 'jscs', 'concat', 'jasmine:suite', 'uglify']);
+    grunt.registerTask('js', ['concat', 'uglify']);
     grunt.registerTask('css', ['sass', 'autoprefixer', 'cssmin', 'csslint']);
     grunt.registerTask('default', ['js', 'css']);
     grunt.registerTask('default', ['eslint']);
     grunt.registerTask('default', ['fixmyjs']);
+    grunt.registerTask('default', ['babel']);
 
     // release tasks
     grunt.registerTask('patch', ['bump', 'css', 'js']);

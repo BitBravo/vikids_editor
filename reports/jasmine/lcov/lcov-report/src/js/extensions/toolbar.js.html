@@ -1,0 +1,2114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/js/extensions/toolbar.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">src/js/extensions/</a> toolbar.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0.87% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>2/230</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/157</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.04% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/49</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0.87% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>2/230</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">(function () {
+    'use strict';
+&nbsp;
+    var Toolbar = MediumEditor.Extension.extend({
+        name: 'toolbar',
+&nbsp;
+        /* Toolbar Options */
+&nbsp;
+        /* align: ['left'|'center'|'right']
+         * When the __static__ option is true, this aligns the static toolbar
+         * relative to the medium-editor element.
+         */
+        align: 'center',
+&nbsp;
+        /* allowMultiParagraphSelection: [boolean]
+         * enables/disables whether the toolbar should be displayed when
+         * selecting multiple paragraphs/block elements
+         */
+        allowMultiParagraphSelection: true,
+&nbsp;
+        /* buttons: [Array]
+         * the names of the set of buttons to display on the toolbar.
+         */
+        buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'quote'],
+&nbsp;
+        /* diffLeft: [Number]
+         * value in pixels to be added to the X axis positioning of the toolbar.
+         */
+        diffLeft: 0,
+&nbsp;
+        /* diffTop: [Number]
+         * value in pixels to be added to the Y axis positioning of the toolbar.
+         */
+        diffTop: -10,
+&nbsp;
+        /* firstButtonClass: [string]
+         * CSS class added to the first button in the toolbar.
+         */
+        firstButtonClass: 'medium-editor-button-first',
+&nbsp;
+        /* lastButtonClass: [string]
+         * CSS class added to the last button in the toolbar.
+         */
+        lastButtonClass: 'medium-editor-button-last',
+&nbsp;
+        /* standardizeSelectionStart: [boolean]
+         * enables/disables standardizing how the beginning of a range is decided
+         * between browsers whenever the selected text is analyzed for updating toolbar buttons status.
+         */
+        standardizeSelectionStart: false,
+&nbsp;
+        /* static: [boolean]
+         * enable/disable the toolbar always displaying in the same location
+         * relative to the medium-editor element.
+         */
+        static: false,
+&nbsp;
+        /* sticky: [boolean]
+         * When the __static__ option is true, this enables/disables the toolbar
+         * "sticking" to the viewport and staying visible on the screen while
+         * the page scrolls.
+         */
+        sticky: false,
+&nbsp;
+        /* stickyTopOffset: [Number]
+         * Value in pixel of the top offset above the toolbar
+         */
+        stickyTopOffset: 0,
+&nbsp;
+        /* updateOnEmptySelection: [boolean]
+         * When the __static__ option is true, this enables/disables updating
+         * the state of the toolbar buttons even when the selection is collapsed
+         * (there is no selection, just a cursor).
+         */
+        updateOnEmptySelection: false,
+&nbsp;
+        /* relativeContainer: [node]
+         * appending the toolbar to a given node instead of body
+         */
+        relativeContainer: null,
+&nbsp;
+        init: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            MediumEditor.Extension.prototype.init.apply(this, arguments);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.initThrottledMethods();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (!this.relativeContainer) {</span>
+<span class="cstat-no" title="statement not covered" >                this.getEditorOption('elementsContainer').appendChild(this.getToolbarElement());</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                this.relativeContainer.appendChild(this.getToolbarElement());</span>
+            }
+        },
+&nbsp;
+        // Helper method to execute method for every extension, but ignoring the toolbar extension
+        forEachExtension: <span class="fstat-no" title="function not covered" >function (iterator, context) {</span>
+<span class="cstat-no" title="statement not covered" >            return this.base.extensions.forEach(<span class="fstat-no" title="function not covered" >function (command) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (command === this) {</span>
+<span class="cstat-no" title="statement not covered" >                    return;</span>
+                }
+<span class="cstat-no" title="statement not covered" >                return iterator.apply(context || this, arguments);</span>
+            }, this);
+        },
+&nbsp;
+        // Toolbar creation/deletion
+&nbsp;
+        createToolbar: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var toolbar = this.document.createElement('div');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            toolbar.id = 'medium-editor-toolbar-' + this.getEditorId();</span>
+<span class="cstat-no" title="statement not covered" >            toolbar.className = 'medium-editor-toolbar';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (this.static) {</span>
+<span class="cstat-no" title="statement not covered" >                toolbar.className += ' static-toolbar';</span>
+            } else <span class="cstat-no" title="statement not covered" >if (this.relativeContainer) {</span>
+<span class="cstat-no" title="statement not covered" >                toolbar.className += ' medium-editor-relative-toolbar';</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                toolbar.className += ' medium-editor-stalker-toolbar';</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            toolbar.appendChild(this.createToolbarButtons());</span>
+&nbsp;
+            // Add any forms that extensions may have
+<span class="cstat-no" title="statement not covered" >            this.forEachExtension(<span class="fstat-no" title="function not covered" >function (extension) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (extension.hasForm) {</span>
+<span class="cstat-no" title="statement not covered" >                    toolbar.appendChild(extension.getForm());</span>
+                }
+            });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.attachEventHandlers();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return toolbar;</span>
+        },
+&nbsp;
+        createToolbarButtons: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var ul = this.document.createElement('ul'),</span>
+                li,
+                btn,
+                buttons,
+                extension,
+                buttonName,
+                buttonOpts;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            ul.id = 'medium-editor-toolbar-actions' + this.getEditorId();</span>
+<span class="cstat-no" title="statement not covered" >            ul.className = 'medium-editor-toolbar-actions';</span>
+<span class="cstat-no" title="statement not covered" >            ul.style.display = 'block';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.buttons.forEach(<span class="fstat-no" title="function not covered" >function (button) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (typeof button === 'string') {</span>
+<span class="cstat-no" title="statement not covered" >                    buttonName = button;</span>
+<span class="cstat-no" title="statement not covered" >                    buttonOpts = null;</span>
+                } else {
+<span class="cstat-no" title="statement not covered" >                    buttonName = button.name;</span>
+<span class="cstat-no" title="statement not covered" >                    buttonOpts = button;</span>
+                }
+&nbsp;
+                // If the button already exists as an extension, it'll be returned
+                // othwerise it'll create the default built-in button
+<span class="cstat-no" title="statement not covered" >                extension = this.base.addBuiltInExtension(buttonName, buttonOpts);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (extension &amp;&amp; typeof extension.getButton === 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                    btn = extension.getButton(this.base);</span>
+<span class="cstat-no" title="statement not covered" >                    li = this.document.createElement('li');</span>
+<span class="cstat-no" title="statement not covered" >                    if (MediumEditor.util.isElement(btn)) {</span>
+<span class="cstat-no" title="statement not covered" >                        li.appendChild(btn);</span>
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        li.innerHTML = btn;</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    ul.appendChild(li);</span>
+                }
+            }, this);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            buttons = ul.querySelectorAll('button');</span>
+<span class="cstat-no" title="statement not covered" >            if (buttons.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >                buttons[0].classList.add(this.firstButtonClass);</span>
+<span class="cstat-no" title="statement not covered" >                buttons[buttons.length - 1].classList.add(this.lastButtonClass);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return ul;</span>
+        },
+&nbsp;
+        destroy: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.toolbar) {</span>
+<span class="cstat-no" title="statement not covered" >                if (this.toolbar.parentNode) {</span>
+<span class="cstat-no" title="statement not covered" >                    this.toolbar.parentNode.removeChild(this.toolbar);</span>
+                }
+<span class="cstat-no" title="statement not covered" >                delete this.toolbar;</span>
+            }
+        },
+&nbsp;
+        // Toolbar accessors
+&nbsp;
+        getInteractionElements: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.getToolbarElement();</span>
+        },
+&nbsp;
+        getToolbarElement: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (!this.toolbar) {</span>
+<span class="cstat-no" title="statement not covered" >                this.toolbar = this.createToolbar();</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return this.toolbar;</span>
+        },
+&nbsp;
+        getToolbarActionsElement: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.getToolbarElement().querySelector('.medium-editor-toolbar-actions');</span>
+        },
+&nbsp;
+        // Toolbar event handlers
+&nbsp;
+        initThrottledMethods: <span class="fstat-no" title="function not covered" >function () {</span>
+            // throttledPositionToolbar is throttled because:
+            // - It will be called when the browser is resizing, which can fire many times very quickly
+            // - For some event (like resize) a slight lag in UI responsiveness is OK and provides performance benefits
+<span class="cstat-no" title="statement not covered" >            this.throttledPositionToolbar = MediumEditor.util.throttle(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (this.base.isActive) {</span>
+<span class="cstat-no" title="statement not covered" >                    this.positionToolbarIfShown();</span>
+                }
+            }.bind(this));
+        },
+&nbsp;
+        attachEventHandlers: <span class="fstat-no" title="function not covered" >function () {</span>
+            // MediumEditor custom events for when user beings and ends interaction with a contenteditable and its elements
+<span class="cstat-no" title="statement not covered" >            this.subscribe('blur', this.handleBlur.bind(this));</span>
+<span class="cstat-no" title="statement not covered" >            this.subscribe('focus', this.handleFocus.bind(this));</span>
+&nbsp;
+            // Updating the state of the toolbar as things change
+<span class="cstat-no" title="statement not covered" >            this.subscribe('editableClick', this.handleEditableClick.bind(this));</span>
+<span class="cstat-no" title="statement not covered" >            this.subscribe('editableKeyup', this.handleEditableKeyup.bind(this));</span>
+&nbsp;
+            // Handle mouseup on document for updating the selection in the toolbar
+<span class="cstat-no" title="statement not covered" >            this.on(this.document.documentElement, 'mouseup', this.handleDocumentMouseup.bind(this));</span>
+&nbsp;
+            // Add a scroll event for sticky toolbar
+<span class="cstat-no" title="statement not covered" >            if (this.static &amp;&amp; this.sticky) {</span>
+                // On scroll (capture), re-position the toolbar
+<span class="cstat-no" title="statement not covered" >                this.on(this.window, 'scroll', this.handleWindowScroll.bind(this), true);</span>
+            }
+&nbsp;
+            // On resize, re-position the toolbar
+<span class="cstat-no" title="statement not covered" >            this.on(this.window, 'resize', this.handleWindowResize.bind(this));</span>
+        },
+&nbsp;
+        handleWindowScroll: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.positionToolbarIfShown();</span>
+        },
+&nbsp;
+        handleWindowResize: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.throttledPositionToolbar();</span>
+        },
+&nbsp;
+        handleDocumentMouseup: <span class="fstat-no" title="function not covered" >function (event) {</span>
+            // Do not trigger checkState when mouseup fires over the toolbar
+<span class="cstat-no" title="statement not covered" >            if (event &amp;&amp;</span>
+                    event.target &amp;&amp;
+                    MediumEditor.util.isDescendant(this.getToolbarElement(), event.target)) {
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            this.checkState();</span>
+        },
+&nbsp;
+        handleEditableClick: <span class="fstat-no" title="function not covered" >function () {</span>
+            // Delay the call to checkState to handle bug where selection is empty
+            // immediately after clicking inside a pre-existing selection
+<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                this.checkState();</span>
+            }.bind(this), 0);
+        },
+&nbsp;
+        handleEditableKeyup: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.checkState();</span>
+        },
+&nbsp;
+        handleBlur: <span class="fstat-no" title="function not covered" >function () {</span>
+            // Kill any previously delayed calls to hide the toolbar
+<span class="cstat-no" title="statement not covered" >            clearTimeout(this.hideTimeout);</span>
+&nbsp;
+            // Blur may fire even if we have a selection, so we want to prevent any delayed showToolbar
+            // calls from happening in this specific case
+<span class="cstat-no" title="statement not covered" >            clearTimeout(this.delayShowTimeout);</span>
+&nbsp;
+            // Delay the call to hideToolbar to handle bug with multiple editors on the page at once
+<span class="cstat-no" title="statement not covered" >            this.hideTimeout = setTimeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                this.hideToolbar();</span>
+            }.bind(this), 1);
+        },
+&nbsp;
+        handleFocus: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.checkState();</span>
+        },
+&nbsp;
+        // Hiding/showing toolbar
+&nbsp;
+        isDisplayed: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.getToolbarElement().classList.contains('medium-editor-toolbar-active');</span>
+        },
+&nbsp;
+        showToolbar: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            clearTimeout(this.hideTimeout);</span>
+<span class="cstat-no" title="statement not covered" >            if (!this.isDisplayed()) {</span>
+<span class="cstat-no" title="statement not covered" >                this.getToolbarElement().classList.add('medium-editor-toolbar-active');</span>
+<span class="cstat-no" title="statement not covered" >                this.trigger('showToolbar', {}, this.base.getFocusedElement());</span>
+            }
+        },
+&nbsp;
+        hideToolbar: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.isDisplayed()) {</span>
+<span class="cstat-no" title="statement not covered" >                this.getToolbarElement().classList.remove('medium-editor-toolbar-active');</span>
+<span class="cstat-no" title="statement not covered" >                this.trigger('hideToolbar', {}, this.base.getFocusedElement());</span>
+            }
+        },
+&nbsp;
+        isToolbarDefaultActionsDisplayed: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.getToolbarActionsElement().style.display === 'block';</span>
+        },
+&nbsp;
+        hideToolbarDefaultActions: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.isToolbarDefaultActionsDisplayed()) {</span>
+<span class="cstat-no" title="statement not covered" >                this.getToolbarActionsElement().style.display = 'none';</span>
+            }
+        },
+&nbsp;
+        showToolbarDefaultActions: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.hideExtensionForms();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (!this.isToolbarDefaultActionsDisplayed()) {</span>
+<span class="cstat-no" title="statement not covered" >                this.getToolbarActionsElement().style.display = 'block';</span>
+            }
+&nbsp;
+            // Using setTimeout + options.delay because:
+            // We will actually be displaying the toolbar, which should be controlled by options.delay
+<span class="cstat-no" title="statement not covered" >            this.delayShowTimeout = this.base.delay(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                this.showToolbar();</span>
+            }.bind(this));
+        },
+&nbsp;
+        hideExtensionForms: <span class="fstat-no" title="function not covered" >function () {</span>
+            // Hide all extension forms
+<span class="cstat-no" title="statement not covered" >            this.forEachExtension(<span class="fstat-no" title="function not covered" >function (extension) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (extension.hasForm &amp;&amp; extension.isDisplayed()) {</span>
+<span class="cstat-no" title="statement not covered" >                    extension.hideForm();</span>
+                }
+            });
+        },
+&nbsp;
+        // Responding to changes in user selection
+&nbsp;
+        // Checks for existance of multiple block elements in the current selection
+        multipleBlockElementsSelected: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var regexEmptyHTMLTags = /&lt;[^\/&gt;][^&gt;]*&gt;&lt;\/[^&gt;]+&gt;/gim, // http://stackoverflow.com/questions/3129738/remove-empty-tags-using-regex</span>
+                regexBlockElements = new RegExp('&lt;(' + MediumEditor.util.blockContainerElementNames.join('|') + ')[^&gt;]*&gt;', 'g'),
+                selectionHTML = MediumEditor.selection.getSelectionHtml(this.document).replace(regexEmptyHTMLTags, ''), // Filter out empty blocks from selection
+                hasMultiParagraphs = selectionHTML.match(regexBlockElements); // Find how many block elements are within the html
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return !!hasMultiParagraphs &amp;&amp; hasMultiParagraphs.length &gt; 1;</span>
+        },
+&nbsp;
+        modifySelection: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var selection = this.window.getSelection(),</span>
+                selectionRange = selection.getRangeAt(0);
+&nbsp;
+            /*
+            * In firefox, there are cases (ie doubleclick of a word) where the selectionRange start
+            * will be at the very end of an element.  In other browsers, the selectionRange start
+            * would instead be at the very beginning of an element that actually has content.
+            * example:
+            *   &lt;span&gt;foo&lt;/span&gt;&lt;span&gt;bar&lt;/span&gt;
+            *
+            * If the text 'bar' is selected, most browsers will have the selectionRange start at the beginning
+            * of the 'bar' span.  However, there are cases where firefox will have the selectionRange start
+            * at the end of the 'foo' span.  The contenteditable behavior will be ok, but if there are any
+            * properties on the 'bar' span, they won't be reflected accurately in the toolbar
+            * (ie 'Bold' button wouldn't be active)
+            *
+            * So, for cases where the selectionRange start is at the end of an element/node, find the next
+            * adjacent text node that actually has content in it, and move the selectionRange start there.
+            */
+<span class="cstat-no" title="statement not covered" >            if (this.standardizeSelectionStart &amp;&amp;</span>
+                    selectionRange.startContainer.nodeValue &amp;&amp;
+                    (selectionRange.startOffset === selectionRange.startContainer.nodeValue.length)) {
+<span class="cstat-no" title="statement not covered" >                var adjacentNode = MediumEditor.util.findAdjacentTextNodeWithContent(MediumEditor.selection.getSelectionElement(this.window), selectionRange.startContainer, this.document);</span>
+<span class="cstat-no" title="statement not covered" >                if (adjacentNode) {</span>
+<span class="cstat-no" title="statement not covered" >                    var offset = 0;</span>
+<span class="cstat-no" title="statement not covered" >                    while (adjacentNode.nodeValue.substr(offset, 1).trim().length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                        offset = offset + 1;</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    selectionRange = MediumEditor.selection.select(this.document, adjacentNode, offset,</span>
+                        selectionRange.endContainer, selectionRange.endOffset);
+                }
+            }
+        },
+&nbsp;
+        checkState: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.base.preventSelectionUpdates) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+            // If no editable has focus OR selection is inside contenteditable = false
+            // hide toolbar
+<span class="cstat-no" title="statement not covered" >            if (!this.base.getFocusedElement() ||</span>
+                    MediumEditor.selection.selectionInContentEditableFalse(this.window)) {
+<span class="cstat-no" title="statement not covered" >                return this.hideToolbar();</span>
+            }
+&nbsp;
+            // If there's no selection element, selection element doesn't belong to this editor
+            // or toolbar is disabled for this selection element
+            // hide toolbar
+<span class="cstat-no" title="statement not covered" >            var selectionElement = MediumEditor.selection.getSelectionElement(this.window);</span>
+<span class="cstat-no" title="statement not covered" >            if (!selectionElement ||</span>
+                    this.getEditorElements().indexOf(selectionElement) === -1 ||
+                    selectionElement.getAttribute('data-disable-toolbar')) {
+<span class="cstat-no" title="statement not covered" >                return this.hideToolbar();</span>
+            }
+&nbsp;
+            // Now we know there's a focused editable with a selection
+&nbsp;
+            // If the updateOnEmptySelection option is true, show the toolbar
+<span class="cstat-no" title="statement not covered" >            if (this.updateOnEmptySelection &amp;&amp; this.static) {</span>
+<span class="cstat-no" title="statement not covered" >                return this.showAndUpdateToolbar();</span>
+            }
+&nbsp;
+            // If we don't have a 'valid' selection -&gt; hide toolbar
+<span class="cstat-no" title="statement not covered" >            if (!MediumEditor.selection.selectionContainsContent(this.document) ||</span>
+                (this.allowMultiParagraphSelection === false &amp;&amp; this.multipleBlockElementsSelected())) {
+<span class="cstat-no" title="statement not covered" >                return this.hideToolbar();</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.showAndUpdateToolbar();</span>
+        },
+&nbsp;
+        // Updating the toolbar
+&nbsp;
+        showAndUpdateToolbar: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.modifySelection();</span>
+<span class="cstat-no" title="statement not covered" >            this.setToolbarButtonStates();</span>
+<span class="cstat-no" title="statement not covered" >            this.trigger('positionToolbar', {}, this.base.getFocusedElement());</span>
+<span class="cstat-no" title="statement not covered" >            this.showToolbarDefaultActions();</span>
+<span class="cstat-no" title="statement not covered" >            this.setToolbarPosition();</span>
+        },
+&nbsp;
+        setToolbarButtonStates: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.forEachExtension(<span class="fstat-no" title="function not covered" >function (extension) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (typeof extension.isActive === 'function' &amp;&amp;</span>
+                    typeof extension.setInactive === 'function') {
+<span class="cstat-no" title="statement not covered" >                    extension.setInactive();</span>
+                }
+            });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.checkActiveButtons();</span>
+        },
+&nbsp;
+        checkActiveButtons: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var manualStateChecks = [],</span>
+                queryState = null,
+                selectionRange = MediumEditor.selection.getSelectionRange(this.document),
+                parentNode,
+                updateExtensionState = <span class="fstat-no" title="function not covered" >function (extension) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof extension.checkState === 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                        extension.checkState(parentNode);</span>
+                    } else <span class="cstat-no" title="statement not covered" >if (typeof extension.isActive === 'function' &amp;&amp;</span>
+                               typeof extension.isAlreadyApplied === 'function' &amp;&amp;
+                               typeof extension.setActive === 'function') {
+<span class="cstat-no" title="statement not covered" >                        if (!extension.isActive() &amp;&amp; extension.isAlreadyApplied(parentNode)) {</span>
+<span class="cstat-no" title="statement not covered" >                            extension.setActive();</span>
+                        }
+                    }
+                };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (!selectionRange) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+            // Loop through all extensions
+<span class="cstat-no" title="statement not covered" >            this.forEachExtension(<span class="fstat-no" title="function not covered" >function (extension) {</span></span>
+                // For those extensions where we can use document.queryCommandState(), do so
+<span class="cstat-no" title="statement not covered" >                if (typeof extension.queryCommandState === 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                    queryState = extension.queryCommandState();</span>
+                    // If queryCommandState returns a valid value, we can trust the browser
+                    // and don't need to do our manual checks
+<span class="cstat-no" title="statement not covered" >                    if (queryState !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                        if (queryState &amp;&amp; typeof extension.setActive === 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                            extension.setActive();</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        return;</span>
+                    }
+                }
+                // We can't use queryCommandState for this extension, so add to manualStateChecks
+<span class="cstat-no" title="statement not covered" >                manualStateChecks.push(extension);</span>
+            });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            parentNode = MediumEditor.selection.getSelectedParentElement(selectionRange);</span>
+&nbsp;
+            // Make sure the selection parent isn't outside of the contenteditable
+<span class="cstat-no" title="statement not covered" >            if (!this.getEditorElements().some(<span class="fstat-no" title="function not covered" >function (element) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    return MediumEditor.util.isDescendant(element, parentNode, true);</span>
+                })) {
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+            // Climb up the DOM and do manual checks for whether a certain extension is currently enabled for this node
+<span class="cstat-no" title="statement not covered" >            while (parentNode) {</span>
+<span class="cstat-no" title="statement not covered" >                manualStateChecks.forEach(updateExtensionState);</span>
+&nbsp;
+                // we can abort the search upwards if we leave the contentEditable element
+<span class="cstat-no" title="statement not covered" >                if (MediumEditor.util.isMediumEditorElement(parentNode)) {</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                }
+<span class="cstat-no" title="statement not covered" >                parentNode = parentNode.parentNode;</span>
+            }
+        },
+&nbsp;
+        // Positioning toolbar
+&nbsp;
+        positionToolbarIfShown: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.isDisplayed()) {</span>
+<span class="cstat-no" title="statement not covered" >                this.setToolbarPosition();</span>
+            }
+        },
+&nbsp;
+        setToolbarPosition: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var container = this.base.getFocusedElement(),</span>
+                selection = this.window.getSelection();
+&nbsp;
+            // If there isn't a valid selection, bail
+<span class="cstat-no" title="statement not covered" >            if (!container) {</span>
+<span class="cstat-no" title="statement not covered" >                return this;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (this.static || !selection.isCollapsed) {</span>
+<span class="cstat-no" title="statement not covered" >                this.showToolbar();</span>
+&nbsp;
+                // we don't need any absolute positioning if relativeContainer is set
+<span class="cstat-no" title="statement not covered" >                if (!this.relativeContainer) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (this.static) {</span>
+<span class="cstat-no" title="statement not covered" >                        this.positionStaticToolbar(container);</span>
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        this.positionToolbar(selection);</span>
+                    }
+                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                this.trigger('positionedToolbar', {}, this.base.getFocusedElement());</span>
+            }
+        },
+&nbsp;
+        positionStaticToolbar: <span class="fstat-no" title="function not covered" >function (container) {</span>
+            // position the toolbar at left 0, so we can get the real width of the toolbar
+<span class="cstat-no" title="statement not covered" >            this.getToolbarElement().style.left = '0';</span>
+&nbsp;
+            // document.documentElement for IE 9
+<span class="cstat-no" title="statement not covered" >            var scrollTop = (this.document.documentElement &amp;&amp; this.document.documentElement.scrollTop) || this.document.body.scrollTop,</span>
+                windowWidth = this.window.innerWidth,
+                toolbarElement = this.getToolbarElement(),
+                containerRect = container.getBoundingClientRect(),
+                containerTop = containerRect.top + scrollTop,
+                containerCenter = (containerRect.left + (containerRect.width / 2)),
+                toolbarHeight = toolbarElement.offsetHeight,
+                toolbarWidth = toolbarElement.offsetWidth,
+                halfOffsetWidth = toolbarWidth / 2,
+                targetLeft;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (this.sticky) {</span>
+                // If it's beyond the height of the editor, position it at the bottom of the editor
+<span class="cstat-no" title="statement not covered" >                if (scrollTop &gt; (containerTop + container.offsetHeight - toolbarHeight - this.stickyTopOffset)) {</span>
+<span class="cstat-no" title="statement not covered" >                    toolbarElement.style.top = (containerTop + container.offsetHeight - toolbarHeight) + 'px';</span>
+<span class="cstat-no" title="statement not covered" >                    toolbarElement.classList.remove('medium-editor-sticky-toolbar');</span>
+                // Stick the toolbar to the top of the window
+                } else <span class="cstat-no" title="statement not covered" >if (scrollTop &gt; (containerTop - toolbarHeight - this.stickyTopOffset)) {</span>
+<span class="cstat-no" title="statement not covered" >                    toolbarElement.classList.add('medium-editor-sticky-toolbar');</span>
+<span class="cstat-no" title="statement not covered" >                    toolbarElement.style.top = this.stickyTopOffset + 'px';</span>
+                // Normal static toolbar position
+                } else {
+<span class="cstat-no" title="statement not covered" >                    toolbarElement.classList.remove('medium-editor-sticky-toolbar');</span>
+<span class="cstat-no" title="statement not covered" >                    toolbarElement.style.top = containerTop - toolbarHeight + 'px';</span>
+                }
+            } else {
+<span class="cstat-no" title="statement not covered" >                toolbarElement.style.top = containerTop - toolbarHeight + 'px';</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            switch (this.align) {</span>
+                case 'left':
+<span class="cstat-no" title="statement not covered" >                    targetLeft = containerRect.left;</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+&nbsp;
+                case 'right':
+<span class="cstat-no" title="statement not covered" >                    targetLeft = containerRect.right - toolbarWidth;</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+&nbsp;
+                case 'center':
+<span class="cstat-no" title="statement not covered" >                    targetLeft = containerCenter - halfOffsetWidth;</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (targetLeft &lt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >                targetLeft = 0;</span>
+            } else <span class="cstat-no" title="statement not covered" >if ((targetLeft + toolbarWidth) &gt; windowWidth) {</span>
+<span class="cstat-no" title="statement not covered" >                targetLeft = (windowWidth - Math.ceil(toolbarWidth) - 1);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            toolbarElement.style.left = targetLeft + 'px';</span>
+        },
+&nbsp;
+        positionToolbar: <span class="fstat-no" title="function not covered" >function (selection) {</span>
+            // position the toolbar at left 0, so we can get the real width of the toolbar
+<span class="cstat-no" title="statement not covered" >            this.getToolbarElement().style.left = '0';</span>
+<span class="cstat-no" title="statement not covered" >            this.getToolbarElement().style.right = 'initial';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var range = selection.getRangeAt(0),</span>
+                boundary = range.getBoundingClientRect();
+&nbsp;
+            // Handle selections with just images
+<span class="cstat-no" title="statement not covered" >            if (!boundary || ((boundary.height === 0 &amp;&amp; boundary.width === 0) &amp;&amp; range.startContainer === range.endContainer)) {</span>
+                // If there's a nested image, use that for the bounding rectangle
+<span class="cstat-no" title="statement not covered" >                if (range.startContainer.nodeType === 1 &amp;&amp; range.startContainer.querySelector('img')) {</span>
+<span class="cstat-no" title="statement not covered" >                    boundary = range.startContainer.querySelector('img').getBoundingClientRect();</span>
+                } else {
+<span class="cstat-no" title="statement not covered" >                    boundary = range.startContainer.getBoundingClientRect();</span>
+                }
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var containerWidth = this.window.innerWidth,</span>
+                toolbarElement = this.getToolbarElement(),
+                toolbarHeight = toolbarElement.offsetHeight,
+                toolbarWidth = toolbarElement.offsetWidth,
+                halfOffsetWidth = toolbarWidth / 2,
+                buttonHeight = 50,
+                defaultLeft = this.diffLeft - halfOffsetWidth,
+                elementsContainer = this.getEditorOption('elementsContainer'),
+                elementsContainerAbsolute = ['absolute', 'fixed'].indexOf(window.getComputedStyle(elementsContainer).getPropertyValue('position')) &gt; -1,
+                positions = {},
+                relativeBoundary = {},
+                middleBoundary, elementsContainerBoundary;
+&nbsp;
+            // If container element is absolute / fixed, recalculate boundaries to be relative to the container
+<span class="cstat-no" title="statement not covered" >            if (elementsContainerAbsolute) {</span>
+<span class="cstat-no" title="statement not covered" >                elementsContainerBoundary = elementsContainer.getBoundingClientRect();</span>
+<span class="cstat-no" title="statement not covered" >                ['top', 'left'].forEach(<span class="fstat-no" title="function not covered" >function (key) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    relativeBoundary[key] = boundary[key] - elementsContainerBoundary[key];</span>
+                });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                relativeBoundary.width = boundary.width;</span>
+<span class="cstat-no" title="statement not covered" >                relativeBoundary.height = boundary.height;</span>
+<span class="cstat-no" title="statement not covered" >                boundary = relativeBoundary;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                containerWidth = elementsContainerBoundary.width;</span>
+&nbsp;
+                // Adjust top position according to container scroll position
+<span class="cstat-no" title="statement not covered" >                positions.top = elementsContainer.scrollTop;</span>
+            } else {
+                // Adjust top position according to window scroll position
+<span class="cstat-no" title="statement not covered" >                positions.top = this.window.pageYOffset;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            middleBoundary = boundary.left + boundary.width / 2;</span>
+<span class="cstat-no" title="statement not covered" >            positions.top += boundary.top - toolbarHeight;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (boundary.top &lt; buttonHeight) {</span>
+<span class="cstat-no" title="statement not covered" >                toolbarElement.classList.add('medium-toolbar-arrow-over');</span>
+<span class="cstat-no" title="statement not covered" >                toolbarElement.classList.remove('medium-toolbar-arrow-under');</span>
+<span class="cstat-no" title="statement not covered" >                positions.top += buttonHeight + boundary.height - this.diffTop;</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                toolbarElement.classList.add('medium-toolbar-arrow-under');</span>
+<span class="cstat-no" title="statement not covered" >                toolbarElement.classList.remove('medium-toolbar-arrow-over');</span>
+<span class="cstat-no" title="statement not covered" >                positions.top += this.diffTop;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (middleBoundary &lt; halfOffsetWidth) {</span>
+<span class="cstat-no" title="statement not covered" >                positions.left = defaultLeft + halfOffsetWidth;</span>
+<span class="cstat-no" title="statement not covered" >                positions.right = 'initial';</span>
+            } else <span class="cstat-no" title="statement not covered" >if ((containerWidth - middleBoundary) &lt; halfOffsetWidth) {</span>
+<span class="cstat-no" title="statement not covered" >                positions.left = 'auto';</span>
+<span class="cstat-no" title="statement not covered" >                positions.right = 0;</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                positions.left = defaultLeft + middleBoundary;</span>
+<span class="cstat-no" title="statement not covered" >                positions.right = 'initial';</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            ['top', 'left', 'right'].forEach(<span class="fstat-no" title="function not covered" >function (key) {</span></span>
+<span class="cstat-no" title="statement not covered" >                toolbarElement.style[key] = positions[key] + (isNaN(positions[key]) ? '' : 'px');</span>
+            });
+        }
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    MediumEditor.extensions.toolbar = Toolbar;</span>
+}());
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 18 2019 03:51:06 GMT-0600 (Central Standard Time)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

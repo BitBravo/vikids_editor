@@ -44,10 +44,7 @@
         this.extend = new Extend();
         this.targetEl = '',
         this.ctTime = null;
-        if(typeof admin_permission === 'undefined' || admin_permission === false) {
-        }
-        this.$el.find('figcaption').removeAttr('contenteditable');
-
+     
         if (options) {
             // Fix #142
             // Avoid deep copying editor object, because since v2.3.0 it contains circular references which causes jQuery.extend to break
@@ -576,13 +573,13 @@
 
     Core.prototype.dragDropAction = function (e) {
 
-        const targetElement = e.target;
+        var targetElement = e.target;
         if(e.type === 'drop') {
             this.$el.find('.medium-insert-active').removeClass('medium-insert-active');
             this.$el.find('.medium-insert-embeds-active').removeClass('medium-insert-embeds-active');
             e.target.click();
 
-            const newMediaDiv = document.createElement("div");
+            var newMediaDiv = document.createElement("div");
             newMediaDiv.className = 'medium-insert-active';
             targetElement.after(newMediaDiv);            
         }
@@ -599,7 +596,7 @@
      */
 
     Core.prototype.appendAttribute = function (state) {
-        const { tokens } = state;
+        var { tokens } = state;
         for (let i = 0; i < tokens.length; i += 1) {
             if (tokens[i].map) {
             tokens[i].attrJoin('class', `line${String(tokens[i].map[0])} line-block`);
@@ -711,8 +708,8 @@
 
     Core.prototype.createEmptyMediaDiv = function (data, className) {
 
-        const newelement = this.targetEl.clone();
-        const newMediaDiv = document.createElement("div");
+        var newelement = this.targetEl.clone();
+        var newMediaDiv = document.createElement("div");
         newMediaDiv.className = className;
         // newMediaDiv.innerHTML = '</br>'
 
@@ -807,14 +804,14 @@
     Core.prototype.checkMediaUrlParse = function (mediaType,  mediaPath) {
         return mediaType === 'img' ?
             (()=>{
-                const regex = /(.+\.(jpg|png|jpeg))/g;
-                const matches = regex.exec(mediaPath);
+                var regex = /(.+\.(jpg|png|jpeg))/g;
+                var matches = regex.exec(mediaPath);
                 return matches ? true: false;
             })()
             :
             (()=>{
-                const regex = /(www\..+\..+)/g;
-                const matches = regex.exec(mediaPath);
+                var regex = /(www\..+\..+)/g;
+                var matches = regex.exec(mediaPath);
                 return matches ? true: false;
             })();
     };
@@ -828,25 +825,25 @@
     */
 
     Core.prototype.checkTemplateValidate = function () {
-        const str = this.targetEl[0].innerText;
+        var str = this.targetEl[0].innerText;
 
-        // const regex = /\[\!\[(.*?)\]\((.+\.(png|jpg|jpeg))\)\]/g;
-        const regex = /\[(!|@)\[(.*?)\]\((.+)\)\]/g;
-        const matches = regex.exec(str);
+        // var regex = /\[\!\[(.*?)\]\((.+\.(png|jpg|jpeg))\)\]/g;
+        var regex = /\[(!|@)\[(.*?)\]\((.+)\)\]/g;
+        var matches = regex.exec(str);
     
        return  matches && matches[2] ?
         (()=>{
-            const mediaType = matches[1] === '!' ? 'img' : 'mov';
-            const altText = matches[2];
-            const filePath = matches[3];
+            var mediaType = matches[1] === '!' ? 'img' : 'mov';
+            var altText = matches[2];
+            var filePath = matches[3];
 
             // check if the current file is valid media file
-            const fileURLValidate= this.checkMediaUrlParse(mediaType, filePath);
+            var fileURLValidate= this.checkMediaUrlParse(mediaType, filePath);
             if (fileURLValidate) {
-                const startPos = matches.index;
-                const lastPos = matches.index + matches[0].length;
-                const preText = str.slice(0, startPos);
-                const lastText = str.slice(lastPos);
+                var startPos = matches.index;
+                var lastPos = matches.index + matches[0].length;
+                var preText = str.slice(0, startPos);
+                var lastText = str.slice(lastPos);
 
                 return {
                     url: filePath, 
@@ -927,8 +924,8 @@
     };
 
     Core.prototype.checkInputMediaToolbar = function () {
-        const cPoint = this.getCursorPosition();
-        const cPointDetail = this.getCursorData(null, cPoint.point);
+        var cPoint = this.getCursorPosition();
+        var cPointDetail = this.getCursorData(null, cPoint.point);
     };
 
     Core.prototype.checkCustomPattern = function () {
@@ -937,10 +934,10 @@
 
         this.checkInputMediaToolbar();
         // Parsed element data || false
-        const templateValidate = this.checkTemplateValidate();  
+        var templateValidate = this.checkTemplateValidate();  
         if (templateValidate) {
-            const mediaTyepe = templateValidate.type;
-            const mediaPath = templateValidate.url;
+            var mediaTyepe = templateValidate.type;
+            var mediaPath = templateValidate.url;
 
             // Check the the media file validation provided by URL
             if(mediaTyepe === 'img') {
