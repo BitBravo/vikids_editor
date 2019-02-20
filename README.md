@@ -120,6 +120,8 @@ User can embed their media files(Video, Music, Photo, Youtube, Vimemo)
 There are three method to embed the media files in your content.
 - Drag and Drap
 
+    Ex: Image, Video insert by drag and drop
+
   ![Drag and Drop](./assests/img/dragdrop.gif)
 
 - Special Code Pattern
@@ -139,7 +141,11 @@ There are three method to embed the media files in your content.
    
    ![Houses](http://sfeizigroup.com/wp-content/uploads/2017/05/slide-5.jpg)
 
+        - Image insert by code pattern
+
     ![Code Pattern for Photo](./assests/img/patternimage.gif)
+
+        - Video insert by code pattern
 
     ![Code Pattern for Video](./assests/img/videopattern.gif)
 
