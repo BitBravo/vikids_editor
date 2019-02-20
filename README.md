@@ -113,7 +113,7 @@ User can edit all text using tooltip toolbar.
 - Align Left, Align Center, Align Right
 - Header Text (h1, h2, h3, h4, h5, h6)
 
-![Tooltip Toolbar](./assests/img/tooltip-text.gif)
+    ![Tooltip Toolbar](./assests/img/tooltip-text.gif)
 
 2. Embed Media files
 User can embed their media files(Video, Music, Photo, Youtube, Vimemo)
