@@ -112,6 +112,9 @@ User can edit all text using tooltip toolbar.
 - Bold, italic, underlined.
 - Align Left, Align Center, Align Right
 - Header Text (h1, h2, h3, h4, h5, h6)
+
+![Tooltip Toolbar](./assests/img/tooltip-text.gif)
+
 2. Embed Media files
 User can embed their media files(Video, Music, Photo, Youtube, Vimemo)
 There are three method to embed the media files in your content.
@@ -135,5 +138,9 @@ There are three method to embed the media files in your content.
 	`[!Houses](http://sfeizigroup.com/wp-content/uploads/2017/05/slide-5.jpg)]`
    
    ![Houses](http://sfeizigroup.com/wp-content/uploads/2017/05/slide-5.jpg)
+
+    ![Code Pattern for Photo](./assests/img/patternimage.gif)
+
+    ![Code Pattern for Video](./assests/img/videopattern.gif)
 
 - Empty New line
