@@ -150,3 +150,11 @@ There are three method to embed the media files in your content.
     ![Code Pattern for Video](./assests/img/videopattern.gif)
 
 - Empty New line
+
+    - Image insert by New line
+
+        ![Code Pattern for Video](./assests/img/photoline.gif)
+
+    - Image insert by code pattern
+
+        ![Code Pattern for Video](./assests/img/videoline.gif)
