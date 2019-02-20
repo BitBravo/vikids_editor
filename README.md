@@ -116,6 +116,9 @@ User can edit all text using tooltip toolbar.
 User can embed their media files(Video, Music, Photo, Youtube, Vimemo)
 There are three method to embed the media files in your content.
 - Drag and Drap
+
+  ![Drag and Drop](./assests/img/dragdrop.gif)
+
 - Special Code Pattern
 	User can generate all html contents by using special pattern.
 	Live URL: https://medium-editor-3379b.firebaseapp.com
