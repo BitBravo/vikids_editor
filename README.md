@@ -51,23 +51,13 @@ $  grunt  css
 3. Import javascript min file
 4. Define the class name of the container element as 'editable'
 5. Setting configuration
- - UploadURL endpoint
-    var  uploadURL = 'Your uploadURL endpoint';
-	Default value is http://localhost:3000/upload
+ - UploadURL attribute
+  data-upload-url="Your uploadURL endpoint"
+	Default value is /upload
 
- - DeleteURL endpoint
- 	var deleteURL = 'Your uploadURL endpoint';
- 	Default value is http://localhost:3000/delete
- 
- - User permission
-   1. admin_permission value
-      You can set the admin permission using admin_permission.
-			if current user is admin:  
-				var admin_permission  = true;
-  2. User permission setting by adding 'give-me-editor' in the contailer's class name.
-	`<div class="editable give-me-editor"> 
-		Your text here
-	</div>
+ - DeleteURL attribute
+ 	data-upload-url="Your deleteURL endpoint"
+ 	Default value is /delete
 	`
 
 ## Sample Code
@@ -83,7 +73,7 @@ $  grunt  css
 <body>
     <div id="container">
 		 // Set the class name of container as 'editable',
-        <div class="editable give-me-editor" data-placeholder="Type some text">
+        <div class="editable" data-placeholder="Type some text">
             <h2 class="test">Advanced Medium Editor</h2>
         </div>
     </div>
@@ -94,7 +84,7 @@ $  grunt  css
 	// USER Configuration
     <script>
         var admin_permission = true;
-        var uploadURL = 'http://localhost:9999/uploadurl', 
+        var uploadURL = 'http://localhost:9999/uploadurl',
 			deleteURL= 'http://localhost:9999/uploadurl';
     </script>
 
@@ -128,17 +118,17 @@ There are three method to embed the media files in your content.
 	User can generate all html contents by using special pattern.
 	Live URL: https://medium-editor-3379b.firebaseapp.com
 	Pattern:
-    ``` 
+    ```
 	[![image caption](image_url)]
     [@[video caption](video url)]
 	```
-	
+
 	Example:
 
      `[![Houses](http://sfeizigroup.com/wp-content/uploads/2017/05/slide-5.jpg)]`
 
 	`[!Houses](http://sfeizigroup.com/wp-content/uploads/2017/05/slide-5.jpg)]`
-   
+
    ![Houses](http://sfeizigroup.com/wp-content/uploads/2017/05/slide-5.jpg)
 
         - Image insert by code pattern
