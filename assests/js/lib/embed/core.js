@@ -60,7 +60,7 @@
 
         this._defaults = defaults;
         this._name = pluginName;
-
+        console.log('@@@@@@@@@@@@@@@@@@@@@@');
         // Extend editor's functions
         if (this.options && this.options.editor) {
             if (this.options.editor._serialize === undefined) {
