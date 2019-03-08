@@ -10439,7 +10439,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
         this._defaults = defaults;
         this._name = pluginName;
-
+        console.log('@@@@@@@@@@@@@@@@@@@@@@');
         // Extend editor's functions
         if (this.options && this.options.editor) {
             if (this.options.editor._serialize === undefined) {
@@ -13052,25 +13052,41 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 })(jQuery, window, document, MediumEditor.util);
 
 $(function () {
-  $('.editable').each(index => {
-    var node = $(".editable")[index];
-    new MediumEditor(node, {
+  var uploadURL = '';
+  $('.editable').each((index, node) => {
+    $(node).mediumInsert({
+      editor: new MediumEditor(node, {
         buttonLabels: 'fontawesome',
-        enabled: true,
-        addons: {
-            images: {
-                fileDeleteOptions: {
-                  url: node.getAttribute("data-delete-url") || "/delete",
-                },
-                fileUploadOptions: {
-                    url: node.getAttribute("data-upload-url") || "/upload",
-                },
-            }
-        },
         paste: {
             cleanPastedHTML: true,
             forcePlainText: false
         }
+      }),
+      enabled: node.className.includes('content')? (() => {
+        uploadURL = node.getAttribute("data-upload-url") || "/upload";
+        return true;
+      })() : false,
+      addons: { 
+          images: { 
+              fileDeleteOptions: {
+                url: node.getAttribute("data-delete-url") || "/delete",
+              }, 
+              fileUploadOptions: { 
+                  url: node.getAttribute("data-upload-url") || "/upload", 
+              },
+          }
+      }
     });
-  });
+  })
+
+  setInterval(()=>{
+    console.log(document.body)
+    $.ajax({
+      type: "POST",
+      url: uploadURL,
+      context: document.body
+    }).done(function() {
+      console.log('Saved all document successfully')
+    });
+  }, 5000)
 });
