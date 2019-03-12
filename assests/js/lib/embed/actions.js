@@ -98,7 +98,7 @@
     Actions.prototype.windowsCloseEvent = function () {
         window.onbeforeunload = function() {
             localStorage.clear();
-            return '';
+            // return '';
           };
     };
 
