@@ -19,8 +19,9 @@ $(function () {
               },
           },
           actions: {
-            saveAction: {
-              url: node.getAttribute("data-upload-url") || "/contentSave",
+            actionsOption: {
+              uploadURL: node.getAttribute("data-upload-url") || "/contentSave",
+              deleteURL: node.getAttribute("data-delete-url") || "/contentDelete",
             }, 
             elementId: index,
           }

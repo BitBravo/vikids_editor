@@ -51,12 +51,12 @@
 
     Actions.prototype.init = function (content) {
        window.setInterval(() => {
-            this.saveStorage('hi')
+            this.saveStorage('his')
        }, 1000)
     };
 
     /**
-     * Save all content data to local storage
+     * Save all content data to local storage if there is any changes and request saveAction.
      *
      * @returns {void}
      */
@@ -64,7 +64,26 @@
         if (content !== window.localStorage.getItem(this.elementId)) {
             window.localStorage.setItem(this.elementId, content)
             console.log(`Content updated for ${this.elementId}`);
+
+            // Request content saveACtion
+            this.actionRequest('post', this.options.actionsOption.uploadURL, 'hi')
         }
+    }
+
+     /**
+     * Request Action
+     *
+     * @returns {void}
+     */
+    Actions.prototype.actionRequest = function (method='get', url, data) {
+        $.ajax({
+            url: url,
+            type: method,
+            data: data,
+            success: function(d) {
+                console.log('Your request successfully')
+            }
+        });
     }
 
     /**
