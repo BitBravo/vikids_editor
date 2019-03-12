@@ -32,6 +32,7 @@
         this.options = $.extend(true, {}, options);
         this._name = pluginName;
         this.elementId = `medium-content-${options.elementId}`;
+        this.validNavigation = false;
 
 
         // Extend editor's functions
@@ -53,6 +54,36 @@
        window.setInterval(() => {
             this.saveStorage('his')
        }, 1000)
+    };
+
+        /**
+     * Exception Closing Events
+     *
+     * @return {void}
+     */
+
+    Images.prototype.exceptionEvents = function () {
+        $(document).on('keypress', function(e) {
+            if (e.keyCode == 116){
+                this.validNavigation = true;
+            }
+        });
+        
+        $(document).on("click", "a" , function() {
+            this.validNavigation = true;
+        });
+        
+        $(document).on("submit", "form" , function() {
+            this.validNavigation = true;
+        });
+        
+        $(document).bind("click", "input[type=submit]" , function() {
+            this.validNavigation = true;
+        });
+        
+        $(document).bind("click", "button[type=submit]" , function() {
+            this.validNavigation = true;
+        });
     };
 
     /**
