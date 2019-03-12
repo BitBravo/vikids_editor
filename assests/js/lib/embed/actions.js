@@ -70,20 +70,20 @@
                 this.validNavigation = true;
             }
         });
-        
+
         $(document).on("click", "a" , function() {
             this.validNavigation = true;
 
         });
-        
+
         $(document).on("submit", "form" , function() {
             this.validNavigation = true;
         });
-        
+
         $(document).bind("click", "input[type=submit]" , function() {
             this.validNavigation = true;
         });
-        
+
         $(document).bind("click", "button[type=submit]" , function() {
             this.validNavigation = true;
         });
@@ -111,9 +111,9 @@
         if (content !== window.localStorage.getItem(this.elementId)) {
             window.localStorage.setItem(this.elementId, content);
             console.log(`Content updated for ${this.elementId}`);
-            
+
             // Request content saveACtion
-            this.actionRequest('post', this.options.actionsOption.uploadURL, 'hi')
+            this.actionRequest('put', this.options.actionsOption.uploadURL, JSON.stringify({ "content" : content }));
         }
     }
 
@@ -137,6 +137,10 @@
     Actions.prototype.actionRequest = function (method='get', url, data) {
         $.ajax({
             url: url,
+            headers: {
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json'
+            },
             type: method,
             data: data,
             success: function(d) {

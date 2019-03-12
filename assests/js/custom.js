@@ -9,23 +9,22 @@ $(function () {
         }
       }),
       enabled: (node.getAttribute("media-upload") === "enable"),
-      addons: { 
-          images: { 
+      addons: {
+          images: {
               fileDeleteOptions: {
                 url: node.getAttribute("data-delete-url") || "/delete",
-              }, 
-              fileUploadOptions: { 
-                  url: node.getAttribute("data-upload-url") || "/upload", 
+              },
+              fileUploadOptions: {
+                  url: node.getAttribute("data-upload-url") || "/upload",
               },
           },
           actions: {
             actionsOption: {
-              uploadURL: node.getAttribute("data-upload-url") || "/contentSave",
-            }, 
+              uploadURL: node.getAttribute("data-save-url") || "/contentSave",
+            },
             elementId: index,
           }
       }
     });
   })
 });
-

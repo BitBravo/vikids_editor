@@ -14,7 +14,7 @@ module.exports = function (grunt) {
             globalConfig: globalConfig
         },
 
-        srcFiles = [         
+        srcFiles = [
             'src/js/globals.js',
             'src/js/util.js',
             'src/js/extension.js',
@@ -47,6 +47,7 @@ module.exports = function (grunt) {
             'assests/js/lib/embed/core.js',
             'assests/js/lib/embed/embeds.js',
             'assests/js/lib/embed/images.js',
+            'assests/js/lib/embed/actions.js',
             'assests/js/custom.js',
         ],
         browsers = [{
@@ -137,7 +138,7 @@ module.exports = function (grunt) {
         }
     };
 
-    gruntConfig.fixmyjs = { 
+    gruntConfig.fixmyjs = {
         options: {
             config: '.jshintrc',
             indentpref: 'spaces'
@@ -151,7 +152,7 @@ module.exports = function (grunt) {
             ]
         }
     };
-    
+
     // TODO: "maximumLineLength": 120
     gruntConfig.jscs = {
         src: [
@@ -217,7 +218,7 @@ module.exports = function (grunt) {
             dest: 'dist/js/<%= pkg.name %>.min.js'
         }
     };
-  
+
     gruntConfig.csslint = {
         strict: {
             options: {
