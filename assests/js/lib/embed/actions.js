@@ -51,11 +51,11 @@
      */
 
     Actions.prototype.init = function (content) {
-       this.exceptionEvents();
-       this.windowsCloseEvent();
-       window.setInterval(() => {
-            this.saveStorage('his')
-       }, 1000)
+        this.exceptionEvents();
+        this.windowsCloseEvent();
+        window.setInterval(() => {
+            this.saveStorage(this.el.innerHTML)
+       }, 2000)
     };
 
     /**
