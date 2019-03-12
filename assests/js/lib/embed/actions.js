@@ -31,6 +31,7 @@
         this.core = this.$el.data('plugin_' + pluginName);
         this.options = $.extend(true, {}, options);
         this._name = pluginName;
+        this.elementId = `medium-content-${options.elementId}`;
 
 
         // Extend editor's functions
@@ -48,17 +49,35 @@
      * @return {void}
      */
 
-    Actions.prototype.init = function () {
-        console.log(this.el)
-        console.log(this.options)
+    Actions.prototype.init = function (content) {
+       window.setInterval(() => {
+            this.saveStorage('hi')
+       }, 1000)
     };
 
-  
     /**
-     * Initialize sorting
+     * Save all content data to local storage
      *
      * @returns {void}
      */
+    Actions.prototype.saveStorage = function (content) {
+        if (content !== window.localStorage.getItem(this.elementId)) {
+            window.localStorage.setItem(this.elementId, content)
+            console.log(`Content updated for ${this.elementId}`);
+        }
+    }
+
+    /**
+     * Remove all content data from local storage
+     *
+     * @returns {void}
+     */
+    Actions.prototype.destoryStorage = function () {
+        if (window.localStorage.getItem(this.elementId)) {
+            window.localStorage.removeItem(this.elementId)
+            console.log(`Content removed for ${this.elementId} from localstorage`);
+        }
+    }
 
 
     /** Plugin initialization */

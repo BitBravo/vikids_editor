@@ -22,6 +22,7 @@ $(function () {
             saveAction: {
               url: node.getAttribute("data-upload-url") || "/contentSave",
             }, 
+            elementId: index,
           }
       }
     });
