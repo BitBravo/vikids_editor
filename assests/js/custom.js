@@ -1,5 +1,4 @@
 $(function () {
-  var uploadURL = '';
   $('.editable').each((index, node) => {
     $(node).mediumInsert({
       editor: new MediumEditor(node, {
@@ -9,10 +8,7 @@ $(function () {
             forcePlainText: false
         }
       }),
-      enabled: node.className.includes('content')? (() => {
-        uploadURL = node.getAttribute("data-upload-url") || "/upload";
-        return true;
-      })() : false,
+      enabled: (node.getAttribute("media-upload") === "enable"),
       addons: { 
           images: { 
               fileDeleteOptions: {
@@ -21,19 +17,14 @@ $(function () {
               fileUploadOptions: { 
                   url: node.getAttribute("data-upload-url") || "/upload", 
               },
+          },
+          actions: {
+            saveAction: {
+              url: node.getAttribute("data-upload-url") || "/contentSave",
+            }, 
           }
       }
     });
   })
-
-  setInterval(()=>{
-    console.log(document.body)
-    $.ajax({
-      type: "POST",
-      url: uploadURL,
-      context: document.body
-    }).done(function() {
-      console.log('Saved all document successfully')
-    });
-  }, 5000)
+  
 });

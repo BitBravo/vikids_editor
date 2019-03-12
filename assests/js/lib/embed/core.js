@@ -9,7 +9,8 @@
             enabled: true,
             addons: {
                 images: true, // boolean or object containing configuration
-                embeds: true
+                embeds: true,
+                actions: true,
             }
         };
 
@@ -60,7 +61,6 @@
 
         this._defaults = defaults;
         this._name = pluginName;
-        console.log('@@@@@@@@@@@@@@@@@@@@@@');
         // Extend editor's functions
         if (this.options && this.options.editor) {
             if (this.options.editor._serialize === undefined) {

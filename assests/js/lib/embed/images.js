@@ -76,10 +76,10 @@
             // uploadError: function($el, data) {}
             // uploadCompleted: function ($el, data) {}
         };
-
     function ucfirst(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
+
 
     /**
      * Images object
