@@ -51,18 +51,20 @@
      */
 
     Actions.prototype.init = function (content) {
+       this.exceptionEvents();
+       this.windowsCloseEvent();
        window.setInterval(() => {
             this.saveStorage('his')
        }, 1000)
     };
 
-        /**
+    /**
      * Exception Closing Events
      *
      * @return {void}
      */
 
-    Images.prototype.exceptionEvents = function () {
+    Actions.prototype.exceptionEvents = function () {
         $(document).on('keypress', function(e) {
             if (e.keyCode == 116){
                 this.validNavigation = true;
@@ -71,6 +73,7 @@
         
         $(document).on("click", "a" , function() {
             this.validNavigation = true;
+
         });
         
         $(document).on("submit", "form" , function() {
@@ -87,17 +90,42 @@
     };
 
     /**
+     * Windows Closing Events
+     *
+     * @return {void}
+     */
+
+    Actions.prototype.windowsCloseEvent = function () {
+        window.onbeforeunload = function() {
+            localStorage.clear();
+            return '';
+          };
+    };
+
+    /**
      * Save all content data to local storage if there is any changes and request saveAction.
      *
      * @returns {void}
      */
     Actions.prototype.saveStorage = function (content) {
         if (content !== window.localStorage.getItem(this.elementId)) {
-            window.localStorage.setItem(this.elementId, content)
+            window.localStorage.setItem(this.elementId, content);
             console.log(`Content updated for ${this.elementId}`);
-
+            
             // Request content saveACtion
             this.actionRequest('post', this.options.actionsOption.uploadURL, 'hi')
+        }
+    }
+
+    /**
+     * Remove all content data from local storage
+     *
+     * @returns {void}
+     */
+    Actions.prototype.destoryStorage = function () {
+        if (window.localStorage.getItem(this.elementId)) {
+            window.localStorage.removeItem(this.elementId)
+            console.log(`Content removed for ${this.elementId} from localstorage`);
         }
     }
 
@@ -116,19 +144,6 @@
             }
         });
     }
-
-    /**
-     * Remove all content data from local storage
-     *
-     * @returns {void}
-     */
-    Actions.prototype.destoryStorage = function () {
-        if (window.localStorage.getItem(this.elementId)) {
-            window.localStorage.removeItem(this.elementId)
-            console.log(`Content removed for ${this.elementId} from localstorage`);
-        }
-    }
-
 
     /** Plugin initialization */
 
