@@ -302,9 +302,11 @@
             that.options.addons[addon] = that.$el.data('plugin_' + addonName).options;
         });
 
-        this.$el.append(this.templates['src/js/templates/images-fileupload.hbs']());
-        this.$el.find('input:file').hide();
-        this.$el.data('plugin_' + pluginName + ucfirst('images'))['add'](true);
+        if (this.options.enabled) {
+            this.$el.append(this.templates['src/js/templates/images-fileupload.hbs']());
+            this.$el.find('input:file').hide();
+            this.$el.data('plugin_' + pluginName + ucfirst('images'))['add'](true);
+        }
     };
 
     /**
