@@ -38,7 +38,6 @@
      */
 
     function Core(el, options) {
-        console.log(options)
         var editor;
 
         this.el = el;
@@ -84,7 +83,6 @@
                 this.options.editor.getExtensionByName('placeholder').updatePlaceholder = this.editorUpdatePlaceholder;
             }
         }
-        console.log(this.options)
     }
 
     /**
@@ -361,9 +359,19 @@
         if (this.options.enabled === false) {
             return;
         }
-        console.log(this.options.addons)
+        
+        const filteredAddons = 
+            Object.keys(this.options.addons)
+                .filter(key => (
+                    this.options.addons[key].enableButton === 'undefined' || this.options.addons[key].enableButton
+                ))
+            .reduce((obj, key) => {
+                obj[key] = this.options.addons[key];
+                return obj;
+            }, {});
+        
         return this.templates['src/js/templates/core-buttons.hbs']({
-            addons: this.options.addons
+            addons: filteredAddons
         }).trim();
     };
 
