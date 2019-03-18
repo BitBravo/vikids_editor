@@ -6,8 +6,10 @@
 
     /** Default values */
     var pluginName = 'mediumInsert',
-        addonName = 'Actions';
-
+        addonName = 'Actions',
+        defaults = {
+            enableButton: false,
+    };
     function ucfirst(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
@@ -29,10 +31,11 @@
         this.$currentImage = null;
         this.templates = window.MediumInsert.Templates;
         this.core = this.$el.data('plugin_' + pluginName);
-        this.options = $.extend(true, {}, options);
+        this.options = $.extend(true, {}, defaults, options);
         this._name = pluginName;
         this.elementId = `medium-content-${options.elementId}`;
         this.validNavigation = false;
+        // console.log(this.options)
 
 
         // Extend editor's functions
@@ -150,7 +153,6 @@
     }
 
     /** Plugin initialization */
-
     $.fn[pluginName + addonName] = function (options) {
         return this.each(function () {
             if (!$.data(this, 'plugin_' + pluginName + addonName)) {

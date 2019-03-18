@@ -72,7 +72,9 @@
             messages: {
                 acceptFileTypesError: 'This file is not in a supported format: ',
                 maxFileSizeError: 'This file is too big: '
-            }
+            },
+            enableButton: true,
+
             // uploadError: function($el, data) {}
             // uploadCompleted: function ($el, data) {}
         };

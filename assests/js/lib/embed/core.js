@@ -11,8 +11,9 @@
                 images: true, // boolean or object containing configuration
                 embeds: true,
                 actions: true,
-            }
+            },
         };
+
 
     /**
      * Capitalize first character
@@ -37,6 +38,7 @@
      */
 
     function Core(el, options) {
+        console.log(options)
         var editor;
 
         this.el = el;
@@ -82,6 +84,7 @@
                 this.options.editor.getExtensionByName('placeholder').updatePlaceholder = this.editorUpdatePlaceholder;
             }
         }
+        console.log(this.options)
     }
 
     /**
@@ -358,7 +361,7 @@
         if (this.options.enabled === false) {
             return;
         }
-
+        console.log(this.options.addons)
         return this.templates['src/js/templates/core-buttons.hbs']({
             addons: this.options.addons
         }).trim();

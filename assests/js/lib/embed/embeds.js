@@ -39,7 +39,8 @@
                 }
             }
         },
-        parseOnPaste: false
+        parseOnPaste: false,
+        enableButton: true,
     };
     
 
