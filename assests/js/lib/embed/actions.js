@@ -9,7 +9,8 @@
         addonName = 'Actions',
         defaults = {
             enableButton: false,
-    };
+        };
+    
     function ucfirst(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
@@ -54,11 +55,11 @@
      */
 
     Actions.prototype.init = function (content) {
-        this.exceptionEvents();
-        this.windowsCloseEvent();
-        window.setInterval(() => {
-            this.saveStorage(this.el.innerHTML)
-       }, 2000)
+    //     this.exceptionEvents();
+    //     this.windowsCloseEvent();
+    //     window.setInterval(() => {
+    //         this.saveStorage(this.el.innerHTML)
+    //    }, 2000)
     };
 
     /**

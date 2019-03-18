@@ -111,9 +111,10 @@
 
     Core.prototype.events = function () {
         var that = this;
+      
 
         this.$el
-            .on('dragover drop', function (e) {
+            .on('drop', function (e) {
                 e.preventDefault();
                 $.proxy(that, 'dragDropAction')(e);
             })

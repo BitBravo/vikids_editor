@@ -203,10 +203,11 @@
     Images.prototype.add = function (mediaData) {
         if(mediaData) {
             var that = this,
-                $file = $('input:file'),
+                $file = this.$el.find('input:file'),
                 fileUploadOptions = {
                     dataType: 'json',
                     replaceFileInput: true,
+                    dropZone: $(this.$el),
                     drop: function (e, data) {
                         // e.preventDefault();
                     },
@@ -231,11 +232,13 @@
                     $.proxy(that, 'uploadProgressall', e, data)();
                 };
             }
-        
-            $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
-                
+            $(this.$el).bind('drop dragover', function (e) {
+                e.preventDefault();
+            });
+
+            $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));                
         } else {
-            var $file = $('input:file');
+            var $file = this.$el.find('input:file');
             $file.click();
         }
     };
