@@ -12,15 +12,15 @@ $(function () {
       addons: {
           images: {
               fileDeleteOptions: {
-                url: node.getAttribute("data-delete-url") || "/delete",
+                url: node.getAttribute("media-delete-url") || "media/delete",
               },
               fileUploadOptions: {
-                  url: node.getAttribute("data-upload-url") || "/upload",
+                  url: node.getAttribute("media-upload-url") || "media/upload",
               },
           },
           actions: {
             actionsOption: {
-              uploadURL: node.getAttribute("data-save-url") || "/contentSave",
+              uploadURL: node.getAttribute("content-save-url") || "contentSave",
             },
             elementId: index,
           }
