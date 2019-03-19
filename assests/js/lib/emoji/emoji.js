@@ -74,11 +74,12 @@
                 newBtn = '<input type="image" class="emoji_btn" id="emoji_btn_' + ix + '" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZBAMAAAA2x5hQAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAkUExURUxpcfTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAOfx6yUAAAALdFJOUwAzbVQOoYrzwdwkAoU+0gAAAM1JREFUGNN9kK0PQWEUxl8fM24iCYopwi0muuVuzGyKwATFZpJIU01RUG/RBMnHxfz+Oef9uNM84d1+23nO+zxHKVG2WWupRJkdcAwtpCK0lpbqWE01pB0QayonREMoIp7AawQrWSgGGb4pn6dSeSh68FAVXqHqy3wKrkJiDGDTg3dnp//w+WnwlwIOJauF+C7sXRVfdha4O4oIJfTbtdSxs2uqhs585A0ko8iLTMEcDE1n65A+29pYAlr72nz9dKu7GuNTcsL2fDQzB/wCPVJ69nZGb3gAAAAASUVORK5CYII="/>';
                 contentTop = this.$content.offset().top + this.$content.outerHeight() + 10;
                 contentLeft = this.$content.offset().left + 2;
-                $(newBtn).appendTo($('body'));
-                $('#emoji_btn_' + ix).css({ 'top': contentTop + 'px', 'left': contentLeft + 'px' });
+                $(newBtn).appendTo(this.$content);
+
+                // $('#emoji_btn_' + ix).css({ 'top': contentTop + 'px', 'left': contentLeft + 'px' });
                 btn = '#emoji_btn_' + ix;
             }
-
+            console.log(newBtn, this.$content)
             var showTab = this.options.showTab;
             var iconsGroup = this.options.icons;
             var groupLength = iconsGroup.length;
@@ -142,7 +143,7 @@
             emoji_container += emoji_content;
             emoji_container += emoji_tab;
             emoji_container += emoji_preview;
-            console.log(emoji_container)
+
             $(emoji_container).appendTo($('body'));
 
             // calc panel width
