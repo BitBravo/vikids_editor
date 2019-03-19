@@ -1,9 +1,10 @@
 .emoji_btn {
-    position: absolute;
-    display: inline-block;
-    cursor: pointer;
     width: 25px;
     height: 25px;
+    position: relative;
+    float: right;
+    top: unset !important;
+    left: unset !important;
 }
 
 .emoji_container * {
