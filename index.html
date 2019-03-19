@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Advanced Medium Editor</title>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./dist/css/vikids-editor.css">
+    <link href="assests/css/emoji.css" rel="stylesheet">
+
+
 </head>
 <body>
     <div id="container">
-        <div class="editable" media-upload-url="http://localhost:3000/blog-media/upload" media-delete-url="blog-media/delete" content-save-url='blog/upload' media-upload="enable" data-placeholder="Type some text">
+        <div class="editable" media-upload-url="http://localhost:3000/blog-media/upload" media-delete-url="blog-media/delete" content-save-url='blog/upload' media-upload="enable" data-placeholder="Type some text" data-emojiable="false">
             <h2 class="test">Advanced Medium Editor</h2>
             What is Content Marketing?
             The Content Marketing Institute defines content marketing as “a strategic marketing approach focused on creating and distributing valuable, relevant, and consistent content to attract and retain a clearly defined audience — and, ultimately, to drive profitable customer action.”
@@ -20,16 +24,17 @@
                     <figcaption contenteditable="true">The best idea</figcaption>
                 </figure>
             </div>
-            <p>
+            <p style='font-size: 10px'>
                 How do you trust that you have the right information?
+                <span id="emojify">&#x1f60d;</span>
             </p>
             
             How do you find the best, most current information?
 
             <p>
-                When you find great content, how do you share it?
+                When you find great content, how do you share it? <span id="emojify">Here&rsquo;s that emoji! &#x1f60d;</span>
     
-                Is the content you are sharing personalized with your brand?
+                Is the content you are sharing personalized with your brand? <span id="emojify">&#x1f60d;</span>
                 KCM is here to help you with fresh, relevant content that’s easy to share and understand.
                 
                 We believe every family should feel confident when buying and selling a home and our mission is to change the way real estate professionals educate and serve their clients. KCM provides the Content and tools that position you as a real estate market expert and help you educate your clients.
@@ -59,7 +64,7 @@
             </p>
            
         </div>
-        <div class="editable" media-upload="disable" media-upload-url="comment-media/upload" content-save-url='commennt/upload'>
+        <div class="editable editor" media-upload="disable" media-upload-url="comment-media/upload" content-save-url='commennt/upload' data-emojiable="true">
         </div>
 
     </div>
@@ -105,5 +110,44 @@
     <script src="./assests/js/lib/embed/images.js"></script>
     <script src="./assests/js/custom.js"></script>
 
+    <script src="./assests/js/lib/emoji/jquery.emoji.js"></script>
+
+
+    <script>
+        $(".editor").emoji({
+            showTab: false,
+            animation: 'slide',
+            position: 'topLeft',
+            icons: [{
+                name: "custom",
+                path: "assests/img/emoji/",
+                maxNum: 91,
+                excludeNums: [41, 45, 54],
+                file: ".gif"
+            }]
+        });
+        </script>
+        <script>
+       
+        // // 1) Make a regular expression ("regex") to find emoji (just one here)
+        // var regex = /(?:\uD83D\uDE0D)/g;
+
+        // // 2) Find the text of the element with the id "emojify"
+        // var emojifyElement = document.getElementById("emojify");
+        // var elementString = emojifyElement.innerHTML;
+
+        // // 3) Use the Regex on the HTML element string
+        // var match = regex.exec(elementString);
+
+        // // 4) Make a new image element with the desired image
+        // var img = new Image();
+        // img.setAttribute('draggable', 'false');
+        // img.className = "emojified";
+        // img.alt = match[0];
+        // img.src = "https://abs.twimg.com/emoji/v2/72x72/1f60d.png";
+
+        // // 5) replace the emoji with the new img element, and update the DOM
+        // emojifyElement.innerHTML = elementString.replace(regex, img.outerHTML);
+    </script>
 </body>
 </html>

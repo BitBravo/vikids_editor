@@ -629,3 +629,15 @@ footer .fa {
 .medium-insert-embeds>figure {
     margin: 0;
 }
+
+#emojify {
+    font-size: 32px;
+    font-family: Helvetica, Arial;
+}
+
+.emojified {
+    height: 1em;
+    width: 1em;
+    padding: 0 .05em 0 .1em;
+    vertical-align: -0.2em;
+}
