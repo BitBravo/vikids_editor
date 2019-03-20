@@ -1,40 +1,35 @@
-/**
- * Created by Sky on 2015/12/11.
- */
 (function ($, window, document) {
-    if (!Array.prototype.indexOf) {
-        Array.prototype.indexOf = function (elt) {
-            var len = this.length >>> 0;
+    'use strict';
 
-            var from = Number(arguments[1]) || 0;
-            from = (from < 0)
-                ? Math.ceil(from)
-                : Math.floor(from);
-            if (from < 0)
-                from += len;
-
-            for (; from < len; from++) {
-                if (from in this &&
-                    this[from] === elt)
-                    return from;
-            }
-            return -1;
-        };
-    }
-
-    var PLUGIN_NAME = 'emoji',
-        DEFAULTS = {
+    var pluginName = 'mediumInsert',
+        addonName = 'Emoji',
+        defaults = {
             showTab: true,
             animation: 'fade',
-            icons: []
+            icons: [],
+            enableButton: false,
         };
 
-    window.emoji_index = 0;
+       
+        function ucfirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    
 
-    function Plugin(element, options) {
-        this.$content = $(element);
-        this.options = options;
-        this.index = emoji_index;
+    function Emoji(el, options) {
+        this.el = el;
+        this.$el = $(el);
+        this.$currentImage = null;
+        this.templates = window.MediumInsert.Templates;
+        this.core = this.$el.data('plugin_' + pluginName);
+        this.options = $.extend(true, {}, defaults, options);
+        this._name = pluginName;
+        this.elementId = `medium-content-${options.elementId}`;
+        this.validNavigation = false;
+        console.log(options)
+
+
+        this.index = this.options.elementId;
         switch (options.animation) {
             case 'none':
                 this.showFunc = 'show';
@@ -60,7 +55,7 @@
         this._init();
     }
 
-    Plugin.prototype = {
+    Emoji.prototype = {
         _init: function () {
             var that = this;
             var btn = this.options.button;
@@ -72,14 +67,14 @@
             var ix = that.index;
             if (!btn) {
                 newBtn = '<input type="image" class="emoji_btn" id="emoji_btn_' + ix + '" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZBAMAAAA2x5hQAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAkUExURUxpcfTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAOfx6yUAAAALdFJOUwAzbVQOoYrzwdwkAoU+0gAAAM1JREFUGNN9kK0PQWEUxl8fM24iCYopwi0muuVuzGyKwATFZpJIU01RUG/RBMnHxfz+Oef9uNM84d1+23nO+zxHKVG2WWupRJkdcAwtpCK0lpbqWE01pB0QayonREMoIp7AawQrWSgGGb4pn6dSeSh68FAVXqHqy3wKrkJiDGDTg3dnp//w+WnwlwIOJauF+C7sXRVfdha4O4oIJfTbtdSxs2uqhs585A0ko8iLTMEcDE1n65A+29pYAlr72nz9dKu7GuNTcsL2fDQzB/wCPVJ69nZGb3gAAAAASUVORK5CYII="/>';
-                contentTop = this.$content.offset().top + this.$content.outerHeight() + 10;
-                contentLeft = this.$content.offset().left + 2;
-                $(newBtn).appendTo(this.$content);
+                contentTop = this.$el.offset().top + this.$el.outerHeight() + 10;
+                contentLeft = this.$el.offset().left + 2;
+                $(newBtn).appendTo(this.$el);
 
                 // $('#emoji_btn_' + ix).css({ 'top': contentTop + 'px', 'left': contentLeft + 'px' });
                 btn = '#emoji_btn_' + ix;
             }
-            console.log(newBtn, this.$content)
+            console.log(newBtn, this.$el)
             var showTab = this.options.showTab;
             var iconsGroup = this.options.icons;
             var groupLength = iconsGroup.length;
@@ -187,14 +182,14 @@
             $(document).on({
                 'click': function (e) {
                     var target = e.target;
-                    var field = that.$content[0];
+                    var field = that.$el[0];
                     var code,
                         tab,
                         imgSrc,
                         insertHtml;
                     if (target === $(btn)[0]) {
                         $('#emoji_container_' + ix)[that.toggleFunc]();
-                        that.$content.focus();
+                        that.$el.focus();
                     } else if ($(target).parents('#emoji_container_' + ix).length > 0) {
                         code = $(target).data('emoji_code') || $(target).parent().data('emoji_code');
                         tab = $(target).data('emoji_tab');
@@ -226,10 +221,10 @@
                                 pageIndex++;
                             }
                         }
-                        that.$content.focus();
+                        that.$el.focus();
                     } else if ($('#emoji_container_' + ix + ':visible').length > 0) {
                         that.hide();
-                        that.$content.focus();
+                        that.$el.focus();
                     }
                 }
             });
@@ -329,19 +324,13 @@
         }
     };
 
-    function fn(option) {
-        emoji_index++;
+    /** Emoji initialization */
+    $.fn[pluginName + addonName] = function (options) {
         return this.each(function () {
-            var $this = $(this);
-            var data = $this.data('plugin_' + PLUGIN_NAME + emoji_index);
-            var options = $.extend({}, DEFAULTS, $this.data(), typeof option === 'object' && option);
-
-            if (!data) $this.data('plugin_' + PLUGIN_NAME + emoji_index, (data = new Plugin(this, options)));
-            if (typeof option === 'string') data[option]();
+            if (!$.data(this, 'plugin_' + pluginName + addonName)) {
+                $.data(this, 'plugin_' + pluginName + addonName, new Emoji(this, options));
+            }
         });
-    }
-
-    $.fn[PLUGIN_NAME] = fn;
-    $.fn[PLUGIN_NAME].Constructor = Plugin;
-
+    };
+    
 }(jQuery, window, document));

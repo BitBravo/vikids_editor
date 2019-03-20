@@ -36,15 +36,12 @@
         this._name = pluginName;
         this.elementId = `medium-content-${options.elementId}`;
         this.validNavigation = false;
-        // console.log(this.options)
-
 
         // Extend editor's functions
         if (this.core.getEditor()) {
             this.core.getEditor()._serializePreImages = this.core.getEditor().serialize;
             this.core.getEditor().serialize = this.editorSerialize;
         }
-
         this.init();
     }
 

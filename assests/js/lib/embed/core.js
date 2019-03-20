@@ -11,6 +11,7 @@
                 images: true, // boolean or object containing configuration
                 embeds: true,
                 actions: true,
+                emoji: true,
             },
         };
 
@@ -298,6 +299,7 @@
                 return;
             }
 
+            console.log(addonName)
             that.$el[addonName](options);
             that.options.addons[addon] = that.$el.data('plugin_' + addonName).options;
         });
