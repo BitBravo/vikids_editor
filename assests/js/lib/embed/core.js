@@ -299,7 +299,6 @@
                 return;
             }
 
-            console.log(addonName)
             that.$el[addonName](options);
             that.options.addons[addon] = that.$el.data('plugin_' + addonName).options;
         });
@@ -531,7 +530,7 @@
             if (this.$el.hasClass('medium-editor-placeholder') === false && position.left < 0) {
                 position.left = $p.position().left;
             }
-
+console.log(position)
             $buttons.css(position);
         }
     };

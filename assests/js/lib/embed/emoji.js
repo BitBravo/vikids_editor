@@ -26,8 +26,6 @@
         this._name = pluginName;
         this.elementId = `medium-content-${options.elementId}`;
         this.validNavigation = false;
-        console.log(options)
-
 
         this.index = this.options.elementId;
         switch (options.animation) {
@@ -52,6 +50,7 @@
                 this.toggleFunc = 'fadeToggle';
                 break;
         }
+
         this._init();
     }
 
@@ -74,7 +73,7 @@
                 // $('#emoji_btn_' + ix).css({ 'top': contentTop + 'px', 'left': contentLeft + 'px' });
                 btn = '#emoji_btn_' + ix;
             }
-            console.log(newBtn, this.$el)
+
             var showTab = this.options.showTab;
             var iconsGroup = this.options.icons;
             var groupLength = iconsGroup.length;
@@ -133,7 +132,7 @@
                 emoji_tab += '<li data-emoji_tab="emoji' + i + '" class="' + (i === 0 ? 'selected' : '') + '" title="' + name + '">' + name + '</li>';
             }
             emoji_content += '</div>';
-            emoji_tab += '</ul></div><div class="emoji_tab_next"></div></div>';
+            emoji_tab += '</ul></div><div class="emoji_tab_next">ccccc</div></div>';
             var emoji_preview = '<div class="emoji_preview"><img/></div>';
             emoji_container += emoji_content;
             emoji_container += emoji_tab;
