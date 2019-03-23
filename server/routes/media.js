@@ -11,29 +11,30 @@ router.post('/', (req, res, next)=> {
     const fileName = fileNameGenerater(file.name);
     const fileType = file.mimetype.includes('image')? 'img' : 'mov'; 
 
-    if(fileType === 'img') {
-        file.mv(`./assests/medias/images/${fileName}`, function(err) {
-            if (err)
-            return res.status(500).send(err);
 
-            const resData = {type: fileType, url: `${req.headers.host}/medias/images/${fileName}`}
-            
+
+    if(fileType === 'img') {
+        file.mv(`./assests/medias/${fileName}`, function(err) {
+            if (err) {
+                console.log(err)
+                return res.status(500).send(err);
+            }
+            const resData = {type: fileType, url: `${req.headers.host}/${fileName}`}            
             res.send(resData);
         });
     } else {
-        file.mv(`./assests/medias/videos/${fileName}`, function(err) {
+        file.mv(`./assests/medias/${fileName}`, function(err) {
             if (err)
             return res.status(500).send(err);
 
-            const resData = {type: fileType, url: `${req.headers.host}/medias/videos/${fileName}`}
+            const resData = {type: fileType, url: `${req.headers.host}/${fileName}`}
             res.send(resData);
         });
     }
-    res.send('media upload request')
 });
 
 router.delete('/', (req, res) => {
-    res.send('media delete action')
+    res.send({msg: 'Successfully removed'})
 });
 
 const fileNameGenerater = (oldName) => {

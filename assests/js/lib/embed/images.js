@@ -19,7 +19,9 @@
                 acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
                 sequentialUploads: true,
             },
-            fileDeleteOptions: {},
+            fileDeleteOptions: {
+                type: 'DELETE'
+            },
             styles: {
                 wide: {
                     label: '<span class="fa fa-align-justify"></span>'
@@ -385,11 +387,12 @@
      */
 
     Images.prototype.uploadDone = function (e, data) {
+        console.log(data)
         if(data.result) {
             if(data.result.type ==='img') {
                 $.proxy(this, 'showImage', data.result, data)();
             } else {
-                this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed'](data.result.url);
+                // this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed'](data.result.url);
                 // this.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed']('https://www.youtube.com/watch?v=2Lwd46qBrqU');
             }
         }
@@ -675,20 +678,14 @@
      */
 
     Images.prototype.deleteFile = function (file, $el) {
-        // only take action if there is a truthy value
-        if (this.options.deleteScript) {
-            // try to run it as a callback
-            if (typeof this.options.deleteScript === 'function') {
-                this.options.deleteScript(file, $el);
-            // otherwise, it's probably a string, call it as ajax
-            } else {
-                $.ajax($.extend(true, {}, {
-                    url: this.options.deleteScript,
-                    type: this.options.deleteMethod || 'POST',
-                    data: { file: file }
-                }, this.options.fileDeleteOptions));
-            }
-        }
+        const { url } = this.options.fileUploadOptions;
+
+        return $.ajax($.extend(true, {}, {
+            url: url,
+            data: { file: file }
+        }, this.options.fileDeleteOptions))
+        .then(res => res)
+
     };
 
     /**

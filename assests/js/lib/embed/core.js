@@ -530,7 +530,7 @@
             if (this.$el.hasClass('medium-editor-placeholder') === false && position.left < 0) {
                 position.left = $p.position().left;
             }
-console.log(position)
+
             $buttons.css(position);
         }
     };

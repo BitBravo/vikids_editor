@@ -11,7 +11,7 @@ $(function () {
       enabled: (node.getAttribute("media-upload") === "enable"),
       addons: {
           images: {
-              mediaAction: {
+            fileUploadOptions: {
                   url: node.getAttribute("media-url") || "media",
               },
           },
@@ -36,17 +36,5 @@ $(function () {
           }
       },
     });
-    // $(node).emoji({
-    //   showTab: false,
-    //   animation: 'slide',
-    //   position: 'topLeft',
-    //   icons: [{
-    //       name: "custom",
-    //       path: "assests/img/emoji/",
-    //       maxNum: 91,
-    //       excludeNums: [41, 45, 54],
-    //       file: ".gif"
-    //   }]
-    // });
   })
 });
