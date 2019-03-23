@@ -1,13 +1,38 @@
 let express = require('express')
 let path = require('path')
+var router = express.Router();
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var fileUpload = require('express-fileupload');
+var cors = require('cors');
+
+var blogRouter = require('./server/routes/blog');
+var mediaRouter = require('./server/routes/media');
+
 
 let app = express()
+app.use(cors());
 const port = 8080;
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/')));
+app.use(fileUpload());
 
 
-app.get('/', (req, res) => {
-  res.sendFile('index.html', {root: __dirname })
-})
+app.use('/media', mediaRouter);
+app.use('/blog', blogRouter);
 
-app.listen(port, () => { console.log('You app running on', port) })
+app.get('/', (req, res, next) => {
+    res.render('index.html');
+});
+
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+module.exports = app; 

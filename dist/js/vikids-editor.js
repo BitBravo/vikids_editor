@@ -10388,9 +10388,12 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             enabled: true,
             addons: {
                 images: true, // boolean or object containing configuration
-                embeds: true
-            }
+                embeds: true,
+                actions: true,
+                emoji: true,
+            },
         };
+
 
     /**
      * Capitalize first character
@@ -10439,7 +10442,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
         this._defaults = defaults;
         this._name = pluginName;
-        console.log('@@@@@@@@@@@@@@@@@@@@@@');
         // Extend editor's functions
         if (this.options && this.options.editor) {
             if (this.options.editor._serialize === undefined) {
@@ -10489,9 +10491,10 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
     Core.prototype.events = function () {
         var that = this;
+      
 
         this.$el
-            .on('dragover drop', function (e) {
+            .on('drop', function (e) {
                 e.preventDefault();
                 $.proxy(that, 'dragDropAction')(e);
             })
@@ -10679,9 +10682,11 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             that.options.addons[addon] = that.$el.data('plugin_' + addonName).options;
         });
 
-        this.$el.append(this.templates['src/js/templates/images-fileupload.hbs']());
-        this.$el.find('input:file').hide();
-        this.$el.data('plugin_' + pluginName + ucfirst('images'))['add'](true);
+        if (this.options.enabled) {
+            this.$el.append(this.templates['src/js/templates/images-fileupload.hbs']());
+            this.$el.find('input:file').hide();
+            this.$el.data('plugin_' + pluginName + ucfirst('images'))['add'](true);
+        }
     };
 
     /**
@@ -10737,9 +10742,19 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         if (this.options.enabled === false) {
             return;
         }
-
+        
+        const filteredAddons = 
+            Object.keys(this.options.addons)
+                .filter(key => (
+                    this.options.addons[key].enableButton === 'undefined' || this.options.addons[key].enableButton
+                ))
+            .reduce((obj, key) => {
+                obj[key] = this.options.addons[key];
+                return obj;
+            }, {});
+        
         return this.templates['src/js/templates/core-buttons.hbs']({
-            addons: this.options.addons
+            addons: filteredAddons
         }).trim();
     };
 
@@ -10894,7 +10909,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             if (this.$el.hasClass('medium-editor-placeholder') === false && position.left < 0) {
                 position.left = $p.position().left;
             }
-
+console.log(position)
             $buttons.css(position);
         }
     };
@@ -11408,7 +11423,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                 }
             }
         },
-        parseOnPaste: false
+        parseOnPaste: false,
+        enableButton: true,
     };
     
 
@@ -12248,14 +12264,16 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             messages: {
                 acceptFileTypesError: 'This file is not in a supported format: ',
                 maxFileSizeError: 'This file is too big: '
-            }
+            },
+            enableButton: true,
+
             // uploadError: function($el, data) {}
             // uploadCompleted: function ($el, data) {}
         };
-
     function ucfirst(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
+
 
     /**
      * Images object
@@ -12377,10 +12395,11 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     Images.prototype.add = function (mediaData) {
         if(mediaData) {
             var that = this,
-                $file = $('input:file'),
+                $file = this.$el.find('input:file'),
                 fileUploadOptions = {
                     dataType: 'json',
                     replaceFileInput: true,
+                    dropZone: $(this.$el),
                     drop: function (e, data) {
                         // e.preventDefault();
                     },
@@ -12405,11 +12424,13 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                     $.proxy(that, 'uploadProgressall', e, data)();
                 };
             }
-        
-            $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
-                
+            $(this.$el).bind('drop dragover', function (e) {
+                e.preventDefault();
+            });
+
+            $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));                
         } else {
-            var $file = $('input:file');
+            var $file = this.$el.find('input:file');
             $file.click();
         }
     };
@@ -13051,8 +13072,168 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
 })(jQuery, window, document, MediumEditor.util);
 
+; (function ($, window, document, Util, undefined) {
+
+    'use strict';
+
+    /** Default values */
+    var pluginName = 'mediumInsert',
+        addonName = 'Actions',
+        defaults = {
+            enableButton: false,
+        };
+    
+    function ucfirst(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    /**
+     * Actions object
+     *
+     * Sets options, variables and calls init() function
+     *
+     * @constructor
+     * @param {DOM} el - DOM element to init the plugin on
+     * @param {object} options - Options to override defaults
+     * @return {void}
+     */
+
+    function Actions(el, options) {
+        this.el = el;
+        this.$el = $(el);
+        this.$currentImage = null;
+        this.templates = window.MediumInsert.Templates;
+        this.core = this.$el.data('plugin_' + pluginName);
+        this.options = $.extend(true, {}, defaults, options);
+        this._name = pluginName;
+        this.elementId = `medium-content-${options.elementId}`;
+        this.validNavigation = false;
+
+        // Extend editor's functions
+        if (this.core.getEditor()) {
+            this.core.getEditor()._serializePreImages = this.core.getEditor().serialize;
+            this.core.getEditor().serialize = this.editorSerialize;
+        }
+        this.init();
+    }
+
+    /**
+     * Initialization
+     *
+     * @return {void}
+     */
+
+    Actions.prototype.init = function (content) {
+    //     this.exceptionEvents();
+    //     this.windowsCloseEvent();
+    //     window.setInterval(() => {
+    //         this.saveStorage(this.el.innerHTML)
+    //    }, 2000)
+    };
+
+    /**
+     * Exception Closing Events
+     *
+     * @return {void}
+     */
+
+    Actions.prototype.exceptionEvents = function () {
+        $(document).on('keypress', function(e) {
+            if (e.keyCode == 116){
+                this.validNavigation = true;
+            }
+        });
+
+        $(document).on("click", "a" , function() {
+            this.validNavigation = true;
+
+        });
+
+        $(document).on("submit", "form" , function() {
+            this.validNavigation = true;
+        });
+
+        $(document).bind("click", "input[type=submit]" , function() {
+            this.validNavigation = true;
+        });
+
+        $(document).bind("click", "button[type=submit]" , function() {
+            this.validNavigation = true;
+        });
+    };
+
+    /**
+     * Windows Closing Events
+     *
+     * @return {void}
+     */
+
+    Actions.prototype.windowsCloseEvent = function () {
+        window.onbeforeunload = function() {
+            localStorage.clear();
+            // return '';
+          };
+    };
+
+    /**
+     * Save all content data to local storage if there is any changes and request saveAction.
+     *
+     * @returns {void}
+     */
+    Actions.prototype.saveStorage = function (content) {
+        if (content !== window.localStorage.getItem(this.elementId)) {
+            window.localStorage.setItem(this.elementId, content);
+            console.log(`Content updated for ${this.elementId}`);
+
+            // Request content saveACtion
+            this.actionRequest('put', this.options.actionsOption.uploadURL, JSON.stringify({ "content" : content }));
+        }
+    }
+
+    /**
+     * Remove all content data from local storage
+     *
+     * @returns {void}
+     */
+    Actions.prototype.destoryStorage = function () {
+        if (window.localStorage.getItem(this.elementId)) {
+            window.localStorage.removeItem(this.elementId)
+            console.log(`Content removed for ${this.elementId} from localstorage`);
+        }
+    }
+
+     /**
+     * Request Action
+     *
+     * @returns {void}
+     */
+    Actions.prototype.actionRequest = function (method='get', url, data) {
+        $.ajax({
+            url: url,
+            headers: {
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: method,
+            data: data,
+            success: function(d) {
+                console.log('Your request successfully')
+            }
+        });
+    }
+
+    /** Plugin initialization */
+    $.fn[pluginName + addonName] = function (options) {
+        return this.each(function () {
+            if (!$.data(this, 'plugin_' + pluginName + addonName)) {
+                $.data(this, 'plugin_' + pluginName + addonName, new Actions(this, options));
+            }
+        });
+    };
+
+})(jQuery, window, document, MediumEditor.util);
+
 $(function () {
-  var uploadURL = '';
   $('.editable').each((index, node) => {
     $(node).mediumInsert({
       editor: new MediumEditor(node, {
@@ -13062,31 +13243,48 @@ $(function () {
             forcePlainText: false
         }
       }),
-      enabled: node.className.includes('content')? (() => {
-        uploadURL = node.getAttribute("data-upload-url") || "/upload";
-        return true;
-      })() : false,
-      addons: { 
-          images: { 
+      enabled: (node.getAttribute("media-upload") === "enable"),
+      addons: {
+          images: {
               fileDeleteOptions: {
-                url: node.getAttribute("data-delete-url") || "/delete",
-              }, 
-              fileUploadOptions: { 
-                  url: node.getAttribute("data-upload-url") || "/upload", 
+                url: node.getAttribute("media-delete-url") || "media/delete",
               },
+              fileUploadOptions: {
+                  url: node.getAttribute("media-upload-url") || "media/upload",
+              },
+          },
+          actions: {
+            actionsOption: {
+              uploadURL: node.getAttribute("content-save-url") || "contentSave",
+            },
+            elementId: index,
+          },
+          emoji : {
+            showTab: false,
+            animation: 'slide',
+            position: 'topLeft',
+            icons: [{
+                name: "custom",
+                path: "assests/img/emoji/",
+                maxNum: 91,
+                excludeNums: [41, 45, 54],
+                file: ".gif"
+            }],
+            elementId: index,
           }
-      }
+      },
     });
+    // $(node).emoji({
+    //   showTab: false,
+    //   animation: 'slide',
+    //   position: 'topLeft',
+    //   icons: [{
+    //       name: "custom",
+    //       path: "assests/img/emoji/",
+    //       maxNum: 91,
+    //       excludeNums: [41, 45, 54],
+    //       file: ".gif"
+    //   }]
+    // });
   })
-
-  setInterval(()=>{
-    console.log(document.body)
-    $.ajax({
-      type: "POST",
-      url: uploadURL,
-      context: document.body
-    }).done(function() {
-      console.log('Saved all document successfully')
-    });
-  }, 5000)
 });
