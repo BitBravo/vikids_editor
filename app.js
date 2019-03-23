@@ -1,6 +1,5 @@
 let express = require('express')
 let path = require('path')
-var router = express.Router();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -23,8 +22,8 @@ app.use(express.static(path.join(__dirname, '/')));
 app.use(fileUpload());
 
 
-app.use('/media', mediaRouter);
 app.use('/blog', blogRouter);
+app.use('/media', mediaRouter);
 
 app.get('/', (req, res, next) => {
     res.render('index.html');

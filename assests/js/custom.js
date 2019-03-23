@@ -11,16 +11,13 @@ $(function () {
       enabled: (node.getAttribute("media-upload") === "enable"),
       addons: {
           images: {
-              fileDeleteOptions: {
-                url: node.getAttribute("media-delete-url") || "media/delete",
-              },
-              fileUploadOptions: {
-                  url: node.getAttribute("media-upload-url") || "media/upload",
+              mediaAction: {
+                  url: node.getAttribute("media-url") || "media",
               },
           },
           actions: {
             actionsOption: {
-              uploadURL: node.getAttribute("content-save-url") || "contentSave",
+              uploadURL: node.getAttribute("content-url") || "contentSave",
             },
             elementId: index,
           },
