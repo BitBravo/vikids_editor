@@ -679,12 +679,12 @@
 
     Images.prototype.deleteFile = function (file, $el) {
         const { url } = this.options.fileUploadOptions;
-
-        return $.ajax($.extend(true, {}, {
+        
+        $.ajax($.extend(true, {}, {
             url: url,
             data: { file: file }
         }, this.options.fileDeleteOptions))
-        .then(res => res)
+        .then(res => console.log(res.msg))
 
     };
 

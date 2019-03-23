@@ -1,5 +1,6 @@
 let express = require('express');
 let router = express.Router();
+let fs = require('fs');
 
 router.post('/', (req, res, next)=> {
     const file = req.files['files[]'];
@@ -34,7 +35,16 @@ router.post('/', (req, res, next)=> {
 });
 
 router.delete('/', (req, res) => {
-    res.send({msg: 'Successfully removed'})
+    let originURL = req.body.file;
+    let hostURL = req.headers.host;
+    const fileName = originURL.split(hostURL)[1];
+
+    fs.unlink(`./assests/medias${fileName}`, function(error) {
+        if (error) {
+            res.send({msg: error}) 
+        }
+        res.send({msg: 'Successfully removed'})
+    });
 });
 
 const fileNameGenerater = (oldName) => {
