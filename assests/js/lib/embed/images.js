@@ -9,7 +9,7 @@
         addonName = 'Images', // first char is uppercase
         defaults = {
             label: '<span class="fa fa-camera"></span>',
-            preview: true,
+            preview: false,
             captions: true,
             captionPlaceholder: 'Type caption for image (optional)',
             autoGrid: 3,
@@ -387,7 +387,6 @@
      */
 
     Images.prototype.uploadDone = function (e, data) {
-        console.log(data)
         if(data.result) {
             if(data.result.type ==='img') {
                 $.proxy(this, 'showImage', data.result, data)();
@@ -435,6 +434,8 @@
             domImage.src = fileUrl;
 
         } else {
+            console.log(img, data, this.options.uploadCompleted)
+
             data.context = $(this.templates['src/js/templates/images-image.hbs']({
                 img: typeof img === 'object'? img.url : img,
                 progress: this.options.preview
@@ -464,7 +465,9 @@
             if (this.options.preview) {
                 data.submit();
             } else if (this.options.uploadCompleted) {
-                this.options.uploadCompleted(data.context, data);
+                // this.options.uploadCompleted(data.context, data);
+                data.submit();
+
             }
         }
 

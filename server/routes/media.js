@@ -12,15 +12,13 @@ router.post('/', (req, res, next)=> {
     const fileName = fileNameGenerater(file.name);
     const fileType = file.mimetype.includes('image')? 'img' : 'mov'; 
 
-
-
     if(fileType === 'img') {
         file.mv(`./assests/medias/${fileName}`, function(err) {
             if (err) {
                 console.log(err)
                 return res.status(500).send(err);
             }
-            const resData = {type: fileType, url: `${req.headers.host}/${fileName}`}            
+            const resData = {type: fileType, url: `http://${req.headers.host}/${fileName}`}            
             res.send(resData);
         });
     } else {
@@ -28,7 +26,7 @@ router.post('/', (req, res, next)=> {
             if (err)
             return res.status(500).send(err);
 
-            const resData = {type: fileType, url: `${req.headers.host}/${fileName}`}
+            const resData = {type: fileType, url: `http://${req.headers.host}/${fileName}`}
             res.send(resData);
         });
     }
