@@ -10426,7 +10426,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         this.extend = new Extend();
         this.targetEl = '',
         this.ctTime = null;
-     
+
         if (options) {
             // Fix #142
             // Avoid deep copying editor object, because since v2.3.0 it contains circular references which causes jQuery.extend to break
@@ -10491,7 +10491,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
     Core.prototype.events = function () {
         var that = this;
-      
+
 
         this.$el
             .on('drop', function (e) {
@@ -10742,8 +10742,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         if (this.options.enabled === false) {
             return;
         }
-        
-        const filteredAddons = 
+
+        const filteredAddons =
             Object.keys(this.options.addons)
                 .filter(key => (
                     this.options.addons[key].enableButton === 'undefined' || this.options.addons[key].enableButton
@@ -10752,7 +10752,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                 obj[key] = this.options.addons[key];
                 return obj;
             }, {});
-        
+
         return this.templates['src/js/templates/core-buttons.hbs']({
             addons: filteredAddons
         }).trim();
@@ -10784,7 +10784,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         that = this,
         range, $current, $p, activeAddon;
 
-        
+
         if (this.options.enabled === false) {
             return;
         }
@@ -10975,7 +10975,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
             var newMediaDiv = document.createElement("div");
             newMediaDiv.className = 'medium-insert-active';
-            targetElement.after(newMediaDiv);            
+            targetElement.after(newMediaDiv);
         }
     };
 
@@ -11130,7 +11130,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         }
 
         if(result === 'success' && data.type === 'mov') {
-            that.createEmptyMediaDiv(data, "medium-insert-embeds-active");            
+            that.createEmptyMediaDiv(data, "medium-insert-embeds-active");
             that.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed'](data.url, null, data.alt);
         }
     };
@@ -11141,7 +11141,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      *
      * @param {string} url
      * @param {int} timeoutT
-     * @return {function} 
+     * @return {function}
      */
 
     Core.prototype.imageValidate = function (url, timeoutT) {
@@ -11161,7 +11161,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
               // loading, but doens't trigger new load
               img.src = "//!!!!/noexist.jpg";
               resolve("timeout");
-          }, timeout); 
+          }, timeout);
           img.src = url;
         });
     };
@@ -11172,7 +11172,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      *
      * @param {string} url
      * @param {function} callback
-     * @return {function} 
+     * @return {function}
      */
 
     Core.prototype.videoValidate = function (src, callback) {
@@ -11192,7 +11192,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      *
      * @param {string} mediaTyepe
      * @param {string} mediaPath
-     * @return {bool} 
+     * @return {bool}
      */
 
     Core.prototype.checkMediaUrlParse = function (mediaType,  mediaPath) {
@@ -11215,7 +11215,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     *  Pattern validation check
     *
     * @param {html elements} targetEl
-    * @return {object} 
+    * @return {object}
     */
 
     Core.prototype.checkTemplateValidate = function () {
@@ -11224,7 +11224,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         // var regex = /\[\!\[(.*?)\]\((.+\.(png|jpg|jpeg))\)\]/g;
         var regex = /\[(!|@)\[(.*?)\]\((.+)\)\]/g;
         var matches = regex.exec(str);
-    
+
        return  matches && matches[2] ?
         (()=>{
             var mediaType = matches[1] === '!' ? 'img' : 'mov';
@@ -11240,17 +11240,17 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                 var lastText = str.slice(lastPos);
 
                 return {
-                    url: filePath, 
-                    alt: altText, 
+                    url: filePath,
+                    alt: altText,
                     type: mediaType,
-                    preText: preText, 
+                    preText: preText,
                     lastText: lastText
                 };
-               
+
             } else {
                 console.log('File is not valid media file');
                 return false;
-            }         
+            }
         })()
         :
         (()=>{
@@ -11284,7 +11284,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
         return {point: caretOffset, text: preCaretRange.toString()};
     };
-  
+
     Core.prototype.getAllTextnodes = function (el) {
         el = el || document.querySelector('.editable');
         var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
@@ -11328,7 +11328,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
         this.checkInputMediaToolbar();
         // Parsed element data || false
-        var templateValidate = this.checkTemplateValidate();  
+        var templateValidate = this.checkTemplateValidate();
         if (templateValidate) {
             var mediaTyepe = templateValidate.type;
             var mediaPath = templateValidate.url;
@@ -11337,20 +11337,20 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             if(mediaTyepe === 'img') {
                 this.imageValidate(mediaPath)
                 .then(this.embedMedia.bind(null, templateValidate, this));
-            } 
+            }
             // else {
             //     this.videoValidate(mediaPath, this.embedMedia.bind(null, templateValidate, this))
             // }
 
         }
     };
-        
+
     Core.prototype.capturePattern = function () {
         if(this.ctTime) {
             window.clearTimeout(this.ctTime);
             this.ctTime = null;
-        } 
-        
+        }
+
         this.ctTime = window.setTimeout(() => {
             this.checkCustomPattern();
         }, 500);
@@ -12395,6 +12395,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      */
 
     Images.prototype.add = function (mediaData) {
+        console.log("mediaData", mediaData);
         if(mediaData) {
             var that = this,
                 $file = this.$el.find('input:file'),
@@ -12418,6 +12419,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             // http://stackoverflow.com/questions/6767887/
             // what-is-the-best-way-to-check-for-xhr2-file-upload-support
             if (new XMLHttpRequest().upload) {
+                console.log("new XMLHttpRequest().upload");
                 fileUploadOptions.progress = function (e, data) {
                     $.proxy(that, 'uploadProgress', e, data)();
                 };
@@ -12429,9 +12431,12 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             $(this.$el).bind('drop dragover', function (e) {
                 e.preventDefault();
             });
-
-            $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));                
+            console.log("Going to $file.fileupload");
+            console.log("this.options.fileUploadOptions", this.options.fileUploadOptions);
+            console.log("fileUploadOptions", fileUploadOptions);
+            $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
         } else {
+            console.log("clicking the input:file shit", this.$el);
             var $file = this.$el.find('input:file');
             $file.click();
         }
@@ -12446,6 +12451,9 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      */
 
     Images.prototype.uploadAdd = function (e, data) {
+        console.log("Images.prototype.uploadAdd this", this);
+        console.log("Images.prototype.uploadAdd e", e);
+        console.log("Images.prototype.uploadAdd data", data);
         var $place = this.$el.find('.medium-insert-active'),
             that = this,
             uploadErrors = [],
@@ -12459,7 +12467,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         } else if (maxFileSize && file.size > maxFileSize) {
             uploadErrors.push(this.options.messages.maxFileSizeError + file.name);
         }
-            
+
         if (uploadErrors.length > 0) {
             if (this.options.uploadFailed && typeof this.options.uploadFailed === "function") {
                 this.options.uploadFailed(uploadErrors, data);
@@ -12472,7 +12480,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
         this.core.hideButtons();
 
-        //  Replace paragraph with div, because figure elements can't be inside paragraph,              
+        //  Replace paragraph with div, because figure elements can't be inside paragraph,
         if ($place.is('p')) {
             $place.replaceWith('<div class="medium-insert-active">' + $place.html() + '</div>');
             $place = this.$el.find('.medium-insert-active');
@@ -12529,7 +12537,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
     Images.prototype.uploadProgressall = function (e, data) {
         var progress, $progressbar;
-        
+
         if (this.options.preview === false) {
             progress = parseInt(data.loaded / data.total * 100, 10);
             $progressbar = this.$el.find('.medium-insert-active').find('progress');
@@ -12579,6 +12587,9 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      */
 
     Images.prototype.uploadDone = function (e, data) {
+        console.log("Images.prototype.uploadDone this", this);
+        console.log("Images.prototype.uploadDone e", e);
+        console.log("Images.prototype.uploadDone data", data);
         if(data.result) {
             if(data.result.type ==='img') {
                 $.proxy(this, 'showImage', data.result, data)();
@@ -12599,6 +12610,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      */
 
     Images.prototype.showImage = function (img, data) {
+        console.log("Images.prototype.showImage img", img);
+        console.log("Images.prototype.showImage data", data);
 
         var $place = this.$el.find('.medium-insert-active'),
             domImage,
@@ -12675,9 +12688,10 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      * @returns {void}
      */
     Images.prototype.showImageByURL = function (img) {
+        console.log("Images.prototype.showImageByURL");
         var $place = this.$el.find('.medium-insert-active').length? this.$el.find('.medium-insert-active') : this.$el.find('.medium-insert-embeds-active'),
             that = this;
-        
+
         $place.attr('class', 'medium-insert-active medium-insert-images');
         $place.click();
 
@@ -12685,13 +12699,13 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             img: typeof img === 'object'? img.url : img,
             progress: this.options.preview
         });
-       
+
         $place.find('br').remove();
-            
+
         if (typeof img === 'object' && that.options.captions) {
             const $image = $place.find('img');
 
-            img.alt? 
+            img.alt?
                 (()=>{
                     that.core.addCaption($image.closest('figure'), that.options.captionPlaceholder);
                     that.core.addCaptionContent($place, img.alt);
@@ -12732,7 +12746,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      */
 
     Images.prototype.selectImage = function (e) {
-
+        console.log("Images.prototype.selectImage");
         var that = this,
             $image;
 
@@ -12874,7 +12888,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
     Images.prototype.deleteFile = function (file, $el) {
         const { url } = this.options.fileUploadOptions;
-        
+
         $.ajax($.extend(true, {}, {
             url: url,
             data: { file: file }
@@ -13462,9 +13476,15 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     Actions.prototype.init = function (content) {
         this.exceptionEvents();
         this.windowsCloseEvent();
+<<<<<<< HEAD
         window.setInterval(() => {
             this.saveStorage(this.el.innerHTML)
        }, 2000)
+=======
+       //  window.setInterval(() => {
+       //      this.saveStorage(this.el.innerHTML)
+       // }, 2000)
+>>>>>>> origin/master
     };
 
     /**
@@ -13517,10 +13537,19 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      * @returns {void}
      */
     Actions.prototype.saveStorage = function (content) {
+<<<<<<< HEAD
         if (!window.localStorage.getItem(this.elementId)) {
             // This one avoids saving upon initial opening.
             window.localStorage.setItem(this.elementId, content);
         } else if (content !== window.localStorage.getItem(this.elementId)) {
+=======
+        if (content) {
+          console.log("content", content.slice(0,100));
+        } else {
+          console.log("NO content", content);
+        }
+        if (content !== window.localStorage.getItem(this.elementId)) {
+>>>>>>> origin/master
             window.localStorage.setItem(this.elementId, content);
             console.log(`Content updated for ${this.elementId}`);
 
@@ -13593,19 +13622,6 @@ $(function () {
             actionsOption: {
               uploadURL: node.getAttribute("content-url") || "contentSave",
             },
-            elementId: index,
-          },
-          emoji : {
-            showTab: false,
-            animation: 'slide',
-            position: 'topLeft',
-            icons: [{
-                name: "custom",
-                path: "assests/img/emoji/",
-                maxNum: 91,
-                excludeNums: [41, 45, 54],
-                file: ".gif"
-            }],
             elementId: index,
           }
       },

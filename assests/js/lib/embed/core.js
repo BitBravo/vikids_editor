@@ -47,7 +47,7 @@
         this.extend = new Extend();
         this.targetEl = '',
         this.ctTime = null;
-     
+
         if (options) {
             // Fix #142
             // Avoid deep copying editor object, because since v2.3.0 it contains circular references which causes jQuery.extend to break
@@ -112,7 +112,7 @@
 
     Core.prototype.events = function () {
         var that = this;
-      
+
 
         this.$el
             .on('drop', function (e) {
@@ -363,8 +363,8 @@
         if (this.options.enabled === false) {
             return;
         }
-        
-        const filteredAddons = 
+
+        const filteredAddons =
             Object.keys(this.options.addons)
                 .filter(key => (
                     this.options.addons[key].enableButton === 'undefined' || this.options.addons[key].enableButton
@@ -373,7 +373,7 @@
                 obj[key] = this.options.addons[key];
                 return obj;
             }, {});
-        
+
         return this.templates['src/js/templates/core-buttons.hbs']({
             addons: filteredAddons
         }).trim();
@@ -405,7 +405,7 @@
         that = this,
         range, $current, $p, activeAddon;
 
-        
+
         if (this.options.enabled === false) {
             return;
         }
@@ -596,7 +596,7 @@
 
             var newMediaDiv = document.createElement("div");
             newMediaDiv.className = 'medium-insert-active';
-            targetElement.after(newMediaDiv);            
+            targetElement.after(newMediaDiv);
         }
     };
 
@@ -751,7 +751,7 @@
         }
 
         if(result === 'success' && data.type === 'mov') {
-            that.createEmptyMediaDiv(data, "medium-insert-embeds-active");            
+            that.createEmptyMediaDiv(data, "medium-insert-embeds-active");
             that.$el.data('plugin_' + pluginName + ucfirst('embeds'))['oembed'](data.url, null, data.alt);
         }
     };
@@ -762,7 +762,7 @@
      *
      * @param {string} url
      * @param {int} timeoutT
-     * @return {function} 
+     * @return {function}
      */
 
     Core.prototype.imageValidate = function (url, timeoutT) {
@@ -782,7 +782,7 @@
               // loading, but doens't trigger new load
               img.src = "//!!!!/noexist.jpg";
               resolve("timeout");
-          }, timeout); 
+          }, timeout);
           img.src = url;
         });
     };
@@ -793,7 +793,7 @@
      *
      * @param {string} url
      * @param {function} callback
-     * @return {function} 
+     * @return {function}
      */
 
     Core.prototype.videoValidate = function (src, callback) {
@@ -813,7 +813,7 @@
      *
      * @param {string} mediaTyepe
      * @param {string} mediaPath
-     * @return {bool} 
+     * @return {bool}
      */
 
     Core.prototype.checkMediaUrlParse = function (mediaType,  mediaPath) {
@@ -836,7 +836,7 @@
     *  Pattern validation check
     *
     * @param {html elements} targetEl
-    * @return {object} 
+    * @return {object}
     */
 
     Core.prototype.checkTemplateValidate = function () {
@@ -845,7 +845,7 @@
         // var regex = /\[\!\[(.*?)\]\((.+\.(png|jpg|jpeg))\)\]/g;
         var regex = /\[(!|@)\[(.*?)\]\((.+)\)\]/g;
         var matches = regex.exec(str);
-    
+
        return  matches && matches[2] ?
         (()=>{
             var mediaType = matches[1] === '!' ? 'img' : 'mov';
@@ -861,17 +861,17 @@
                 var lastText = str.slice(lastPos);
 
                 return {
-                    url: filePath, 
-                    alt: altText, 
+                    url: filePath,
+                    alt: altText,
                     type: mediaType,
-                    preText: preText, 
+                    preText: preText,
                     lastText: lastText
                 };
-               
+
             } else {
                 console.log('File is not valid media file');
                 return false;
-            }         
+            }
         })()
         :
         (()=>{
@@ -905,7 +905,7 @@
 
         return {point: caretOffset, text: preCaretRange.toString()};
     };
-  
+
     Core.prototype.getAllTextnodes = function (el) {
         el = el || document.querySelector('.editable');
         var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
@@ -949,7 +949,7 @@
 
         this.checkInputMediaToolbar();
         // Parsed element data || false
-        var templateValidate = this.checkTemplateValidate();  
+        var templateValidate = this.checkTemplateValidate();
         if (templateValidate) {
             var mediaTyepe = templateValidate.type;
             var mediaPath = templateValidate.url;
@@ -958,20 +958,20 @@
             if(mediaTyepe === 'img') {
                 this.imageValidate(mediaPath)
                 .then(this.embedMedia.bind(null, templateValidate, this));
-            } 
+            }
             // else {
             //     this.videoValidate(mediaPath, this.embedMedia.bind(null, templateValidate, this))
             // }
 
         }
     };
-        
+
     Core.prototype.capturePattern = function () {
         if(this.ctTime) {
             window.clearTimeout(this.ctTime);
             this.ctTime = null;
-        } 
-        
+        }
+
         this.ctTime = window.setTimeout(() => {
             this.checkCustomPattern();
         }, 500);

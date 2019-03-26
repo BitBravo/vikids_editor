@@ -54,9 +54,9 @@
     Actions.prototype.init = function (content) {
         this.exceptionEvents();
         this.windowsCloseEvent();
-        window.setInterval(() => {
-            this.saveStorage(this.el.innerHTML)
-       }, 2000)
+       //  window.setInterval(() => {
+       //      this.saveStorage(this.el.innerHTML)
+       // }, 2000)
     };
 
     /**
@@ -109,10 +109,12 @@
      * @returns {void}
      */
     Actions.prototype.saveStorage = function (content) {
-        if (!window.localStorage.getItem(this.elementId)) {
-            // This one avoids saving upon initial opening.
-            window.localStorage.setItem(this.elementId, content);
-        } else if (content !== window.localStorage.getItem(this.elementId)) {
+        if (content) {
+          console.log("content", content.slice(0,100));
+        } else {
+          console.log("NO content", content);
+        }
+        if (content !== window.localStorage.getItem(this.elementId)) {
             window.localStorage.setItem(this.elementId, content);
             console.log(`Content updated for ${this.elementId}`);
 
