@@ -81,6 +81,7 @@
                 alert('Missing icons config!');
                 return false;
             }
+            console.log(Config.Emoji)
 
             var emoji_container = '<div class="emoji_container" id="emoji_container_' + ix + '">';
             var emoji_content = '<div class="emoji_content">';
