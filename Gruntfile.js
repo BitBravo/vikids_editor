@@ -48,6 +48,7 @@ module.exports = function (grunt) {
             'assests/js/lib/embed/embeds.js',
             'assests/js/lib/embed/images.js',
             'assests/js/lib/embed/actions.js',
+            'assests/js/lib/embed/emoji.js',
             'assests/js/custom.js',
         ],
         browsers = [{
@@ -258,7 +259,7 @@ module.exports = function (grunt) {
             // Task-specific options go here.
         },
         all: {
-            src: ['src/css/medium-editor.css', 'src/css/themes/default.css', 'assests/css/insert-plugin.css', 'assests/css/demo.css'],
+            src: ['src/css/medium-editor.css', 'src/css/themes/default.css', 'assests/css/insert-plugin.css', 'assests/css/demo.css', 'assests/css/emoji.css'],
             dest: "dist/css/vikids-editor.css"
         },
     };
@@ -386,9 +387,9 @@ module.exports = function (grunt) {
     grunt.registerTask('js', ['concat', 'uglify']);
     grunt.registerTask('css', ['sass', 'autoprefixer', 'concat_css', 'cssmin']);
     grunt.registerTask('default', ['js', 'css']);
-    grunt.registerTask('default', ['eslint']);
-    grunt.registerTask('default', ['fixmyjs']);
-    grunt.registerTask('default', ['babel']);
+    // grunt.registerTask('default', ['eslint']);
+    // grunt.registerTask('default', ['fixmyjs']);
+    // grunt.registerTask('default', ['babel']);
 
     // release tasks
     grunt.registerTask('patch', ['bump', 'css', 'js']);
