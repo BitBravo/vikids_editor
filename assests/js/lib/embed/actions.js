@@ -10,7 +10,7 @@
         defaults = {
             enableButton: false,
         };
-    
+
     function ucfirst(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
@@ -109,7 +109,10 @@
      * @returns {void}
      */
     Actions.prototype.saveStorage = function (content) {
-        if (content !== window.localStorage.getItem(this.elementId)) {
+        if (!window.localStorage.getItem(this.elementId)) {
+            // This one avoids saving upon initial opening.
+            window.localStorage.setItem(this.elementId, content);
+        } else if (content !== window.localStorage.getItem(this.elementId)) {
             window.localStorage.setItem(this.elementId, content);
             console.log(`Content updated for ${this.elementId}`);
 

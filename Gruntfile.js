@@ -47,6 +47,7 @@ module.exports = function (grunt) {
             'assests/js/lib/embed/core.js',
             'assests/js/lib/embed/embeds.js',
             'assests/js/lib/embed/images.js',
+            'assests/js/lib/embed/emoji.js',
             'assests/js/lib/embed/actions.js',
             'assests/js/custom.js',
         ],
