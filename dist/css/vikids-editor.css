@@ -804,3 +804,10 @@ footer .fa {
     max-width: 42px;
     max-height: 42px;
 }
+
+.emoji_icon {
+    height: 1.2em;
+    width: 1.2em;
+    padding: 0 .05em 0.05em;
+    vertical-align: -0.2em;
+}

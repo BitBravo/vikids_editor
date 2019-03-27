@@ -200,8 +200,10 @@
                         tab = $(target).data('emoji_tab');
                         if (code) {
                             if (field.nodeName === 'DIV') {
+                                var newElementContainer = document.createElement('span')
                                 imgSrc = $('#emoji_container_' + ix + ' a[data-emoji_code="' + code + '"] img').attr('src');
-                                insertHtml = '<img class="emoji_icon" src="' + imgSrc + '"/>';
+                                newElementContainer.innerHTML = `<img class="emoji_icon" src=${imgSrc} />`
+                                insertHtml = newElementContainer.outerHTML;
                                 that._insertAtCursor(field, insertHtml, false);
                             } else {
                                 that._insertAtCursor(field, code);

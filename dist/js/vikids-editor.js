@@ -13202,10 +13202,10 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             console.log(Config.Emoji)
               
                 Config.Emoji.map((item, j) => {
-                    // if (excludeNums && excludeNums.indexOf(j) < 0) {
-                    //     return;
-                    // }
-                    console.log(item)
+                    if (excludeNums && excludeNums.indexOf(j) >= 0) {
+                        return;
+                    }
+
                     if (alias) {
                         console.log(alias)
                         if (typeof alias !== 'object') {
@@ -13216,27 +13216,11 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                     } else {
                         notation = placeholder.replace(new RegExp('{alias}', 'gi'), j.toString());
                     }
-                    console.log(path + j + file)
+
                     panel += '<li><a data-emoji_code="' + notation + '" data-index="' + index + '" title="' + (title && title[j] ? title[j] : '') + '"><img src="' + path + item[0] + '"/></a></li>';
                     index++;
                 })
-                // for (var j = 1; j <= maxNum; j++) {
-                //     if (excludeNums && excludeNums.indexOf(j) >= 0) {
-                //         continue;
-                //     }
-                //     if (alias) {
-                //         if (typeof alias !== 'object') {
-                //             alert('Error config about alias!');
-                //             break;
-                //         }
-                //         notation = placeholder.replace(new RegExp('{alias}', 'gi'), alias[j].toString());
-                //     } else {
-                //         notation = placeholder.replace(new RegExp('{alias}', 'gi'), j.toString());
-                //     }
-                //     console.log(path +'DDDD'+ j + file)
-                //     panel += '<li><a data-emoji_code="' + notation + '" data-index="' + index + '" title="' + (title && title[j] ? title[j] : '') + '"><img src="' + path + j + file + '"/></a></li>';
-                //     index++;
-                // }
+                
                 panel += '</ul></div>';
                 emoji_content += panel;
                 emoji_tab += '<li data-emoji_tab="emoji' + i + '" class="' + (i === 0 ? 'selected' : '') + '" title="' + name + '">' + name + '</li>';
@@ -13251,7 +13235,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             $(emoji_container).appendTo($('body'));
 
             // calc panel width
-            var panelWidth = '400px';
+            var panelWidth = '384px';
             var winWidth = $(window).width();
             if (winWidth < 544) {
                 switch (this.options.position) {
@@ -13304,8 +13288,12 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                         tab = $(target).data('emoji_tab');
                         if (code) {
                             if (field.nodeName === 'DIV') {
+                                var newElementContainer = document.createElement('span')
+                                console.log(newElementContainer)
                                 imgSrc = $('#emoji_container_' + ix + ' a[data-emoji_code="' + code + '"] img').attr('src');
-                                insertHtml = '<img class="emoji_icon" src="' + imgSrc + '"/>';
+                                newElementContainer.innerHTML(`<img class="emoji_icon" src=${imgSrc} />`)
+                                // insertHtml = '<span id=""><img class="emoji_icon" src="' + imgSrc + '"/></span>';
+                                insertHtml = newElementContainer.outerHTML;
                                 that._insertAtCursor(field, insertHtml, false);
                             } else {
                                 that._insertAtCursor(field, code);
