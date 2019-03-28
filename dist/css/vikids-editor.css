@@ -590,6 +590,7 @@ body {
     display: block;
     padding: 20px 0px;
     display: flow-root;
+    position: relative;
 }
 
 h2 {
@@ -644,10 +645,11 @@ footer .fa {
 .emoji_btn {
     width: 25px;
     height: 25px;
-    position: relative;
+    position: absolute;
     float: right;
-    top: unset !important;
-    left: unset !important;
+    right: -30px;
+    /* top: unset !important;
+    left: unset !important; */
 }
 
 .emoji_container * {

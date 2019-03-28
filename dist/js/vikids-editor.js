@@ -10778,12 +10778,12 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
     Core.prototype.toggleButtons = function (e) {
         this.capturePattern();
+        this.$el.data('plugin_' + pluginName + ucfirst('emoji'))['setPosition']();
 
         var $el = $(e.target),
         selection = window.getSelection(),
         that = this,
         range, $current, $p, activeAddon;
-
 
         if (this.options.enabled === false) {
             return;
@@ -10909,7 +10909,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             if (this.$el.hasClass('medium-editor-placeholder') === false && position.left < 0) {
                 position.left = $p.position().left;
             }
-
+            console.log(position)
             $buttons.css(position);
         }
     };
@@ -12395,7 +12395,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      */
 
     Images.prototype.add = function (mediaData) {
-        console.log("mediaData", mediaData);
         if(mediaData) {
             var that = this,
                 $file = this.$el.find('input:file'),
@@ -12419,7 +12418,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             // http://stackoverflow.com/questions/6767887/
             // what-is-the-best-way-to-check-for-xhr2-file-upload-support
             if (new XMLHttpRequest().upload) {
-                console.log("new XMLHttpRequest().upload");
                 fileUploadOptions.progress = function (e, data) {
                     $.proxy(that, 'uploadProgress', e, data)();
                 };
@@ -12431,12 +12429,9 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             $(this.$el).bind('drop dragover', function (e) {
                 e.preventDefault();
             });
-            console.log("Going to $file.fileupload");
-            console.log("this.options.fileUploadOptions", this.options.fileUploadOptions);
-            console.log("fileUploadOptions", fileUploadOptions);
+
             $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
         } else {
-            console.log("clicking the input:file shit", this.$el);
             var $file = this.$el.find('input:file');
             $file.click();
         }
@@ -12451,9 +12446,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      */
 
     Images.prototype.uploadAdd = function (e, data) {
-        console.log("Images.prototype.uploadAdd this", this);
-        console.log("Images.prototype.uploadAdd e", e);
-        console.log("Images.prototype.uploadAdd data", data);
         var $place = this.$el.find('.medium-insert-active'),
             that = this,
             uploadErrors = [],
@@ -12587,9 +12579,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      */
 
     Images.prototype.uploadDone = function (e, data) {
-        console.log("Images.prototype.uploadDone this", this);
-        console.log("Images.prototype.uploadDone e", e);
-        console.log("Images.prototype.uploadDone data", data);
         if(data.result) {
             if(data.result.type ==='img') {
                 $.proxy(this, 'showImage', data.result, data)();
@@ -12610,9 +12599,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      */
 
     Images.prototype.showImage = function (img, data) {
-        console.log("Images.prototype.showImage img", img);
-        console.log("Images.prototype.showImage data", data);
-
         var $place = this.$el.find('.medium-insert-active'),
             domImage,
             that;
@@ -12639,8 +12625,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             domImage.src = fileUrl;
 
         } else {
-            console.log(img, data, this.options.uploadCompleted)
-
             data.context = $(this.templates['src/js/templates/images-image.hbs']({
                 img: typeof img === 'object'? img.url : img,
                 progress: this.options.preview
@@ -12688,7 +12672,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      * @returns {void}
      */
     Images.prototype.showImageByURL = function (img) {
-        console.log("Images.prototype.showImageByURL");
         var $place = this.$el.find('.medium-insert-active').length? this.$el.find('.medium-insert-active') : this.$el.find('.medium-insert-embeds-active'),
             that = this;
 
@@ -12746,7 +12729,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      */
 
     Images.prototype.selectImage = function (e) {
-        console.log("Images.prototype.selectImage");
         var that = this,
             $image;
 
@@ -13157,7 +13139,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                 contentTop = this.$el.offset().top + this.$el.outerHeight() + 10;
                 contentLeft = this.$el.offset().left + 2;
                 $(newBtn).appendTo(this.$el);
-
+                // this.setPosition();
                 // $('#emoji_btn_' + ix).css({ 'top': contentTop + 'px', 'left': contentLeft + 'px' });
                 btn = '#emoji_btn_' + ix;
             }
@@ -13199,7 +13181,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                     continue;
                 }
                 panel = '<div id="emoji' + i + '" class="emoji_icons" style="' + (i === 0 ? '' : 'display:none;') + '"><ul>';
-            console.log(Config.Emoji)
               
                 Config.Emoji.map((item, j) => {
                     if (excludeNums && excludeNums.indexOf(j) >= 0) {
@@ -13207,7 +13188,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                     }
 
                     if (alias) {
-                        console.log(alias)
                         if (typeof alias !== 'object') {
                             alert('Error config about alias!');
                             return
@@ -13289,10 +13269,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                         if (code) {
                             if (field.nodeName === 'DIV') {
                                 var newElementContainer = document.createElement('span')
-                                console.log(newElementContainer)
                                 imgSrc = $('#emoji_container_' + ix + ' a[data-emoji_code="' + code + '"] img').attr('src');
-                                newElementContainer.innerHTML(`<img class="emoji_icon" src=${imgSrc} />`)
-                                // insertHtml = '<span id=""><img class="emoji_icon" src="' + imgSrc + '"/></span>';
+                                newElementContainer.innerHTML = `<img class="emoji_icon" src=${imgSrc} />`
                                 insertHtml = newElementContainer.outerHTML;
                                 that._insertAtCursor(field, insertHtml, false);
                             } else {
@@ -13418,6 +13396,15 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
         toggle: function () {
             $('#emoji_container_' + this.index)[this.toggleFunc]();
+        },
+
+        setPosition: function () {
+            const offset = this.$el.caret('offset');
+            const position = this.$el.caret('position');
+            console.log(this.index)
+            console.log(offset, position)
+            // contentLeft = this.$el.offset().left + 2;
+            $('#emoji_btn_' + this.index).css({ 'top': offset.top + 'px'});
         }
     };
 

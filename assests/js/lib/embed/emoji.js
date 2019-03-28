@@ -69,7 +69,7 @@
                 contentTop = this.$el.offset().top + this.$el.outerHeight() + 10;
                 contentLeft = this.$el.offset().left + 2;
                 $(newBtn).appendTo(this.$el);
-
+                // this.setPosition();
                 // $('#emoji_btn_' + ix).css({ 'top': contentTop + 'px', 'left': contentLeft + 'px' });
                 btn = '#emoji_btn_' + ix;
             }
@@ -326,6 +326,15 @@
 
         toggle: function () {
             $('#emoji_container_' + this.index)[this.toggleFunc]();
+        },
+
+        setPosition: function () {
+            const offset = this.$el.caret('offset');
+            const position = this.$el.caret('position');
+            console.log(this.index)
+            console.log(offset, position)
+            // contentLeft = this.$el.offset().left + 2;
+            $('#emoji_btn_' + this.index).css({ 'top': position.top + 'px'});
         }
     };
 

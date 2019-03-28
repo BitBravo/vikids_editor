@@ -399,6 +399,7 @@
 
     Core.prototype.toggleButtons = function (e) {
         this.capturePattern();
+        this.$el.data('plugin_' + pluginName + ucfirst('emoji'))['setPosition']();
 
         var $el = $(e.target),
         selection = window.getSelection(),
@@ -529,7 +530,7 @@
             if (this.$el.hasClass('medium-editor-placeholder') === false && position.left < 0) {
                 position.left = $p.position().left;
             }
-
+            console.log(position)
             $buttons.css(position);
         }
     };
