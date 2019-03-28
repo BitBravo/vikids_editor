@@ -203,7 +203,6 @@
      */
 
     Images.prototype.add = function (mediaData) {
-        console.log("mediaData", mediaData);
         if(mediaData) {
             var that = this,
                 $file = this.$el.find('input:file'),
@@ -227,7 +226,6 @@
             // http://stackoverflow.com/questions/6767887/
             // what-is-the-best-way-to-check-for-xhr2-file-upload-support
             if (new XMLHttpRequest().upload) {
-                console.log("new XMLHttpRequest().upload");
                 fileUploadOptions.progress = function (e, data) {
                     $.proxy(that, 'uploadProgress', e, data)();
                 };
@@ -239,12 +237,9 @@
             $(this.$el).bind('drop dragover', function (e) {
                 e.preventDefault();
             });
-            console.log("Going to $file.fileupload");
-            console.log("this.options.fileUploadOptions", this.options.fileUploadOptions);
-            console.log("fileUploadOptions", fileUploadOptions);
+
             $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
         } else {
-            console.log("clicking the input:file shit", this.$el);
             var $file = this.$el.find('input:file');
             $file.click();
         }
@@ -259,9 +254,6 @@
      */
 
     Images.prototype.uploadAdd = function (e, data) {
-        console.log("Images.prototype.uploadAdd this", this);
-        console.log("Images.prototype.uploadAdd e", e);
-        console.log("Images.prototype.uploadAdd data", data);
         var $place = this.$el.find('.medium-insert-active'),
             that = this,
             uploadErrors = [],
@@ -395,9 +387,6 @@
      */
 
     Images.prototype.uploadDone = function (e, data) {
-        console.log("Images.prototype.uploadDone this", this);
-        console.log("Images.prototype.uploadDone e", e);
-        console.log("Images.prototype.uploadDone data", data);
         if(data.result) {
             if(data.result.type ==='img') {
                 $.proxy(this, 'showImage', data.result, data)();
@@ -418,9 +407,6 @@
      */
 
     Images.prototype.showImage = function (img, data) {
-        console.log("Images.prototype.showImage img", img);
-        console.log("Images.prototype.showImage data", data);
-
         var $place = this.$el.find('.medium-insert-active'),
             domImage,
             that;
@@ -447,8 +433,6 @@
             domImage.src = fileUrl;
 
         } else {
-            console.log(img, data, this.options.uploadCompleted)
-
             data.context = $(this.templates['src/js/templates/images-image.hbs']({
                 img: typeof img === 'object'? img.url : img,
                 progress: this.options.preview
@@ -496,7 +480,6 @@
      * @returns {void}
      */
     Images.prototype.showImageByURL = function (img) {
-        console.log("Images.prototype.showImageByURL");
         var $place = this.$el.find('.medium-insert-active').length? this.$el.find('.medium-insert-active') : this.$el.find('.medium-insert-embeds-active'),
             that = this;
 
@@ -554,7 +537,6 @@
      */
 
     Images.prototype.selectImage = function (e) {
-        console.log("Images.prototype.selectImage");
         var that = this,
             $image;
 

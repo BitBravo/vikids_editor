@@ -111,7 +111,6 @@
                     continue;
                 }
                 panel = '<div id="emoji' + i + '" class="emoji_icons" style="' + (i === 0 ? '' : 'display:none;') + '"><ul>';
-            console.log(Config.Emoji)
               
                 Config.Emoji.map((item, j) => {
                     if (excludeNums && excludeNums.indexOf(j) >= 0) {
@@ -119,7 +118,6 @@
                     }
 
                     if (alias) {
-                        console.log(alias)
                         if (typeof alias !== 'object') {
                             alert('Error config about alias!');
                             return

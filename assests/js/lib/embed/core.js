@@ -405,7 +405,6 @@
         that = this,
         range, $current, $p, activeAddon;
 
-
         if (this.options.enabled === false) {
             return;
         }
