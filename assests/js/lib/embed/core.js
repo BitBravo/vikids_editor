@@ -398,8 +398,8 @@
      */
 
     Core.prototype.toggleButtons = function (e) {
-        this.capturePattern();
         this.$el.data('plugin_' + pluginName + ucfirst('emoji'))['setPosition']();
+        this.capturePattern();
 
         var $el = $(e.target),
         selection = window.getSelection(),

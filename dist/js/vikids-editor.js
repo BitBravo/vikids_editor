@@ -10777,8 +10777,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      */
 
     Core.prototype.toggleButtons = function (e) {
-        this.capturePattern();
         this.$el.data('plugin_' + pluginName + ucfirst('emoji'))['setPosition']();
+        this.capturePattern();
 
         var $el = $(e.target),
         selection = window.getSelection(),
@@ -13139,7 +13139,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                 contentTop = this.$el.offset().top + this.$el.outerHeight() + 10;
                 contentLeft = this.$el.offset().left + 2;
                 $(newBtn).appendTo(this.$el);
-                // this.setPosition();
                 // $('#emoji_btn_' + ix).css({ 'top': contentTop + 'px', 'left': contentLeft + 'px' });
                 btn = '#emoji_btn_' + ix;
             }
@@ -13261,6 +13260,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                         imgSrc,
                         insertHtml;
                     if (target === $(btn)[0]) {
+                        console.log('@@@@@@@@@@')
                         $('#emoji_container_' + ix)[that.toggleFunc]();
                         that.$el.focus();
                     } else if ($(target).parents('#emoji_container_' + ix).length > 0) {
@@ -13399,12 +13399,17 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         },
 
         setPosition: function () {
-            const offset = this.$el.caret('offset');
+            this.setContainer();
             const position = this.$el.caret('position');
-            console.log(this.index)
-            console.log(offset, position)
-            // contentLeft = this.$el.offset().left + 2;
-            $('#emoji_btn_' + this.index).css({ 'top': offset.top + 'px'});
+            $('#emoji_btn_' + this.index).css({ 'top': position.top + 'px'});
+        },
+
+        setContainer: function () {
+            const btn = '#emoji_btn_' + this.index;
+            const panelTop = $(btn).offset().top + $(btn).outerHeight() - 300;
+            const panelLeft = $(btn).offset().left;
+            console.log(panelTop, panelLeft, this.$el.clientHeight);
+            $('#emoji_container_' + this.index).css({ 'top': panelTop + 'px'});
         }
     };
 
