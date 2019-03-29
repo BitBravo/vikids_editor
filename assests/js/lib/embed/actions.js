@@ -54,9 +54,9 @@
     Actions.prototype.init = function (content) {
         this.exceptionEvents();
         this.windowsCloseEvent();
-       //  window.setInterval(() => {
-       //      this.saveStorage(this.el.innerHTML)
-       // }, 2000)
+        window.setInterval(() => {
+            this.saveStorage(this.el.innerHTML)
+       }, 2000)
     };
 
     /**
@@ -110,7 +110,6 @@
      */
     Actions.prototype.saveStorage = function (content) {
         if (content) {
-          console.log("content", content.slice(0,100));
         } else {
           console.log("NO content", content);
         }

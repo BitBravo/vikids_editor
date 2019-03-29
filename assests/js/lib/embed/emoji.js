@@ -190,7 +190,6 @@
                         imgSrc,
                         insertHtml;
                     if (target === $(btn)[0]) {
-                        console.log('@@@@@@@@@@')
                         $('#emoji_container_' + ix)[that.toggleFunc]();
                         that.$el.focus();
                     } else if ($(target).parents('#emoji_container_' + ix).length > 0) {
@@ -336,9 +335,10 @@
 
         setContainer: function () {
             const btn = '#emoji_btn_' + this.index;
-            const panelTop = $(btn).offset().top + $(btn).outerHeight() - 300;
+            const position = this.$el.caret('offset');
+            const panelTop = position.top > 350 ? ($(btn).offset().top + $(btn).outerHeight() - 300) : ($(btn).offset().top + $(btn).outerHeight() + 10);
             const panelLeft = $(btn).offset().left;
-            console.log(panelTop, panelLeft, this.$el.clientHeight);
+
             $('#emoji_container_' + this.index).css({ 'top': panelTop + 'px'});
         }
     };
