@@ -81,7 +81,6 @@
                 alert('Missing icons config!');
                 return false;
             }
-            console.log(Config.Emoji)
 
             var emoji_container = '<div class="emoji_container" id="emoji_container_' + ix + '">';
             var emoji_content = '<div class="emoji_content">';
@@ -112,22 +111,28 @@
                     continue;
                 }
                 panel = '<div id="emoji' + i + '" class="emoji_icons" style="' + (i === 0 ? '' : 'display:none;') + '"><ul>';
-                for (var j = 1; j <= maxNum; j++) {
+            console.log(Config.Emoji)
+              
+                Config.Emoji.map((item, j) => {
                     if (excludeNums && excludeNums.indexOf(j) >= 0) {
-                        continue;
+                        return;
                     }
+
                     if (alias) {
+                        console.log(alias)
                         if (typeof alias !== 'object') {
                             alert('Error config about alias!');
-                            break;
+                            return
                         }
                         notation = placeholder.replace(new RegExp('{alias}', 'gi'), alias[j].toString());
                     } else {
                         notation = placeholder.replace(new RegExp('{alias}', 'gi'), j.toString());
                     }
-                    panel += '<li><a data-emoji_code="' + notation + '" data-index="' + index + '" title="' + (title && title[j] ? title[j] : '') + '"><img src="' + path + j + file + '"/></a></li>';
+
+                    panel += '<li><a data-emoji_code="' + notation + '" data-index="' + index + '" title="' + (title && title[j] ? title[j] : '') + '"><img src="' + path + item[0] + '"/></a></li>';
                     index++;
-                }
+                })
+                
                 panel += '</ul></div>';
                 emoji_content += panel;
                 emoji_tab += '<li data-emoji_tab="emoji' + i + '" class="' + (i === 0 ? 'selected' : '') + '" title="' + name + '">' + name + '</li>';
@@ -142,7 +147,7 @@
             $(emoji_container).appendTo($('body'));
 
             // calc panel width
-            var panelWidth = '400px';
+            var panelWidth = '384px';
             var winWidth = $(window).width();
             if (winWidth < 544) {
                 switch (this.options.position) {

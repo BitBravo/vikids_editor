@@ -13153,7 +13153,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                 panelLeft;
             var ix = that.index;
             if (!btn) {
-                newBtn = '<span type="image" class="emoji_btn" id="emoji_btn_' + ix + '" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZBAMAAAA2x5hQAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAkUExURUxpcfTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAOfx6yUAAAALdFJOUwAzbVQOoYrzwdwkAoU+0gAAAM1JREFUGNN9kK0PQWEUxl8fM24iCYopwi0muuVuzGyKwATFZpJIU01RUG/RBMnHxfz+Oef9uNM84d1+23nO+zxHKVG2WWupRJkdcAwtpCK0lpbqWE01pB0QayonREMoIp7AawQrWSgGGb4pn6dSeSh68FAVXqHqy3wKrkJiDGDTg3dnp//w+WnwlwIOJauF+C7sXRVfdha4O4oIJfTbtdSxs2uqhs585A0ko8iLTMEcDE1n65A+29pYAlr72nz9dKu7GuNTcsL2fDQzB/wCPVJ69nZGb3gAAAAASUVORK5CYII="/>';
+                newBtn = '<input type="image" class="emoji_btn" id="emoji_btn_' + ix + '" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZBAMAAAA2x5hQAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAkUExURUxpcfTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAPTGAOfx6yUAAAALdFJOUwAzbVQOoYrzwdwkAoU+0gAAAM1JREFUGNN9kK0PQWEUxl8fM24iCYopwi0muuVuzGyKwATFZpJIU01RUG/RBMnHxfz+Oef9uNM84d1+23nO+zxHKVG2WWupRJkdcAwtpCK0lpbqWE01pB0QayonREMoIp7AawQrWSgGGb4pn6dSeSh68FAVXqHqy3wKrkJiDGDTg3dnp//w+WnwlwIOJauF+C7sXRVfdha4O4oIJfTbtdSxs2uqhs585A0ko8iLTMEcDE1n65A+29pYAlr72nz9dKu7GuNTcsL2fDQzB/wCPVJ69nZGb3gAAAAASUVORK5CYII="/>';
                 contentTop = this.$el.offset().top + this.$el.outerHeight() + 10;
                 contentLeft = this.$el.offset().left + 2;
                 $(newBtn).appendTo(this.$el);
@@ -13199,22 +13199,44 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
                     continue;
                 }
                 panel = '<div id="emoji' + i + '" class="emoji_icons" style="' + (i === 0 ? '' : 'display:none;') + '"><ul>';
-                for (var j = 1; j <= maxNum; j++) {
-                    if (excludeNums && excludeNums.indexOf(j) >= 0) {
-                        continue;
-                    }
+            console.log(Config.Emoji)
+              
+                Config.Emoji.map((item, j) => {
+                    // if (excludeNums && excludeNums.indexOf(j) < 0) {
+                    //     return;
+                    // }
+                    console.log(item)
                     if (alias) {
+                        console.log(alias)
                         if (typeof alias !== 'object') {
                             alert('Error config about alias!');
-                            break;
+                            return
                         }
                         notation = placeholder.replace(new RegExp('{alias}', 'gi'), alias[j].toString());
                     } else {
                         notation = placeholder.replace(new RegExp('{alias}', 'gi'), j.toString());
                     }
-                    panel += '<li><a data-emoji_code="' + notation + '" data-index="' + index + '" title="' + (title && title[j] ? title[j] : '') + '"><img src="' + path + j + file + '"/></a></li>';
+                    console.log(path + j + file)
+                    panel += '<li><a data-emoji_code="' + notation + '" data-index="' + index + '" title="' + (title && title[j] ? title[j] : '') + '"><img src="' + path + item[0] + '"/></a></li>';
                     index++;
-                }
+                })
+                // for (var j = 1; j <= maxNum; j++) {
+                //     if (excludeNums && excludeNums.indexOf(j) >= 0) {
+                //         continue;
+                //     }
+                //     if (alias) {
+                //         if (typeof alias !== 'object') {
+                //             alert('Error config about alias!');
+                //             break;
+                //         }
+                //         notation = placeholder.replace(new RegExp('{alias}', 'gi'), alias[j].toString());
+                //     } else {
+                //         notation = placeholder.replace(new RegExp('{alias}', 'gi'), j.toString());
+                //     }
+                //     console.log(path +'DDDD'+ j + file)
+                //     panel += '<li><a data-emoji_code="' + notation + '" data-index="' + index + '" title="' + (title && title[j] ? title[j] : '') + '"><img src="' + path + j + file + '"/></a></li>';
+                //     index++;
+                // }
                 panel += '</ul></div>';
                 emoji_content += panel;
                 emoji_tab += '<li data-emoji_tab="emoji' + i + '" class="' + (i === 0 ? 'selected' : '') + '" title="' + name + '">' + name + '</li>';
@@ -13476,15 +13498,9 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     Actions.prototype.init = function (content) {
         this.exceptionEvents();
         this.windowsCloseEvent();
-<<<<<<< HEAD
-        window.setInterval(() => {
-            this.saveStorage(this.el.innerHTML)
-       }, 2000)
-=======
        //  window.setInterval(() => {
        //      this.saveStorage(this.el.innerHTML)
        // }, 2000)
->>>>>>> origin/master
     };
 
     /**
@@ -13537,19 +13553,12 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
      * @returns {void}
      */
     Actions.prototype.saveStorage = function (content) {
-<<<<<<< HEAD
-        if (!window.localStorage.getItem(this.elementId)) {
-            // This one avoids saving upon initial opening.
-            window.localStorage.setItem(this.elementId, content);
-        } else if (content !== window.localStorage.getItem(this.elementId)) {
-=======
         if (content) {
           console.log("content", content.slice(0,100));
         } else {
           console.log("NO content", content);
         }
         if (content !== window.localStorage.getItem(this.elementId)) {
->>>>>>> origin/master
             window.localStorage.setItem(this.elementId, content);
             console.log(`Content updated for ${this.elementId}`);
 
@@ -13622,6 +13631,19 @@ $(function () {
             actionsOption: {
               uploadURL: node.getAttribute("content-url") || "contentSave",
             },
+            elementId: index,
+          },
+          emoji : {
+            showTab: false,
+            animation: 'slide',
+            position: 'topLeft',
+            icons: [{
+                name: "custom",
+                path: "assests/img/emoji/",
+                maxNum: 91,
+                excludeNums: [41, 45, 54],
+                file: ".gif"
+            }],
             elementId: index,
           }
       },
